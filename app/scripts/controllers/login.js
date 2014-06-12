@@ -1,10 +1,17 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, userService) {
     $scope.user = {};
     $scope.errors = {};
+    userService.isLoggedIn().then(
+        function(success) {
 
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
     $scope.login = function(form) {
       $scope.submitted = true;
       
