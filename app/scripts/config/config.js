@@ -5,6 +5,7 @@ angular.module('spearmintWebApp')
         return {
             consoleLoggingEnabled: true,
             consoleErrorLoggingEnabled: true,
+            analyticsEnabled: true,
 
             cookieSessionKey: 'momentSessionId',
 

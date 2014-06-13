@@ -2,6 +2,9 @@
 
 angular.module('spearmintWebApp').factory('userService', ['RESTService', '$q', 'cookieManager', 'logger', 'config', 'errors',
     function(RESTService, $q, cookieManager, logger, config, errors) {
+
+        var userSessionID;
+
         return {
             createUser: function(email, password) {
                 var deferred = $q.defer();
@@ -54,6 +57,17 @@ angular.module('spearmintWebApp').factory('userService', ['RESTService', '$q', '
                         deferred.reject(error);
                     });
                 return deferred.promise;
+            },
+
+            getUserSessionID: function() {
+                var sessionID;
+                if (userSessionID) {
+                    sessionID = userSessionID;
+                }
+                else {
+                    sessionID = cookieManager.get(config.cookieSessionKey);
+                }
+                return sessionID;
             }
         }
     }]);
