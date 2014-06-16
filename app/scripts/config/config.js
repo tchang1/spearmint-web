@@ -10,9 +10,11 @@ angular.module('spearmintWebApp')
             cookieSessionKey: 'momentSessionId',
 
             server: {
-                baseURL: 'localhost',
-                userServiceURL: '/login',
-                goalServiceURL: '/goals'
+                baseURL: '',
+                userServiceURL: '/users',
+                getGoalURL: '/goals/me',
+                saveGoalURL: '/goals',
+                loginURL: '/login'
             }
         }
     });

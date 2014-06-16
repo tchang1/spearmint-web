@@ -6,10 +6,10 @@ angular.module('spearmintWebApp').factory('userService', ['RESTService', '$q', '
         var userSessionID;
 
         return {
-            createUser: function(email, password) {
+            createUser: function(username, password) {
                 var deferred = $q.defer();
                 RESTService.post({url: config.server.baseURL + config.server.userServiceURL,
-                                 body: {email: email, password: password}}).then(
+                                 data: {username: username, password: password}}).then(
                     // success handler
                     function(data) {
                         deferred.resolve(data);
@@ -22,10 +22,10 @@ angular.module('spearmintWebApp').factory('userService', ['RESTService', '$q', '
                 return deferred.promise;
             },
 
-            logIn: function(email, password) {
+            login: function(username, password) {
                 var deferred = $q.defer();
-                RESTService.post({url: config.server.baseURL + config.server.userServiceURL,
-                                  body: {email: email, password: password}}).then(
+                RESTService.post({url: config.server.baseURL + config.server.loginURL,
+                                  data: {username: username, password: password}}).then(
                     // success handler
                     function(data) {
                         deferred.resolve(data);

@@ -119,11 +119,11 @@ angular.module('spearmintWebApp').factory('RESTService', ['$http', '$q', 'cookie
                         data: requestObject.data,
                         headers: requestObject.headers}).
                     success(function(data, status, headers, config, statusText) {
-                        console.log('REST call returned ' + status + ' - ' + statusText);
+                        logger.log('REST call returned ' + status + ' - ' + statusText);
                         deferred.resolve(data);
                     }).
                     error(function(data, status, headers, config, statusText) {
-                        console.log('REST call returned ' + status + ' - ' + statusText);
+                        logger.log('REST call returned ' + status + ' - ' + statusText);
                         deferred.reject({errorCode: status,
                                         statusText: statusText,
                                         data: data});

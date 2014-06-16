@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userService', '$q', 'logger',
-    function(RESTService, userService, $q, logger) {
+angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userService', '$q', 'logger', 'config',
+    function(RESTService, userService, $q, logger, config) {
         return {
             getGoal: function() {
                 var deferred = $q.defer();
                 logger.log('Getting goal for user.');
-                RESTService.get({url: config.server.baseURL + config.server.goalServiceURL,
+                RESTService.get({url: config.server.baseURL + config.server.getGoalURL,
                                 body: {sessionID: userService.getUserSessionID()}}).then(
                     // success handler
                     function(data) {
@@ -22,10 +22,11 @@ angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userSe
                 return deferred.promise;
             },
 
+
             saveGoal: function() {
                 var deferred = $q.defer();
                 logger.log('Saving goal for user.');
-                RESTService.post({url: config.server.baseURL + config.server.goalServiceURL,
+                RESTService.post({url: config.server.baseURL + config.server.saveGoalURL,
                     body: {sessionID: userService.getUserSessionID()}}).then(
                     // success handler
                     function(data) {
