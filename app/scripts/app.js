@@ -6,13 +6,14 @@ angular.module('spearmintWebApp', [
   'ngSanitize',
   'ngRoute',
   'angulartics',
-  'angulartics.google.analytics'
+  'angulartics.google.analytics',
+  'ngAnimate'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl'
+        templateUrl: 'partials/welcome',
+        controller: 'WelcomeCtrl'
       })
       .when('/login', {
         templateUrl: 'partials/login',
@@ -27,6 +28,10 @@ angular.module('spearmintWebApp', [
         controller: 'SettingsCtrl',
         authenticate: true
       })
+      .when('/ftu', {
+        templateUrl: 'partials/ftu',
+        controller: 'FTUCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -34,27 +39,27 @@ angular.module('spearmintWebApp', [
     $locationProvider.html5Mode(true);
       
     // Intercept 401s and redirect you to login
-    $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
-      return {
-        'responseError': function(response) {
-          if(response.status === 401) {
-            $location.path('/login');
-            return $q.reject(response);
-          }
-          else {
-            return $q.reject(response);
-          }
-        }
-      };
-    }]);
-  })
-  .run(function ($rootScope, $location, Auth) {
+  //   $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
+  //     return {
+  //       'responseError': function(response) {
+  //         if(response.status === 401) {
+  //           $location.path('/login');
+  //           return $q.reject(response);
+  //         }
+  //         else {
+  //           return $q.reject(response);
+  //         }
+  //       }
+  //     };
+  //   }]);
+  // })
+  // .run(function ($rootScope, $location, Auth) {
 
-    // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$routeChangeStart', function (event, next) {
+  //   // Redirect to login if route requires auth and you're not logged in
+  //   $rootScope.$on('$routeChangeStart', function (event, next) {
       
-      if (next.authenticate && !Auth.isLoggedIn()) {
-        $location.path('/login');
-      }
-    });
+  //     if (next.authenticate && !Auth.isLoggedIn()) {
+  //       $location.path('/login');
+  //     }
+  //   });
   });
