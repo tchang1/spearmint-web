@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('FTUCtrl', ['$scope', 'Auth', '$location', function ($scope, Auth, $location) {
+  .controller('FTUCtrl', ['$scope', '$location', 'logger', function ($scope, $location, logger) {
 
     var ftuMessages = [
       { title: 'Don\'t spend as much!',
@@ -18,13 +18,9 @@ angular.module('spearmintWebApp')
     $scope.pageNum = 'one';
     $scope.currentProp = ftuMessages[0];
 
-    console.log("ftu messages create");
-
      $scope.next = function() {
        $scope.pageNum = 'two'; 
        $scope.currentProp = ftuMessages[1];
-
-       $scope.apply(); 
 
        /* move the divs around and update the pages indicator */ 
        /* if we are on the last valueprop then show the set a goal, otherwise show skip, both go to set a goal page */ 
@@ -33,8 +29,6 @@ angular.module('spearmintWebApp')
      $scope.back = function() {
        $scope.pageNum = 'one'; 
        $scope.currentProp = ftuMessages[0];
-
-       $scope.apply(); 
 
        /* move the divs around and update the pages indicator */ 
        /* if we are on the last valueprop then show the set a goal, otherwise show skip, both go to set a goal page */ 

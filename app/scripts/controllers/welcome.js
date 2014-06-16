@@ -1,20 +1,14 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('WelcomeCtrl', ['$scope', 'Auth', '$location', function ($scope, Auth, $location) {
+  .controller('WelcomeCtrl', ['$scope', '$location', function ($scope, $location) {
 
     $scope.getStarted = function() {
-      Auth.logout()
-      .then(function() {
         $location.path('/ftu');
-      });
     };
 
     $scope.login = function() {
-      Auth.logout()
-      .then(function() {
-        $location.path('/login');
-      });
+        $location.path('/');
     };
 
   }]); 

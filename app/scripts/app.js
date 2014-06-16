@@ -15,19 +15,6 @@ angular.module('spearmintWebApp', [
         templateUrl: 'partials/welcome',
         controller: 'WelcomeCtrl'
       })
-      .when('/login', {
-        templateUrl: 'partials/login',
-        controller: 'LoginCtrl'
-      })
-      .when('/signup', {
-        templateUrl: 'partials/signup',
-        controller: 'SignupCtrl'
-      })
-      .when('/settings', {
-        templateUrl: 'partials/settings',
-        controller: 'SettingsCtrl',
-        authenticate: true
-      })
       .when('/ftu', {
         templateUrl: 'partials/ftu',
         controller: 'FTUCtrl'
