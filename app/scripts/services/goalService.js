@@ -1,32 +1,41 @@
 'use strict';
 
-angular.module('spearmintWebApp').factory('goalService', ['$http', '$q', 'logger',
-    function($http, $q, logger) {
+angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userService', '$q', 'logger',
+    function(RESTService, userService, $q, logger) {
         return {
             getGoal: function() {
                 var deferred = $q.defer();
-                $http({ method: 'GET',
-                        url: config.server.baseURL + config.server.goalServiceURL,
-                        body: {email: email, password: password}}).
-                    success(function(data, status, headers, config) {
-                        deferred.resolve();
-                    }).
-                    error(function(data, status, headers, config) {
-                        deferred.reject();
+                logger.log('Getting goal for user.');
+                RESTService.get({url: config.server.baseURL + config.server.goalServiceURL,
+                                body: {sessionID: userService.getUserSessionID()}}).then(
+                    // success handler
+                    function(data) {
+                        logger.log('Goal retrieved successfully.');
+                        deferred.resolve(data);
+                    },
+                    //error handler
+                    function(error) {
+                        logger.log('An error occurred while retrieving goal.');
+                        logger.log(error);
+                        deferred.reject(error);
                     });
                 return deferred.promise;
             },
 
-            saveGoal: function(goal) {
+            saveGoal: function() {
                 var deferred = $q.defer();
-                $http({ method: 'POST',
-                    url: config.server.baseURL + config.server.userServiceURL,
-                    body: {email: email, password: password}}).
-                    success(function(data, status, headers, config) {
-                        deferred.resolve();
-                    }).
-                    error(function(data, status, headers, config) {
-                        deferred.reject();
+                logger.log('Saving goal for user.');
+                RESTService.post({url: config.server.baseURL + config.server.goalServiceURL,
+                    body: {sessionID: userService.getUserSessionID()}}).then(
+                    // success handler
+                    function(data) {
+                        logger.log('Goal saved successfully.');
+                        deferred.resolve(data);
+                    },
+                    function(error) {
+                        logger.log('An error occurred while saving goal');
+                        logger.log(error);
+                        deferred.reject(error);
                     });
                 return deferred.promise;
             }
