@@ -31,7 +31,7 @@ angular.module('spearmintWebApp')
    progressIndicator.show();
 
     // To Do: set this based on the goal of the current user 
-    document.getElementById("saving-screen").style.background = "url(" + getImageToDisplay('travel',1) +") no-repeat center center fixed";
+    document.getElementById("saving-screen").style.background = "url(" + getImageToDisplay('travel',0) +") no-repeat center center fixed";
     document.getElementById("saving-screen").style.backgroundSize = "100% 100%";
 
     logger.log(getImageToDisplay('travel',0)); 
