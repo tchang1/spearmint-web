@@ -139,6 +139,16 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
             hide: function() {
                 visible = false;
                 draw();
+            },
+
+            reset: function() {
+                barFilledOnce = false;
+                previousProgress = -1;
+                currentColorIndex = 0;
+                visible = false;
+                shouldUpdate = false;
+                amount = 0;
+                progress = 0;
             }
         }
     }]);

@@ -12,8 +12,8 @@ angular.module('spearmintWebApp')
             server: {
                 baseURL: '',
                 userServiceURL: '/users',
-                getGoalURL: '/goals/me',
-                saveGoalURL: '/goals',
+                myGoalURL: '/goals/me',
+                goalURL: '/goals',
                 loginURL: '/login'
             }
         }
