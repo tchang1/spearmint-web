@@ -9,7 +9,7 @@ angular.module('spearmintWebApp').factory('userService', ['RESTService', '$q', '
             createUser: function(username, password) {
                 var deferred = $q.defer();
                 RESTService.post({url: config.server.baseURL + config.server.userServiceURL,
-                                 data: {username: username, password: password}}).then(
+                                 data: {username: username, password: password, notifications: 'N'}}).then(
                     // success handler
                     function(data) {
                         deferred.resolve(data);
