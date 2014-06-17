@@ -7,7 +7,8 @@ angular.module('spearmintWebApp', [
   'ngRoute',
   'angulartics',
   'angulartics.google.analytics',
-  'ngAnimate'
+  'ngAnimate', 
+  'angular-gestures'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -29,7 +30,11 @@ angular.module('spearmintWebApp', [
       })
       .when('/home', {
         templateUrl: 'partials/home',
-        controller: 'GoalCtrl'
+        controller: 'HomeCtrl'
+      })
+      .when('/signup', {
+        templateUrl: 'partials/signup',
+        controller: 'SignupCtrl'
       })
       .otherwise({
         redirectTo: '/'

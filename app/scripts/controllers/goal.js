@@ -12,7 +12,8 @@ angular.module('spearmintWebApp')
   	};
 
   	$scope.enterAmount = function() { 
-  		$location.path('/home');
+  		//SignupCtrl.initUserGoal($scope.userGoal, $scope.goalAmount);
+  		$location.path('/signup');
   	};
 
   }]); 

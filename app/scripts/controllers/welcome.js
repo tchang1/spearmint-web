@@ -12,6 +12,7 @@ angular.module('spearmintWebApp')
         $location.path('/');
     };
 
+
 //    progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
 //
 //    progressIndicator.show();
