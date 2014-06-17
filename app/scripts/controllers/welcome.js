@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('WelcomeCtrl', ['$scope', '$location', 'goalService', 'userService', 'logger',
-        function ($scope, $location, goalService, userService, logger) {
+  .controller('WelcomeCtrl', ['$scope', '$location', 'goalService', 'userService', 'logger', 'progressIndicator',
+        function ($scope, $location, goalService, userService, logger, progressIndicator) {
 
     $scope.getStarted = function() {
         $location.path('/ftu');
@@ -12,6 +12,18 @@ angular.module('spearmintWebApp')
         $location.path('/');
     };
 
+//    progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
+//
+//    progressIndicator.show();
+//
+//    document.onmousedown=function(){
+//        progressIndicator.start();
+//    };
+//
+//    document.onmouseup=function(){
+//        progressIndicator.stop();
+//        var dollarAmount = progressIndicator.getAmount();
+//    };
     // example of how to log in and retrieve the user's goal
 
 //    userService.login('test', 'test123').then(
