@@ -30,6 +30,8 @@
 @media (min-width: 10px) {
   .container {
     max-width: 730px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 .container-narrow > hr {
@@ -84,41 +86,59 @@
     left: 0px;
     z-index:-1;
 
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
+    -webkit-filter: blur(5px) brightness(70%);
+    -moz-filter: blur(5px) brightness(70%);
+    -o-filter: blur(5px) brightness(70%);
+    -ms-filter: blur(5px) brightness(70%);
+    filter: blur(5px) brightness(70%);
+  }
+
+  .greenButton {
+    padding-right: 0em;
+    padding-left: 0em;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    width: 200px; 
+    color: #72CF22;
+    background: rgba(215,215,215,0.10);
+    border: 1px solid #72CF22;
+    font-size: 16px;
+    display: block;
+    margin: 5px auto;
+  }
+
+  #welcome-screen {
+    margin: 0px auto;
   }
 
   #logo { 
-    background: url(../images/Moment.png) no-repeat;
-    height: 5em; 
-    background-size: 100% 100%; 
-    margin-top: 50px;
-    margin-left: 10px; 
-    margin-right: 10px; 
+    font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 900;
+    color: white;
+    font-size: 44px;
+    text-align: center; 
+    margin: 50px auto; 
   }
 
   #catch-phrase {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
     color: white;
-    font-size: 18px;
+    font-size: 14px;
+    width: 160px;
     text-align: center; 
-    vertical-align: center;
+    margin-left: auto; 
+    margin-right: auto;
     margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   #get-started {
-    margin-top: 50px;
     text-align: center; 
-    font-size: 36px; 
-    color: white; 
   }
 
   #login {
     text-align: center; 
-    font-size: 36px; 
-    color: white; 
   }
 
   /* styles for ftu page */ 
@@ -133,9 +153,20 @@
     height: 250px;
     background-color: gray; 
     margin-left: auto; 
-    margin-right: auto; 
+    margin-right: auto;
+    padding-top: 10px; 
     display: block;
     opacity: 0.7;
+  }
+
+  .valuePropTitle {
+    margin-left: auto; 
+    margin-right: auto;
+  }
+
+  .valuePropDescription {
+    margin-left: auto; 
+    margin-right: auto;
   }
 
   .ftu-img {
@@ -148,26 +179,30 @@
   }
 
   /* Navigation */
-  .nav-button { 
+
+  .nav-button-div { 
     text-align: center; 
     margin-left: auto; 
-    margin-right: auto; 
-    font-size: 24px; 
-    color: blue; 
+    margin-right: auto;
+    margin-top: 10px;  
+  }
+  .nav-button { 
+    padding-right: 0em;
+    padding-left: 0em;
+    width: 200px; 
+    color: #72CF22;
+    background: rgba(215,215,215,0.10);
+    border: 1px solid #72CF22;
+    font-size: 26px; 
   }
 
   .goal-button-div { 
     text-align: center; 
     margin-left: auto; 
     margin-right: auto; 
-    margin-top: 40px; 
   }
 
-  #goal-button {
-    color: green; 
-    border: solid 3px green; 
-    font-size: 24px; 
-  }
+
 
   .UIPageControl nav{
     font-size: 36px;
