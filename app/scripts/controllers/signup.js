@@ -36,6 +36,8 @@ angular.module('spearmintWebApp')
           }
           );
         }
+
+        $location.path('/home');
       };
 
 
