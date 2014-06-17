@@ -1,23 +1,42 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SignupCtrl', ['$scope', '$location', 'logger', function ($scope, $location, logger) {
+  .controller('SignupCtrl', ['$scope', '$location', 'logger', 'goal', 'userService', 'goalService', 
+    function ($scope, $location, logger, goal, userService, goalService) {
 
-  	// $scope.initUserGoal = function(goal, amount) { 
-   //    if (goal != "") {
-   //      $scope.userGoal = goal; 
-   //    } else { 
-   //      $scope.userGoal = "NO GOAL";
-   //    }
+      $scope.signupUser = function(form) { 
+        $scope.submitted = true; 
 
-   //    if (amount > 0) {
-   //      $scope.goalAmount = amount; 
-   //    } else { 
-   //      $scope.goalAmount = -1; // To Do: perhaps make this some other special value? 
-   //    }
+        if(form.$valid) {
+          logger.log('Form validated');
+          userService.createUser($scope.user.email, $scope.user.password).then(
+          function(result) {
+            logger.log('User created successfully');
+            var userGoal = goal.getStoredGoal(); 
 
-      logger.log($scope.userGoal);
-      logger.log($scope.goalAmount);
+            goalService.saveGoal(userGoal).then(
+                     // success handler
+              function(result) {
+                logger.log('Goal created successfully');
+                goal.save(result[0]);
+                logger.log(result[0]);
+              },
+
+                     // error handler
+              function(error) {
+                logger.log('Failed to create goal');
+                logger.error(error);
+              }
+            )
+          },
+
+          function(error) {
+            logger.log('Failed to create user');
+            logger.error(error);
+          }
+          );
+        }
+      };
 
 
 

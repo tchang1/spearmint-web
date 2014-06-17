@@ -36,20 +36,6 @@ angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userSe
                 goal.isDefined = ('' == goal.name) ? 0 : 1;
 
                 if (goal.id) {
-                    RESTService.post({url: config.server.baseURL + config.server.goalURL,
-                               data: goal}).then(
-                        // success handler
-                        function(data) {
-                            logger.log('Goal created successfully.');
-                            deferred.resolve(data);
-                        },
-                        function(error) {
-                            logger.log('An error occurred while creating goal');
-                            logger.log(error);
-                            deferred.reject(error);
-                        });
-                }
-                else {
                     RESTService.put({url: config.server.baseURL + config.server.myGoalURL,
                         data: goal}).then(
                         // success handler
@@ -59,6 +45,20 @@ angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userSe
                         },
                         function(error) {
                             logger.log('An error occurred while updating goal');
+                            logger.log(error);
+                            deferred.reject(error);
+                        });
+                }
+                else {
+                    RESTService.post({url: config.server.baseURL + config.server.goalURL,
+                        data: goal}).then(
+                        // success handler
+                        function(data) {
+                            logger.log('Goal created successfully.');
+                            deferred.resolve(data);
+                        },
+                        function(error) {
+                            logger.log('An error occurred while creating goal');
                             logger.log(error);
                             deferred.reject(error);
                         });

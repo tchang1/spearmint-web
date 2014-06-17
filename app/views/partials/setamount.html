@@ -2,7 +2,7 @@
 <div class="ftu-background"></div>
   
 	<form name="amountForm" action="" ng-submit="enterAmount()">
-	Goal Amount<br> $<input type="number" min="0.01" step="0.01" name="amount" class="form-control" ng-model="GoalCtrl.goalAmount" placeholder="This will cost..." required>
+	Goal Amount<br> $<input type="number" min="0.01" step="0.01" name="amount" class="form-control" ng-model="goalAmount" placeholder="This will cost..." required>
 	<input type="submit" ng-show="amountForm.amount.$invalid" value="Skip">
 	<input type="submit" ng-show="amountForm.amount.$valid" value="Enter">
 	</form>

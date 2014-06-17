@@ -1,20 +1,10 @@
+
 <div class="row">
   <div class="col-sm-12">
     <h1>Sign up</h1>
   </div>
   <div class="col-sm-12">
-    <form class="form" name="form" ng-submit="register(form)" novalidate>
-
-      <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
-                                          'has-error': form.name.$invalid && submitted }">
-        <label>Name</label>
-
-        <input type="text" name="name" class="form-control" ng-model="user.name"
-               required/>
-        <p class="help-block" ng-show="form.name.$error.required && submitted">
-          A name is required
-        </p>
-      </div>   
+    <form class="form" name="form" ng-submit="signupUser(form)" novalidate>  
 
       <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
                                           'has-error': form.email.$invalid && submitted }">

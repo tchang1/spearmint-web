@@ -3,7 +3,7 @@
 <div class="ftu-background"></div>
   
 	<form name="goalForm" action="" ng-submit="enterGoal()">
-	My Goal <br> <input type="text" name="goal" class="form-control" ng-model="GoalCtrl.userGoal" placeholder="I want to..." required>
+	My Goal <br> <input type="text" name="goal" class="form-control" ng-model="userGoal" placeholder="I want to..." required>
 	<input type="submit" ng-show="goalForm.goal.$invalid" value="Skip">
 	<input type="submit" ng-show="goalForm.goal.$valid" value="Enter">
 	</form>
