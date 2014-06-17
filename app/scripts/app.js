@@ -19,6 +19,18 @@ angular.module('spearmintWebApp', [
         templateUrl: 'partials/ftu',
         controller: 'FTUCtrl'
       })
+      .when('/setgoal', {
+        templateUrl: 'partials/setgoal',
+        controller: 'GoalCtrl'
+      })
+      .when('/setamount', {
+        templateUrl: 'partials/setamount',
+        controller: 'GoalCtrl'
+      })
+      .when('/home', {
+        templateUrl: 'partials/home',
+        controller: 'GoalCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

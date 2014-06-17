@@ -34,9 +34,9 @@ angular.module('spearmintWebApp')
        /* if we are on the last valueprop then show the set a goal, otherwise show skip, both go to set a goal page */ 
      };
 
-    // $scope.setGoal = function() {
-    //   /* go to the set a goal screen */ 
-    // };
+    $scope.setGoal = function() {
+      $location.path('/setgoal');
+    };
 
   }]);
 
