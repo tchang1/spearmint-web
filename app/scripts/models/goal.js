@@ -2,6 +2,7 @@
 
 angular.module('spearmintWebApp')
     .factory('goal', ['logger', function (logger) {
+        var goal;
         return {
             create: function(name, amountSaved, goalAmount) {
                 name = (name) ? name : '';
@@ -9,11 +10,16 @@ angular.module('spearmintWebApp')
                 goalAmount = (goalAmount) ? goalAmount : 0;
 
                 logger.log('Creating goal with name: ' + name + ' amountSaved:' + amountSaved + ' and goalAmount:' + goalAmount);
-                return {
+                goal = {
                     name: name,
                     amountSaved: amountSaved,
                     goalAmount: goalAmount
-                }
+                };
+                return goal;
+            },
+
+            getStoredGoal: function() {
+                return goal;
             }
         }
     }]);
