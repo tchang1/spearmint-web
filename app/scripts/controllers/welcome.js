@@ -12,6 +12,10 @@ angular.module('spearmintWebApp')
         $location.path('/login');
     };
 
+    document.ontouchmove = function(event){
+    event.preventDefault();
+    }
+
 
 //    progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
 //

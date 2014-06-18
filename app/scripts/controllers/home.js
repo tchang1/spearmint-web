@@ -2,6 +2,10 @@
 
 angular.module('spearmintWebApp')
   .controller('HomeCtrl', ['$scope', '$location', 'logger', 'progressIndicator',function ($scope, $location, logger, progressIndicator) {
+    
+    document.ontouchmove = function(event){
+    event.preventDefault();
+    }
 
     $scope.unblur = function() {
       document.getElementById("saving-screen").className="";
