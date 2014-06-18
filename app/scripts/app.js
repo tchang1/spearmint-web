@@ -40,6 +40,10 @@ angular.module('spearmintWebApp', [
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
       })
+      .when('/settings', {
+          templateUrl: 'partials/settings',
+          controller: 'SettingsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -1,3 +1,15 @@
+html {
+    height: 100%;
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
