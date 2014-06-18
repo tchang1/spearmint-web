@@ -12,6 +12,7 @@ angular.module('spearmintWebApp')
           userService.login($scope.user.email, $scope.user.password).then(
             function(result) {
               logger.log('Result: ' + result);
+              $location.path('/home');
               },
 
             function(error) {
@@ -20,7 +21,6 @@ angular.module('spearmintWebApp')
           );
         }
 
-        $location.path('/home');
       };
 
 
