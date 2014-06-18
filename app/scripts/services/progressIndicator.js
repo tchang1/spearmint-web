@@ -145,10 +145,10 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
                 barFilledOnce = false;
                 previousProgress = -1;
                 currentColorIndex = 0;
-                visible = false;
                 shouldUpdate = false;
                 amount = 0;
                 progress = 0;
+                draw();
             }
         }
     }]);

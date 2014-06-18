@@ -10,24 +10,13 @@ angular.module('spearmintWebApp')
         if(form.$valid) {
           logger.log('Form validated');
           userService.login($scope.user.email, $scope.user.password).then(
-          function(result) {
+            function(result) {
               logger.log('Result: ' + result);
-              goalService.getGoal().then(
-                  // success handler
-                  function(result) {
-                      logger.log(result);
-                  },
-
-                  // error handler
-                  function(error) {
-                      logger.error(error);
-                  }
-              )
               },
 
-              function(error) {
-                  logger.error(error);
-              }
+            function(error) {
+              logger.error(error);
+            }
           );
         }
 
