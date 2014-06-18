@@ -13,6 +13,8 @@ angular.module('spearmintWebApp')
                 baseURL: '',
                 userServiceURL: '/users',
                 myGoalURL: '/goals/me',
+                mySavingsURL: '/savings/me',
+                savingsURL: '/savings',
                 goalURL: '/goals',
                 loginURL: '/login'
             }

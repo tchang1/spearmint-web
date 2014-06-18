@@ -9,7 +9,7 @@ angular.module('spearmintWebApp')
     };
 
     $scope.login = function() {
-        $location.path('/');
+        $location.path('/login');
     };
 
 
