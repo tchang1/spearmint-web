@@ -1,28 +1,14 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('HomeCtrl', ['$scope', '$location', 'logger', 'progressIndicator', 'goal', 'goalService', function ($scope, $location, logger, progressIndicator, goal, goalService) {
+  .controller('HomeCtrl', ['$scope', '$location', 'logger', 'progressIndicator', 'goal', 'goalService', 'savingsService', 'imageService', function ($scope, $location, logger, progressIndicator, goal, goalService, savingsService, imageService) {
 
     // To Do: delete this code once service to get correct image is created 
     // -------------------------------
-    var imageNum = 0; 
-
+    var imageNum = 0;
+    var path = '../images/';
     var goalFolders = ["pet", "travel"];
 
-    var getImages = function(goal) {
-      var folderName = goal; 
-      var path; 
-      if (goalFolders.indexOf(folderName) > -1) {
-        path = '../images/' + folderName; 
-      } else { 
-        path = '../images/nogoal';
-      }
-      return [path +'/image1.jpg', path + '/image2.jpg', path + '/image3.jpg'];
-    };
-
-    var getImageToDisplay = function(goal, number) {
-      return getImages(goal)[number];
-    };
     // -------------------------------
 
  
@@ -39,17 +25,58 @@ angular.module('spearmintWebApp')
     progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
     progressIndicator.show();
 
-    var userGoal = goal.getStoredGoal(); // To Do: change this to call back end function that returns 
-    var currentImageURL = getImageToDisplay("travel", imageNum); 
-    imageNum = (imageNum +1)%3;
-    var nextImageURL = getImageToDisplay("travel", imageNum); 
+    var currentImageURL;
+    var nextImageURL;
 
-    PreloadImage(currentImageURL);
-    PreloadImage(nextImageURL);
+    var userGoal = goal.getStoredGoal();
+    if (!userGoal) {
+    logger.log("no local goal yet, getting one");
+    goalService.getGoal().then(
+              // success handler
+          function(result) {
+                goal.save(result);
+                userGoal=result;
+                imageService.getNextImages(userGoal).then(function(result) {
 
-    document.getElementById("saving-screen").style.background = "url(" + currentImageURL +") no-repeat center center fixed";
-    document.getElementById("saving-screen").style.backgroundSize = "auto 100%";
+                  currentImageURL = path+result[0].uri; 
+                  nextImageURL = path+result[1].uri; 
 
+                  PreloadImage(currentImageURL);
+                  PreloadImage(nextImageURL);
+
+                  document.getElementById("saving-screen").style.background = "url(" + currentImageURL +") no-repeat center center fixed";
+                  document.getElementById("saving-screen").style.backgroundSize = "auto 100%";
+                },
+                function(error) {
+                  logger.log("getting images failed");
+                });
+          },
+
+          // error handler
+          function(error) {
+            logger.log('Failed to retreive goal');
+            logger.error(error);
+          }
+        ) // To Do: change this to call back end function that returns 
+    }
+    else {
+      logger.log("local goal , using it");
+
+      imageService.getNextImages(userGoal).then(function(result) {
+
+                  currentImageURL = path+result[0].uri; 
+                  nextImageURL = path+result[1].uri; 
+
+                  PreloadImage(currentImageURL);
+                  PreloadImage(nextImageURL);
+
+                  document.getElementById("saving-screen").style.background = "url(" + currentImageURL +") no-repeat center center fixed";
+                  document.getElementById("saving-screen").style.backgroundSize = "auto 100%";
+                },
+                function(error) {
+                  logger.log("getting images failed");
+      });
+    }
     document.ontouchmove = function(event){
       event.preventDefault();
     }
@@ -68,7 +95,7 @@ angular.module('spearmintWebApp')
       progressIndicator.stop();
 
       var userGoal = goal.getStoredGoal(); 
-      if (!userGoal) { 
+      if (!userGoal) {
         goalService.getGoal().then(
               // success handler
               function(result) {
@@ -96,6 +123,7 @@ angular.module('spearmintWebApp')
       userGoal.amountSaved += dollarAmount; 
       goal.save(userGoal); 
       goalService.saveGoal(userGoal);
+      var savings = {goalid:userGoal._id, savingsAmount: dollarAmount};
 
       // Display messaging to indicate progress 
       if (userGoal.amountSaved > userGoal.targetAmount) {
@@ -108,6 +136,9 @@ angular.module('spearmintWebApp')
 
       // Wait 1 second for reblur animation to stop, then transition to next image 
       setTimeout(function(){transitionToNextImage(userGoal)}, 1000);
+      progressIndicator.reset(); 
+      savingsService.createNewSavings(savings);
+
 
     };
 
@@ -121,10 +152,18 @@ angular.module('spearmintWebApp')
 
       progressIndicator.reset(); 
 
+      logger.log("getting images after transition");
       // Preload the next images to display 
-      imageNum = (imageNum +1)% 3; 
-      currentImageURL = nextImageURL; 
-      nextImageURL = getImageToDisplay("travel", imageNum); // To Do: make the image reflect user goal 
+      imageService.getNextImages(userGoal).then(function(result) {
+
+          currentImageURL = path+result[0].uri;
+          nextImageURL = path+result[1].uri;
+
+        },
+        function(error) {
+          logger.log("getting images failed");
+        });
+
       PreloadImage(nextImageURL);
 
     };
