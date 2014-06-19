@@ -3,7 +3,7 @@
 var express = require('express'),
     path = require('path'),
     fs = require('fs'),
-    mongoose = require('mongoose');
+    dummydata=require('./lib/config/dummydata');
 
 /**
  * Main application file
@@ -13,6 +13,8 @@ var express = require('express'),
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var config = require('./lib/config/config');
+
+//dummydata();
 
 // Setup Express
 var app = express();
