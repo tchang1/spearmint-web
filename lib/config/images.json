@@ -1,0 +1,19 @@
+{
+  "images": [
+    {
+      "categoryid": "1", "uri": "/pets/dog1"
+    },
+    {
+      "categoryid": "1", "uri": "/pets/dog2"
+    },
+    {
+      "categoryid": "1", "uri": "/pets/dog3"
+    },
+    {
+      "categoryid": "2", "uri": "/travel/paris1"
+    },
+    {
+      "categoryid": "2", "uri": "/travel/paris2"
+    }
+  ]
+}
