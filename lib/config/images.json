@@ -1,19 +1,19 @@
 {
   "images": [
     {
-      "categoryid": "1", "uri": "/pets/dog1"
+      "categoryid": "1", "uri": "/pet/image1.jpg"
     },
     {
-      "categoryid": "1", "uri": "/pets/dog2"
+      "categoryid": "0", "uri": "/nogoal/image1.jpg"
     },
     {
-      "categoryid": "1", "uri": "/pets/dog3"
+      "categoryid": "2", "uri": "/travel/image1.jpg"
     },
     {
-      "categoryid": "2", "uri": "/travel/paris1"
+      "categoryid": "2", "uri": "/travel/image2.jpg"
     },
     {
-      "categoryid": "2", "uri": "/travel/paris2"
+      "categoryid": "2", "uri": "/travel/image3.jpg"
     }
   ]
 }
