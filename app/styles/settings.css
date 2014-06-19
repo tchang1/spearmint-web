@@ -1,8 +1,13 @@
 #settingsPage {
+    position: fixed;
     font-size: 16pt;
-    margin-top: 5%;
     height: 100%;
     overflow: hidden;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
 }
 
 #backgroundImage {
@@ -18,8 +23,27 @@
     z-index: -1;
 }
 
+#menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+
+    padding-top: 80px;
+    /*paddin-left: 20px;*/
+    /*padding-right: 20px;*/
+    /*padding-bottom: 400px;*/
+}
+
+#innerMenu {
+    position: relative;
+    height: 100%;
+}
+
 #settingsPanel {
-    margin-top: 20px;
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #settingsHeader {
@@ -40,11 +64,48 @@
     color: white;
 }
 
+.panelHeader {
+    border-radius: 12px 12px 0 0;
+    background-color: rgba(100, 100, 100, .6);
+    color: white;
+    padding: 5px;
+    padding-left: 5%;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.panelBody {
+    border-radius: 0 0 12px 12px;
+    background-color: rgba(30, 30, 30, .4);
+    padding-left: 5%;
+    padding-right: 5%;
+    color: white;
+    height: 50px;
+}
+
+.settingEditBox {
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+#goalAmountBox {
+    margin-top: 20px;
+}
+
 .settingsLink {
     display: block;
     color: #F2F4F5;
     text-decoration: none;
     padding: 10px;
+}
+
+#backButtonPanel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
 }
 
 #backButton {
@@ -55,15 +116,15 @@
 #logOutPanel {
     border-radius: 12px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     background-color: rgba(30, 30, 30, .4);
     padding-left: 5%;
     padding-right: 5%;
     text-align: center;
     position: absolute;
     bottom: 10px;
-    left: 2%;
-    right: 2%;
+    left: 20px;
+    right: 20px;
 }
 
 #logOutButton {
@@ -77,4 +138,187 @@
 }
 #settingsBody > div:first-of-type {
     border-top: 0;
+}
+
+.textInput {
+    outline: 0;
+    border: 0;
+    background-color: rgba(0,0,0,0);
+    font-size: 14pt;
+    color: white;
+    margin-top:10px;
+    width: 200px;
+}
+
+.textInputButton {
+    text-decoration: none;
+    color: rgba(207,207,207, .6);
+    position: absolute;
+    right: 10px;
+    margin-top:10px;
+}
+
+#feedbackPanel {
+    height: 230px;
+}
+
+#feedbackTextArea {
+    width: 250px;
+}
+
+#feedbackSubmitButton {
+    display: block;
+    position: absolute;
+    padding: 5px;
+    right: 6px;
+    bottom: 6px;
+    border-radius: 6px;
+    background-color: rgba(122, 193, 67, 80);
+    color: white;
+    text-decoration: none;
+}
+
+#transactionPanel {
+    height: 280px;
+}
+
+.transactionAmount {
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.transactionDate {
+    font-size: 10pt;
+}
+
+.undoButton {
+    text-decoration: none;
+    color: rgba(207,207,207, .6);
+    position: absolute;
+    right: 5%;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+#transactionPanel div
+{
+    border-top: 1px solid #F2F4F5;
+}
+#transactionPanel > div:first-of-type {
+    border-top: 0;
+}
+
+.transactionLineItem {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.right {
+    left: 200%;
+}
+
+.left {
+    left: -100%;
+}
+
+.center {
+    left: 0;
+}
+
+.animateToTheRight {
+    left: 200%;
+    -webkit-animation: animateCenterToRight 1s; /* Chrome, Safari, Opera */
+    animation: animateCenterToRight 1s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+}
+
+.animateRightToCenter {
+    left: 0;
+    -webkit-animation: animateRightToCenter 1s; /* Chrome, Safari, Opera */
+    animation: animateRightToCenter 1s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+}
+
+.animateLeftToCenter {
+    left: 0;
+    -webkit-animation: animateLeftToCenter 1s; /* Chrome, Safari, Opera */
+    animation: animateLeftToCenter 1s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+}
+
+.animateToTheLeft {
+    left: -100%;
+    -webkit-animation: animateCenterToLeft 1s; /* Chrome, Safari, Opera */
+    animation: animateCenterToLeft 1s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    /*border: 10px solid blue;*/
+}
+
+.settingScreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding-top: 80px;
+}
+
+.centeredSetting {
+    /*left: -100%;*/
+    left: 0;
+    -webkit-animation: animateRightToCenter 1s; /* Chrome, Safari, Opera */
+    animation: animateRightToCenter 1s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+}
+
+/*Chrome, Safari, Opera*/
+@-webkit-keyframes animateRightToCenter {
+    from {left: 100%;}
+    to {left: 0;}
+}
+
+/*Standard syntax*/
+@keyframes animateRightToCenter {
+    from {left: 100%;}
+    to {left: 0;}
+}
+
+/*Chrome, Safari, Opera*/
+@-webkit-keyframes animateCenterToLeft {
+    from {left: 0;}
+    to {left: -100%}
+}
+
+/*Standard syntax*/
+@keyframes animateCenterToLeft {
+    from {left: 0;}
+    to {left: -100%}
+}
+
+/*Chrome, Safari, Opera*/
+@-webkit-keyframes animateCenterToRight {
+    from {left: 0;}
+    to {left: 100%}
+}
+
+/*Standard syntax*/
+@keyframes animateCenterToRight {
+    from {left: 0;}
+    to {left: 100%}
+}
+
+/*Chrome, Safari, Opera*/
+@-webkit-keyframes animateLeftToCenter {
+    from {left: -100%;}
+    to {left: 0}
+}
+
+/*Standard syntax*/
+@keyframes animateLeftToCenter {
+    from {left: -100%;}
+    to {left: 0}
 }

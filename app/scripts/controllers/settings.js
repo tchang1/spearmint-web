@@ -23,19 +23,95 @@ angular.module('spearmintWebApp')
                 url: '#'
             }, {
                 name: 'Notification Settings',
-                id: 'notificationSettings',
+                id: 'notification',
                 url: '#'
             }, {
                 name: 'Submit Feedback',
-                id: 'submitFeedback',
+                id: 'feedback',
                 url: '#'
             }, {
                 name: 'Transaction History',
-                id: 'transactionHistory',
+                id: 'transaction',
                 url: '#'
             }
         ];
 
-        $scope.settingsPanel = true;
+        $scope.screens = {
+            menu: {
+                displayed: true,
+                initialState: true
+            },
+            myGoal: {
+                displayed: false,
+                initialState: true
+            },
+            notification: {
+                displayed: false,
+                initialState: true
+            },
+            feedback: {
+                displayed: false,
+                initialState: true
+            },
+            transaction: {
+                displayed: false,
+                initialState: true
+            }
+        };
+
+        $scope.transactions = [
+            {
+                amount: '$5',
+                date: 'today',
+                id: '123'
+            },
+            {
+                amount: '$6',
+                date: 'today',
+                id: '124'
+            },
+            {
+                amount: '$7',
+                date: 'today',
+                id: '125'
+            }
+        ];
+
+
+        $scope.selectLink = function($event, linkID) {
+            $event.preventDefault();
+            $scope.screens[linkID].displayed = true;
+            $scope.screens[linkID].initialState = false;
+
+            $scope.screens.menu.initialState = false;
+            $scope.screens.menu.displayed = false;
+        };
+
+        $scope.goBackToMainSettingsPage = function($event) {
+            $event.preventDefault();
+            for (var screen in $scope.screens) {
+                if ($scope.screens.hasOwnProperty(screen)) {
+                    $scope.screens[screen].displayed = false;
+                }
+            }
+            $scope.screens.menu.displayed = true;
+        };
+
+        $scope.undoTransaction = function($event, transactionID) {
+            $event.preventDefault();
+            var i;
+            var indexToRemove = -1;
+            for (i = 0; i < $scope.transactions.length; i++) {
+                if ($scope.transactions[i].id == transactionID) {
+                    indexToRemove = i;
+                    break;
+                }
+            }
+
+            if (-1 != indexToRemove) {
+                $scope.transactions.splice(indexToRemove, 1);
+            }
+
+        }
 
   }]); 

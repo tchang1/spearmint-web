@@ -1,18 +1,77 @@
 <div id="settingsPage">
     <div id="backgroundImage" class="blur"></div>
     <div id="backButtonPanel">
-        <a href="#" id="backButton">Back</a>
+        <a href="#" ng-click="goBackToMainSettingsPage($event)" id="backButton">Back</a>
     </div>
-    <div id="settingsPanel" ng-show="settingsPanel">
-        <div id="settingsHeader">SETTINGS</div>
-        <div id="settingsBody">
-            <div ng-repeat="link in settingsLinks">
-            <a href="{{link.url}}" class="settingsLink" id="{{link.id}}">{{link.name}}</a>
-            </div>
+    <div id="menu" ng-class="{'animateLeftToCenter' : (screens.menu.displayed && !screens.menu.initialState), 'animateToTheLeft' : (!screens.menu.displayed && !screens.menu.initialState), 'center' : (screens.menu.initialState)}">
+        <div id="innerMenu">
+            <div id="settingsPanel">
+                <div id="settingsHeader">SETTINGS</div>
+                <div id="settingsBody">
+                    <div ng-repeat="link in settingsLinks">
+                    <a href="{{link.url}}" ng-click="selectLink($event, link.id)" class="settingsLink" id="{{link.id}}">{{link.name}}</a>
+                    </div>
 
+                </div>
+            </div>
+            <div id="logOutPanel">
+                <a href="#" id="logOutButton">Log Out</a>
+            </div>
         </div>
     </div>
-    <div id="logOutPanel">
-        <a href="#" id="logOutButton">Log Out</a>
+
+    <div id="editGoalScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.myGoal.displayed, 'animateToTheRight' : (!screens.myGoal.displayed && !screens.myGoal.initialState), 'right' : (screens.myGoal.initialState)}">
+        <div id="goalNameBox" class="settingEditBox">
+            <div class="panelHeader">MY GOAL</div>
+            <div class="panelBody">
+                <input class="textInput" type="text" placeholder="test"/>
+                <a class="textInputButton" href="#">Save</a>
+            </div>
+        </div>
+        <div id="goalAmountBox" class="settingEditBox">
+            <div class="panelHeader">AMOUNT</div>
+            <div class="panelBody">
+                <input class="textInput" type="text" placeholder="$0"/>
+                <a class="textInputButton" href="#">Save</a>
+            </div>
+        </div>
     </div>
+
+    <div id="notificationScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.notification.displayed, 'animateToTheRight' : (!screens.notification.displayed && !screens.notification.initialState), 'right' : (screens.notification.initialState)}">
+        <div id="notificationSettingBox" class="settingEditBox">
+            <div class="panelHeader">NOTIFICATION</div>
+            <div class="panelBody">
+                <span>Email</span>
+                <a class="textInputButton" href="#">Save</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="feedbackScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.feedback.displayed, 'animateToTheRight' : (!screens.feedback.displayed && !screens.feedback.initialState), 'right' : (screens.feedback.initialState)}">
+        <div id="feedbackBox" class="settingEditBox">
+            <div class="panelHeader">FEEDBACK</div>
+            <div id="feedbackPanel" class="panelBody">
+                <textarea id="feedbackTextArea" class="textInput" rows="7" cols="80" placeholder="I'd love if you'd..."></textarea>
+                <a id="feedbackSubmitButton" href="#">Submit</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="transactionScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.transaction.displayed, 'animateToTheRight' : (!screens.transaction.displayed && !screens.transaction.initialState), 'right' : (screens.transaction.initialState)}">
+        <div class="settingEditBox">
+            <div class="panelHeader">TRANSACTIONS</div>
+            <div id="transactionPanel" class="panelBody">
+                <div class="transactionLineItem" ng-repeat="transaction in transactions">
+                    <span class="transactionAmount">{{transaction.amount}}</span>
+                    <span class="transactionDate">{{transaction.date}}</span>
+                    <a class="undoButton" href="#" ng-click="undoTransaction($event, transaction.id)">Undo</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
 </div>
