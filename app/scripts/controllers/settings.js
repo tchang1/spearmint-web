@@ -77,6 +77,13 @@ angular.module('spearmintWebApp')
             }
         ];
 
+        $scope.modal = {
+            header: 'Header',
+            body: 'Some stuff',
+            buttonText: 'OK',
+            visible: true
+        };
+
 
         $scope.selectLink = function($event, linkID) {
             $event.preventDefault();
