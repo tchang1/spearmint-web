@@ -69,7 +69,7 @@
                 <div class="transactionLineItem" ng-repeat="transaction in transactions">
                     <span class="transactionAmount">{{transaction.amount}}</span>
                     <span class="transactionDate">{{transaction.date}}</span>
-                    <a class="undoButton" href="#" ng-click="undoTransaction($event, transaction.id)">Undo</a>
+                    <a class="undoButton" href="#" ng-click="undoTransactionPressed($event, transaction.id)">Undo</a>
                 </div>
 
             </div>
