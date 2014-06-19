@@ -249,6 +249,7 @@ body {
   }
 
   #saving-container {
+    overflow: hidden;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -290,21 +291,16 @@ body {
     min-height: 100%;
   }
 
-  .blur {
+  .blur { 
     -webkit-filter: blur(10px);
     -moz-filter: blur(10px);
     -o-filter: blur(10px);
     -ms-filter: blur(10px);
     filter: blur(10px);
-    -webkit-animation: fadeout ease-out 0.7s;
   }
 
-  .static-blur { 
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(10px);
+  .blur-animate { 
+    -webkit-animation: fadeout ease-out 0.7s;
   }
 
   .unblur { 
@@ -330,5 +326,38 @@ body {
     margin-top: 75px; 
     font-size: 24px; 
     height: 200px;
+    color: white;
+    font-weight: bold; 
   }
+
+  #settings-button {
+    display: block;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    width: 42px;
+    height: 42px;
+    z-index: 50;
+  }
+
+  /*Login and sign up styles*/ 
+  .loginField { 
+    margin-top: 25px; 
+    border-radius: 6px 6px 6px 6px;
+    background-color: rgba(30, 30, 30, .4);
+    padding-left: 5%;
+    padding-right: 5%;
+    color: white;
+    height: 50px;
+  }
+
+  .redirect { 
+    margin-top: 20px;
+    color: white;
+  }
+
+  .redirect a { 
+    color: #72CF22;;
+  }
+
 }

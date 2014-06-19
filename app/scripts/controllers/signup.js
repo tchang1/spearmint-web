@@ -4,6 +4,10 @@ angular.module('spearmintWebApp')
   .controller('SignupCtrl', ['$scope', '$location', 'logger', 'goal', 'userService', 'goalService', 
     function ($scope, $location, logger, goal, userService, goalService) {
 
+      document.ontouchmove = function(event){
+        event.preventDefault();
+      }
+
       $scope.signupUser = function(form) { 
         $scope.submitted = true; 
 

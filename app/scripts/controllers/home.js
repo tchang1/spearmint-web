@@ -64,7 +64,7 @@ angular.module('spearmintWebApp')
 
     // Reblur the image and begin transition to next image when user releases hold on screen 
     $scope.reblur = function() {
-      document.getElementById("saving-screen").className= "blur";
+      document.getElementById("saving-screen").className= "blur blur-animate";
       progressIndicator.stop();
 
       var userGoal = goal.getStoredGoal(); 
@@ -106,10 +106,8 @@ angular.module('spearmintWebApp')
         $scope.message = "You just saved $" + dollarAmount + " Great job!";
       }
 
-      progressIndicator.reset(); 
-
-      // Wait 2 seconds for reblur animation to stop, then transition to next image 
-      setTimeout(function(){transitionToNextImage(userGoal)}, 2000);
+      // Wait 1 second for reblur animation to stop, then transition to next image 
+      setTimeout(function(){transitionToNextImage(userGoal)}, 1000);
 
     };
 
@@ -119,6 +117,9 @@ angular.module('spearmintWebApp')
 
       document.getElementById("saving-screen").style.background = "url(" + nextImageURL +") no-repeat center center fixed";
       document.getElementById("saving-screen").style.backgroundSize = "auto 100%";
+
+
+      progressIndicator.reset(); 
 
       // Preload the next images to display 
       imageNum = (imageNum +1)% 3; 
