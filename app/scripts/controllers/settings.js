@@ -66,6 +66,16 @@ angular.module('spearmintWebApp')
             }
         };
 
+        $scope.originalUserGoal = {
+            name: 'Get a dog',
+            targetAmount: '$1500'
+        };
+
+        $scope.userGoal = {
+            name: 'Get a dog',
+            targetAmount: '$1500'
+        };
+
         $scope.transactions = [
             {
                 amount: '$5',
@@ -129,12 +139,42 @@ angular.module('spearmintWebApp')
 
         $scope.goBackToMainSettingsPage = function($event) {
             $event.preventDefault();
-            for (var screen in $scope.screens) {
-                if ($scope.screens.hasOwnProperty(screen)) {
-                    $scope.screens[screen].displayed = false;
-                }
+            if ($scope.screens.menu.displayed) {
+                $location.path('/home');
             }
-            $scope.screens.menu.displayed = true;
+            else {
+                for (var screen in $scope.screens) {
+                    if ($scope.screens.hasOwnProperty(screen)) {
+                        $scope.screens[screen].displayed = false;
+                    }
+                }
+                $scope.screens.menu.displayed = true;
+            }
+        };
+
+        $scope.goalNameButtonClicked = function($event)  {
+            console.log($scope.editGoalForm);
+            $event.preventDefault();
+            if ($scope.originalUserGoal.name == $scope.userGoal.name) {
+                angular.element('#settingsGoalNameInput').focus();
+            }
+            else {
+
+            }
+        };
+
+        $scope.goalAmountButtonClicked  = function($event) {
+            $event.preventDefault();
+            if ($scope.originalUserGoal.name == $scope.userGoal.name) {
+                angular.element('#settingsGoalAmountInput').focus();
+            }
+            else {
+
+            }
+        };
+
+        $scope.goalFormSubmitted = function()  {
+
         };
 
         $scope.undoTransactionPressed = function($event, transactionID) {

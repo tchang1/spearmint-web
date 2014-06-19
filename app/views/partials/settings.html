@@ -24,20 +24,23 @@
     </div>
 
     <div id="editGoalScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.myGoal.displayed, 'animateToTheRight' : (!screens.myGoal.displayed && !screens.myGoal.initialState), 'right' : (screens.myGoal.initialState)}">
-        <div id="goalNameBox" class="settingEditBox">
-            <div class="panelHeader">MY GOAL</div>
-            <div class="panelBody">
-                <input class="textInput" type="text" placeholder="test"/>
-                <a class="textInputButton" href="#">Save</a>
+        <form name="editGoalForm" ng-submit="saveGoal()" novalidate>
+            <div id="goalNameBox" class="settingEditBox">
+                <div class="panelHeader">MY GOAL</div>
+                <div class="panelBody">
+                    <input name="goalName" id="settingsGoalNameInput" class="textInput" type="text" ng-model="userGoal.name" placeholder="test" goal/>
+                    <a class="textInputButton" href="#" ng-click="goalNameButtonClicked($event)">{{(userGoal.name == originalUserGoal.name) ? "Edit" : "Save"}}</a>
+                </div>
+                <div class="error" ng-show="editGoalForm.goalName.$error.goal">Goal names can only contain letters and numbers</div>
             </div>
-        </div>
-        <div id="goalAmountBox" class="settingEditBox">
-            <div class="panelHeader">AMOUNT</div>
-            <div class="panelBody">
-                <input class="textInput" type="text" placeholder="$0"/>
-                <a class="textInputButton" href="#">Save</a>
+            <div id="goalAmountBox" class="settingEditBox">
+                <div class="panelHeader">AMOUNT</div>
+                <div class="panelBody">
+                    <input id="settingsGoalAmountInput" class="textInput" ng-model="userGoal.targetAmount" type="text" placeholder="$0"/>
+                    <a class="textInputButton" href="#" ng-click="goalAmountButtonClicked($event)">{{(userGoal.targetAmount == originalUserGoal.targetAmount) ? "Edit" : "Save"}}</a>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <div id="notificationScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.notification.displayed, 'animateToTheRight' : (!screens.notification.displayed && !screens.notification.initialState), 'right' : (screens.notification.initialState)}">
