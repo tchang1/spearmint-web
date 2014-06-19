@@ -35,7 +35,7 @@ angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userSe
                 goal.targetAmount = (goal.targetAmount) ? goal.targetAmount : 0;
                 goal.isDefined = ('' == goal.name) ? 0 : 1;
 
-                if (goal.id) {
+                if (goal._id) {
                     RESTService.put({url: config.server.baseURL + config.server.myGoalURL,
                         data: goal}).then(
                         // success handler
