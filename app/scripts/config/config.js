@@ -16,7 +16,8 @@ angular.module('spearmintWebApp')
                 mySavingsURL: '/savings/me',
                 savingsURL: '/savings',
                 goalURL: '/goals',
-                loginURL: '/login'
+                loginURL: '/login',
+                logoutURL: '/logout'
             }
         }
     });

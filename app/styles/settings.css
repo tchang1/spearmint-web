@@ -227,32 +227,32 @@
 
 .animateToTheRight {
     left: 200%;
-    -webkit-animation: animateCenterToRight 1s; /* Chrome, Safari, Opera */
-    animation: animateCenterToRight 1s;
+    -webkit-animation: animateCenterToRight 0.5s; /* Chrome, Safari, Opera */
+    animation: animateCenterToRight 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
 }
 
 .animateRightToCenter {
     left: 0;
-    -webkit-animation: animateRightToCenter 1s; /* Chrome, Safari, Opera */
-    animation: animateRightToCenter 1s;
+    -webkit-animation: animateRightToCenter 0.5s; /* Chrome, Safari, Opera */
+    animation: animateRightToCenter 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
 }
 
 .animateLeftToCenter {
     left: 0;
-    -webkit-animation: animateLeftToCenter 1s; /* Chrome, Safari, Opera */
-    animation: animateLeftToCenter 1s;
+    -webkit-animation: animateLeftToCenter 0.5s; /* Chrome, Safari, Opera */
+    animation: animateLeftToCenter 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
 }
 
 .animateToTheLeft {
     left: -100%;
-    -webkit-animation: animateCenterToLeft 1s; /* Chrome, Safari, Opera */
-    animation: animateCenterToLeft 1s;
+    -webkit-animation: animateCenterToLeft 0.5s; /* Chrome, Safari, Opera */
+    animation: animateCenterToLeft 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
     /*border: 10px solid blue;*/
@@ -269,8 +269,8 @@
 .centeredSetting {
     /*left: -100%;*/
     left: 0;
-    -webkit-animation: animateRightToCenter 1s; /* Chrome, Safari, Opera */
-    animation: animateRightToCenter 1s;
+    -webkit-animation: animateRightToCenter 0.5s; /* Chrome, Safari, Opera */
+    animation: animateRightToCenter 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
 }

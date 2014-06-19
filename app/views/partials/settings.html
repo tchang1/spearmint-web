@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div id="logOutPanel">
-                <a href="#" id="logOutButton">Log Out</a>
+                <a href="#" ng-click="logout($event)" id="logOutButton">Log Out</a>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
             <div id="goalNameBox" class="settingEditBox">
                 <div class="panelHeader">MY GOAL</div>
                 <div class="panelBody">
-                    <input name="goalName" id="settingsGoalNameInput" class="textInput" type="text" ng-model="userGoal.name" placeholder="test" goal/>
+                    <input name="goalName" id="settingsGoalNameInput" class="textInput" type="text" ng-model="userGoal.name" placeholder="I want to..." goal/>
                     <a class="textInputButton" href="#" ng-click="goalNameButtonClicked($event)">{{(userGoal.name == originalUserGoal.name) ? "Edit" : "Save"}}</a>
                 </div>
                 <div class="error" ng-show="editGoalForm.goalName.$error.goal">Goal names can only contain letters and numbers</div>
@@ -36,9 +36,10 @@
             <div id="goalAmountBox" class="settingEditBox">
                 <div class="panelHeader">AMOUNT</div>
                 <div class="panelBody">
-                    <input id="settingsGoalAmountInput" class="textInput" ng-model="userGoal.targetAmount" type="text" placeholder="$0"/>
+                    <input name="goalAmount" id="settingsGoalAmountInput" class="textInput" ng-model="userGoal.targetAmount" type="text" placeholder="$0" currency/>
                     <a class="textInputButton" href="#" ng-click="goalAmountButtonClicked($event)">{{(userGoal.targetAmount == originalUserGoal.targetAmount) ? "Edit" : "Save"}}</a>
                 </div>
+                <div class="error" ng-show="editGoalForm.goalAmount.$error.currency">Please enter a valid amount</div>
             </div>
         </form>
     </div>

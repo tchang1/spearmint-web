@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SettingsCtrl', ['$scope', '$location', 'goal', 'logger', function ($scope, $location, goal, logger) {
+  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'logger', 'cloner', function ($scope, $location, $q, goal, goalService, userService, logger, cloner) {
 
 
         var imageToDisplay = 'images/travel/image1.jpg';
@@ -66,15 +66,15 @@ angular.module('spearmintWebApp')
             }
         };
 
-        $scope.originalUserGoal = {
-            name: 'Get a dog',
-            targetAmount: '$1500'
-        };
-
-        $scope.userGoal = {
-            name: 'Get a dog',
-            targetAmount: '$1500'
-        };
+//        $scope.originalUserGoal = {
+//            name: 'Get a dog',
+//            targetAmount: '$1500'
+//        };
+//
+//        $scope.userGoal = {
+//            name: 'Get a dog',
+//            targetAmount: '$1500'
+//        };
 
         $scope.transactions = [
             {
@@ -152,29 +152,88 @@ angular.module('spearmintWebApp')
             }
         };
 
+        var getGoal = function() {
+            var deferred = $q.defer();
+            var userGoal = goal.getStoredGoal();
+
+            if (userGoal) {
+                deferred.resolve(userGoal);
+            }
+            else {
+                goalService.getGoal().then(
+                    function(result) {
+                        if (result) {
+                            userGoal = result;
+                            goal.save(userGoal);
+                        }
+                        else {
+                            userGoal = goal.save();
+                        }
+
+                        deferred.resolve(userGoal);
+                    },
+                    function(error) {
+                        logger.error(error);
+                        deferred.reject(error);
+                    }
+                );
+
+            }
+
+            return deferred.promise;
+        };
+
+        var saveGoal = function(userGoal) {
+            var deferred = $q.defer();
+
+            goalService.saveGoal(userGoal).then(
+                function(result) {
+                    goal.save(result);
+                    deferred.resolve(result);
+                },
+                function(error) {
+                    logger.log(error);
+                    deferred.reject(error);
+                }
+            );
+
+            return deferred.promise;
+        };
+
         $scope.goalNameButtonClicked = function($event)  {
-            console.log($scope.editGoalForm);
             $event.preventDefault();
             if ($scope.originalUserGoal.name == $scope.userGoal.name) {
                 angular.element('#settingsGoalNameInput').focus();
             }
             else {
-
+                $scope.goalFormSubmitted();
             }
         };
 
         $scope.goalAmountButtonClicked  = function($event) {
             $event.preventDefault();
+            $scope.goalFormSubmitted();
             if ($scope.originalUserGoal.name == $scope.userGoal.name) {
                 angular.element('#settingsGoalAmountInput').focus();
             }
             else {
-
+                logger.log('saving amount');
             }
         };
 
         $scope.goalFormSubmitted = function()  {
+            goal.save($scope.userGoal);
+            saveGoal($scope.userGoal).then(
+                function(result) {
+                    goal.save($scope.userGoal);
+                    $scope.originalUserGoal = cloner.clone($scope.userGoal);
+                    logger.log(result);
+                },
 
+                function(error) {
+                    displayModal('Error', 'An error has occured, please try again later', false);
+                }
+            )
         };
 
         $scope.undoTransactionPressed = function($event, transactionID) {
@@ -227,5 +286,25 @@ angular.module('spearmintWebApp')
             $event.preventDefault();
             $scope.modal.visible = false;
         };
+
+        $scope.logout = function($event) {
+            userService.logout();
+        };
+
+        var setup = function() {
+            getGoal().then(
+                function(userGoal) {
+                    $scope.originalUserGoal = userGoal;
+                    $scope.userGoal = cloner.clone(userGoal);
+                },
+
+                function(error) {
+                    displayModal('Error', 'An error has occured, please try again later', false);
+                }
+            );
+
+        };
+
+        setup();
 
   }]); 

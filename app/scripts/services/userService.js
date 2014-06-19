@@ -38,6 +38,21 @@ angular.module('spearmintWebApp').factory('userService', ['RESTService', '$q', '
                 return deferred.promise;
             },
 
+            logout: function() {
+                var deferred = $q.defer();
+                RESTService.get({url: config.server.baseURL + config.server.logoutURL}).then(
+                    // success handler
+                    function(data) {
+                        deferred.resolve(data);
+                    },
+
+                    // error handler
+                    function(error) {
+                        deferred.reject(error);
+                    });
+                return deferred.promise;
+            },
+
             isLoggedIn: function() {
                 var deferred = $q.defer();
                 var sessionID = cookieManager.get(config.cookieSessionKey);

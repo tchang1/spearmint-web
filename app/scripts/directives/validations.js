@@ -1,6 +1,6 @@
 var app = angular.module('spearmintWebApp');
 
-var GOAL_NAME_REGEX = /^[a-zA-Z0-9]*$/;
+var GOAL_NAME_REGEX = /^[a-zA-Z0-9 _'"]*$/;
 app.directive('goal', function() {
     return {
         require: 'ngModel',
@@ -9,12 +9,10 @@ app.directive('goal', function() {
                 if (GOAL_NAME_REGEX.test(viewValue)) {
                     // it is valid
                     ctrl.$setValidity('goal', true);
-                    console.log(viewValue);
                     return viewValue;
                 } else {
                     // it is invalid, return undefined (no model update)
                     ctrl.$setValidity('goal', false);
-                    console.log(viewValue);
                     return undefined;
                 }
             });
@@ -22,21 +20,28 @@ app.directive('goal', function() {
     };
 });
 
-var DOLLAR_AMOUNT = /^\$?[0-9]+(\.[0-9][0-9])?$/;
-app.directive('dollarAmount', function() {
+//var DOLLAR_AMOUNT = /^\$?[0-9]+(\.[0-9][0-9])?$/;
+var DOLLAR_AMOUNT = /^(?!\(.*[^)]$|[^(].*\)$)\(?\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\)?$/;
+app.directive('currency', function() {
     return {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function(viewValue) {
                 if (DOLLAR_AMOUNT.test(viewValue)) {
-                    ctrl.$setValidity('dollarAmount', true);
-                    if (viewValue.charAt(0) != '$') {
-                        viewValue = '$' + viewValue;
+                    ctrl.$setValidity('currency', true);
+                    if (viewValue.charAt(0) == '$') {
+                        viewValue = viewValue.substring(1);
                     }
-                    return parseFloat(viewValue.replace(',', '.'));
+                    return viewValue;
                 } else {
-                    ctrl.$setValidity('dollarAmount', false);
-                    return undefined;
+                    if (viewValue == '') {
+                        ctrl.$setValidity('currency', true);
+                        return viewValue;
+                    }
+                    else {
+                        ctrl.$setValidity('currency', false);
+                        return undefined;
+                    }
                 }
             });
         }
