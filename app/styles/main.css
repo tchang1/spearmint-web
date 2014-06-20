@@ -420,7 +420,7 @@ body {
 
   #home-screen-message { 
     text-align: center; 
-    margin-top: 200px; 
+    margin-top: 250px; 
     font-size: 26px; 
     height: 200px;
     color: white;
@@ -428,11 +428,15 @@ body {
   }
 
   #home-screen-message-footer { 
-    text-align: center; 
-    margin-top: 75px; 
     font-size: 16px; 
     color: white;
     font-weight: bold; 
+    position: fixed;
+    left:50%;
+    min-width:200px;
+    text-align: center;
+    margin-left: -100px;
+    bottom:50px;
   }
 
   #settings-button {
