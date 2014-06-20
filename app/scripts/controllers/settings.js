@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'logger', 'cloner', function ($scope, $location, $q, goal, goalService, userService, logger, cloner) {
+  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'logger', 'cloner',
+        function ($scope, $location, $q, goal, goalService, userService, savingsService, feedbackService, logger, cloner) {
 
 
         var imageToDisplay = 'images/travel/image1.jpg';
@@ -66,15 +67,8 @@ angular.module('spearmintWebApp')
             }
         };
 
-//        $scope.originalUserGoal = {
-//            name: 'Get a dog',
-//            targetAmount: '$1500'
-//        };
-//
-//        $scope.userGoal = {
-//            name: 'Get a dog',
-//            targetAmount: '$1500'
-//        };
+        $scope.emailNotification = true;
+        $scope.feedback = '';
 
         $scope.transactions = [
             {
@@ -186,6 +180,11 @@ angular.module('spearmintWebApp')
         var saveGoal = function(userGoal) {
             var deferred = $q.defer();
 
+            if (userGoal.targetAmount && userGoal.targetAmount != '') {
+                userGoal.targetAmount = userGoal.targetAmount.replace(/\$|,/g, '');
+            }
+
+            console.log(userGoal.targetAmount);
             goalService.saveGoal(userGoal).then(
                 function(result) {
                     goal.save(result);
@@ -226,6 +225,7 @@ angular.module('spearmintWebApp')
             saveGoal($scope.userGoal).then(
                 function(result) {
                     goal.save($scope.userGoal);
+                    $scope.userGoal.targetAmount = $scope.formatCurrency($scope.userGoal.targetAmount);
                     $scope.originalUserGoal = cloner.clone($scope.userGoal);
                     logger.log(result);
                 },
@@ -234,6 +234,35 @@ angular.module('spearmintWebApp')
                     displayModal('Error', 'An error has occured, please try again later', false);
                 }
             )
+        };
+
+        $scope.formatCurrency = function(value) {
+            if (value && value != '') {
+                if (value.charAt(0) != '$') {
+                    value = '$' + value;
+                }
+            }
+            return value;
+        };
+
+        $scope.emailToggled = function() {
+            if ($scope.emailNotification) {
+                logger.log('Opted in for email notification');
+            }
+            else {
+                logger.log('Opted out for email notification');
+            }
+        };
+
+        $scope.submitFeedback = function() {
+            logger.log('feedback: ' + $scope.feedback);
+            if ($scope.feedback && $scope.feedback != '') {
+                displayModal('Thanks!',
+                    'We\'re actively working in making this app better.  We appreciate the feedback.!',
+                    false, null, null);
+                feedbackService.sendFeedback($scope.feedback);
+                $scope.feedback = '';
+            }
         };
 
         $scope.undoTransactionPressed = function($event, transactionID) {
@@ -296,12 +325,21 @@ angular.module('spearmintWebApp')
                 function(userGoal) {
                     $scope.originalUserGoal = userGoal;
                     $scope.userGoal = cloner.clone(userGoal);
+                    $scope.originalUserGoal.targetAmount = $scope.formatCurrency($scope.originalUserGoal.targetAmount);
+                    $scope.userGoal.targetAmount = $scope.formatCurrency($scope.userGoal.targetAmount);
                 },
 
                 function(error) {
                     displayModal('Error', 'An error has occured, please try again later', false);
                 }
             );
+
+            savingsService.getSavings().then(
+                function(result) {
+                    logger.log('savings:');
+                    logger.log(result);
+                }
+            )
 
         };
 

@@ -27,6 +27,6 @@ angular.module('spearmintWebApp').factory('imageService', ['RESTService', '$q', 
                         deferred.reject(error);
                     });
                 return deferred.promise;
-            },
+            }
         }
     }]);

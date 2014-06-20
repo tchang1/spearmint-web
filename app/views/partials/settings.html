@@ -24,7 +24,7 @@
     </div>
 
     <div id="editGoalScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.myGoal.displayed, 'animateToTheRight' : (!screens.myGoal.displayed && !screens.myGoal.initialState), 'right' : (screens.myGoal.initialState)}">
-        <form name="editGoalForm" ng-submit="saveGoal()" novalidate>
+        <form name="editGoalForm" ng-submit="goalFormSubmitted()" novalidate>
             <div id="goalNameBox" class="settingEditBox">
                 <div class="panelHeader">MY GOAL</div>
                 <div class="panelBody">
@@ -36,11 +36,13 @@
             <div id="goalAmountBox" class="settingEditBox">
                 <div class="panelHeader">AMOUNT</div>
                 <div class="panelBody">
-                    <input name="goalAmount" id="settingsGoalAmountInput" class="textInput" ng-model="userGoal.targetAmount" type="text" placeholder="$0" currency/>
+                    <input name="goalAmount" id="settingsGoalAmountInput" class="textInput" ng-change="userGoal.targetAmount = formatCurrency(userGoal.targetAmount);" ng-model="userGoal.targetAmount" type="text" placeholder="$0" currency/>
                     <a class="textInputButton" href="#" ng-click="goalAmountButtonClicked($event)">{{(userGoal.targetAmount == originalUserGoal.targetAmount) ? "Edit" : "Save"}}</a>
                 </div>
                 <div class="error" ng-show="editGoalForm.goalAmount.$error.currency">Please enter a valid amount</div>
             </div>
+            <input type="submit" style="display:none; width: 1px; height: 1px;"/>
+
         </form>
     </div>
 
@@ -48,8 +50,8 @@
         <div id="notificationSettingBox" class="settingEditBox">
             <div class="panelHeader">NOTIFICATION</div>
             <div class="panelBody">
-                <span>Email</span>
-                <a class="textInputButton" href="#">Save</a>
+                <div class="notificationType">Email</div>
+                <input ng-change="emailToggled()" ng-model="emailNotification" class="notificationToggle" type="checkbox" checked>
             </div>
         </div>
 
@@ -59,8 +61,10 @@
         <div id="feedbackBox" class="settingEditBox">
             <div class="panelHeader">FEEDBACK</div>
             <div id="feedbackPanel" class="panelBody">
-                <textarea id="feedbackTextArea" class="textInput" rows="7" cols="80" placeholder="I'd love if you'd..."></textarea>
-                <a id="feedbackSubmitButton" href="#">Submit</a>
+                <form name="feedbackForm" ng-submit="submitFeedback()" novalidate>
+                    <textarea id="feedbackTextArea" class="textInput" ng-model="feedback" rows="7" cols="80" placeholder="I'd love if you'd..."></textarea>
+                    <input type="submit" id="feedbackSubmitButton" value="Submit" />
+                </form>
             </div>
         </div>
 
