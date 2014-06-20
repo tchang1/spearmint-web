@@ -17,11 +17,12 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
         var numberFont = '70px Lato';
         var dollarFont = '24px Lato';
         var strokeColors = ['green', 'blue'];
-        var backgroundColor = 'rgba(0,0,0,0.5)';
+        var backgroundColor = 'rgba(0,0,0,0.4)';
         var fontColor = 'rgba(255,255,255,1)';
         var lineWidth = 8.0;
         var width = 160;
         var height = 160;
+        var marginBottom = 10; 
         var padding = 10;
         var dollarSignPositionX = 35;
         var dollarSignPositionY = 65;
@@ -116,6 +117,15 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
 
                 ctx.fillStyle = backgroundColor;
                 ctx.lineWidth = lineWidth;
+
+                var screenWidth = window.innerWidth; 
+                var screenHeight = window.screen.height; 
+
+                canvas.style.position = "fixed"; 
+                canvas.style.bottom = marginBottom + 'px';
+                canvas.style.left = ((screenWidth - width) / 2) + 'px'; 
+                logger.log(canvas.style.bottom); 
+                logger.log(canvas.style.left);
             },
 
             start: function() {

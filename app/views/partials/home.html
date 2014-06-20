@@ -1,8 +1,10 @@
-<a id="settings-button" ng-click="storeCurrentImage()" href="/settings"><img src="../images/icons/settings.svg" width="42" height="42"></a>
+
+<a id="settings-button" ng-hide="holding" ng-click="storeCurrentImage()" href="/settings"><img src="../images/icons/settings.svg" width="42" height="42"></a>
 <div id="saving-container" hm-hold="unblur()" hm-release="reblur()">
 	<a id="shield"></a>
 	<div id="saving-screen" class="blur"> </div>
-	<canvas id="progressIndicator" width="240" height="240"></canvas>
+	<canvas id="progressIndicator" ng-show="holding" width="240" height="240"></canvas>
 	<div id="home-screen-message"> {{message}} </div>
+	<div id="home-screen-message-footer"> {{messageFooter}} </div>
 
 </div>

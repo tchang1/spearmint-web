@@ -20,7 +20,9 @@ angular.module('spearmintWebApp')
     }
 
     // SETUP Page with initial message, progress indicator, and load the images to show 
-    $scope.message = "Push and hold to Save";
+    $scope.message = "Tap and hold to save";
+    $scope.messageFooter = ""; 
+    $scope.holding = false; 
 
     progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
     progressIndicator.show();
@@ -88,6 +90,8 @@ angular.module('spearmintWebApp')
     $scope.unblur = function() {
       document.getElementById("saving-screen").className="unblur";
       $scope.message = ""; 
+      $scope.messageFooter = ""; 
+      $scope.holding = true; 
       progressIndicator.start();
       logger.log("unblur called"); 
     };
@@ -95,6 +99,7 @@ angular.module('spearmintWebApp')
     // Reblur the image and begin transition to next image when user releases hold on screen 
     $scope.reblur = function() {
       document.getElementById("saving-screen").className= "blur blur-animate";
+      $scope.holding = false; 
       progressIndicator.stop();
 
       var userGoal = goal.getStoredGoal(); 
@@ -129,10 +134,13 @@ angular.module('spearmintWebApp')
       var savings = {goalid:userGoal._id, savingsAmount: dollarAmount};
 
       // Display messaging to indicate progress 
-      if (userGoal.amountSaved > userGoal.targetAmount) {
-        $scope.message = "Congratulations! You have reached your goal of saving " + userGoal.targetAmount + ". Now you can " + userGoal.name + "!"; 
+      if (dollarAmount == 0) { 
+        $scope.message = "Tap and hold to save";
+      } else if (userGoal.amountSaved > userGoal.targetAmount) {
+        $scope.message = "Congratulations! You reached your goal!"; 
       } else if (userGoal.amountSaved > 0) {
-        $scope.message = "You just saved $" + dollarAmount + " towards your goal of " + userGoal.name + ". Total saved so far: $" + userGoal.amountSaved; 
+        $scope.message = "You just saved $" + dollarAmount;
+        $scope.messageFooter = "Total saved so far is $" + userGoal.amountSaved; 
       } else { 
         $scope.message = "You just saved $" + dollarAmount + " Great job!";
       }
