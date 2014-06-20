@@ -16,13 +16,13 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
 
         var numberFont = '70px Lato';
         var dollarFont = '24px Lato';
-        var strokeColors = ['green', 'blue'];
+        var strokeColors = ['rgba(122,193,67,0.8)', 'rgba(66,141,255,0.8)'];
         var backgroundColor = 'rgba(0,0,0,0.4)';
         var fontColor = 'rgba(255,255,255,1)';
         var lineWidth = 8.0;
         var width = 160;
         var height = 160;
-        var marginBottom = 10; 
+        var marginBottom = 10;
         var padding = 10;
         var dollarSignPositionX = 35;
         var dollarSignPositionY = 65;
