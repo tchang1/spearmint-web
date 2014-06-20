@@ -209,6 +209,7 @@
 
 #transactionPanel {
     height: 280px;
+    overflow-y: scroll;
 }
 
 .transactionAmount {
@@ -223,8 +224,8 @@
 .undoButton {
     text-decoration: none;
     color: rgba(207,207,207, .6);
-    position: absolute;
-    right: 5%;
+    position: relative;
+    float:right;
     margin-top: 4px;
     font-size: 14px;
 }
