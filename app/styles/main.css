@@ -139,7 +139,7 @@ body {
   /* styles for the welcome page */ 
 
   .ftu-background {
-    background: url(/images/Path.jpg) no-repeat;
+    background: url(/images/FTU/Path.jpg) no-repeat;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -175,23 +175,46 @@ body {
   }
 
   #logo { 
-    font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+/*    font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
     font-weight: 900;
     color: white;
     font-size: 44px;
     text-align: center; 
-    margin: 50px auto; 
+    margin: 50px auto;*/ 
+    float: top;
+    height: 220px;
+    margin-top: -30px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    display: block;
+  }
+
+  #hand { 
+    height: 250px;
+    margin-top: -50px; 
+    vertical-align: middle; 
+    margin-left: auto; 
+    margin-right: auto; 
+    display: block;    
+  }
+
+  #hand-light { 
+    height: 300px;
+    margin-top: 100px; 
+    vertical-align: middle; 
+    margin-left: auto; 
+    margin-right: auto; 
+    display: block;    
   }
 
   #catch-phrase {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
     color: white;
-    font-size: 14px;
-    width: 160px;
+    font-size: 20px;
     text-align: center; 
     margin-left: auto; 
     margin-right: auto;
-    margin-top: 50px;
+    margin-top: -30px;
     margin-bottom: 50px;
   }
 
@@ -262,6 +285,14 @@ body {
     text-align: center; 
     margin-left: auto; 
     margin-right: auto; 
+    position: fixed;
+
+    left: 50%; 
+    min-width:200px;
+    text-align: center;
+    margin-left: -100px; 
+
+    bottom: 25px;
   }
 
 
@@ -320,18 +351,49 @@ body {
     
   }
 
+  #ftu-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    z-index:-1;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-callout: none;
+    -webkit-touch-callout: none;
+
+/*    -webkit-filter:  brightness(70%);
+    -moz-filter:  brightness(70%);
+    -o-filter:  brightness(70%);
+    -ms-filter:  brightness(70%);
+    filter:  brightness(70%);*/
+
+    transition: background-image 1s ease-out;
+    
+  }
+
   #shield {
     position: absolute;
     min-width: 100%;
     min-height: 100%;
+    z-index: 10;
   }
 
   .blur { 
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(10px);
+    -webkit-filter: blur(10px) brightness(80%);
+    -moz-filter: blur(10px) brightness(80%);
+    -o-filter: blur(10px) brightness(80%);
+    -ms-filter: blur(10px) brightness(80%);
+    filter: blur(10px) brightness(80%);
   }
 
   .blur-animate { 
@@ -339,28 +401,36 @@ body {
   }
 
   .unblur { 
-    -webkit-filter: blur(0px);
+    -webkit-filter: blur(0px) brightness(80%);
     -webkit-animation: fadein ease-in 0.7s;
   }
 
   @-webkit-keyframes fadein {
-     0% {    -webkit-filter: blur(10px);}
-    50% { -webkit-filter:  blur(5px);}
-    75% { -webkit-filter: blur(1px);}
-   100% {  -webkit-filter:  blur(0px);}
+     0% {    -webkit-filter: blur(10px) brightness(80%);}
+    50% { -webkit-filter:  blur(5px) brightness(80%);}
+    75% { -webkit-filter: blur(1px) brightness(80%);}
+   100% {  -webkit-filter:  blur(0px) brightness(80%);}
   }
 
   @-webkit-keyframes fadeout {
-     0% {    -webkit-filter: blur(0px);}
-    50% { -webkit-filter:  blur(5px);}
-   100% {  -webkit-filter:  blur(10px);}
+     0% {    -webkit-filter: blur(0px) brightness(80%);}
+    50% { -webkit-filter:  blur(5px) brightness(80%);}
+   100% {  -webkit-filter:  blur(10px) brightness(80%);}
   }
 
   #home-screen-message { 
     text-align: center; 
-    margin-top: 75px; 
-    font-size: 24px; 
+    margin-top: 200px; 
+    font-size: 26px; 
     height: 200px;
+    color: white;
+    font-weight: bold; 
+  }
+
+  #home-screen-message-footer { 
+    text-align: center; 
+    margin-top: 75px; 
+    font-size: 16px; 
     color: white;
     font-weight: bold; 
   }
@@ -388,7 +458,25 @@ body {
 
   .redirect { 
     margin-top: 20px;
+    text-align: center; 
     color: white;
+  }
+
+  .login { 
+    position: fixed;
+    left:50%;
+    min-width:200px;
+    text-align: center;
+    margin-left: -100px; 
+
+    bottom: 25px;
+    height: 20px; 
+    z-index: 20;
+  }
+  .login a { 
+    color: white;
+    display: block;
+    text-decoration: none; 
   }
 
   .redirect a { 
@@ -411,8 +499,6 @@ body {
       font-size: 14pt;
       color: rgb(173,173,173);
   }
-
-}
 
 #suggestedGoalsContainer {
     margin-top: 20px;
@@ -438,4 +524,36 @@ body {
 .suggestedGoalLink {
     text-decoration: none;
     color: #F2F4F5;
+}
+  #welcome-screen-message { 
+    width: 300px; 
+    margin-right: auto; 
+    margin-left: auto; 
+    display: block;
+    text-align: center; 
+    margin-top: 40px; 
+    font-size: 24px; 
+    color: white;
+    font-weight: bold; 
+  }
+
+  .ftu-message {
+    width: 300px; 
+    margin-right: auto; 
+    margin-left: auto; 
+    display: block;
+    text-align: center; 
+    font-size: 22px; 
+    color: white;
+    font-weight: bold;
+  }
+
+  #message1 { 
+    margin-top: 150px; 
+  }
+
+  #message2 { 
+    margin-top: 50px; 
+  }
+
 }

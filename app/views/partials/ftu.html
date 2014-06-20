@@ -1,7 +1,10 @@
 <div>
 <div class="ftu-background"></div>
 
-	<div class="UIPageControl">
+	<div class="ftu-message" id="message1"> {{message1}} </div>
+	<div class="ftu-message" id="message2"> {{message2}} </div>
+
+<!-- 	<div class="UIPageControl">
 		<div class="UIScrollView" id="parentView">
 
 			 <div class="valueProp {{ pageNum }}">
@@ -14,19 +17,19 @@
 
 		</div>
 
-<!-- 		<nav>
+		<nav>
 			<a>•</a>
 			<a>•</a>
-		</nav> -->
+		</nav>
 		<div class="nav-button-div">
 		<button ng-click="back()" class="greenButton" ng-show="pageNum === 'two'"> Back </button>
 		</div>
 		<div class="nav-button-div">
 		<button ng-click="next()" class="greenButton" ng-show="pageNum === 'one'"> Next </button>
 		</div>
-	</div>
+	</div> -->
 		<div class="goal-button-div" >
-		<button ng-click="setGoal()" class="greenButton" id="goal-button" ng-show="pageNum == 'two'"> Set a goal! </button>
+		<button ng-click="setGoal()" class="greenButton" id="goal-button" > Set a goal! </button>
 		</div>
 
 </div> 
