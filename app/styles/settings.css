@@ -177,20 +177,25 @@
     width: 250px;
 }
 
-#feedbackSubmitButton {
+.submitButton {
     border: none;
     display: block;
-    position: absolute;
+
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    right: 6px;
-    bottom: 6px;
+
     border-radius: 6px;
     background-color: rgba(122, 193, 67, 80);
     color: white;
     text-decoration: none;
     font-size: 12pt;
+}
+
+#feedbackSubmitButton {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
 }
 
 #transactionPanel {

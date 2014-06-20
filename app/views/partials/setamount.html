@@ -2,8 +2,12 @@
 <div class="ftu-background"></div>
   
 	<form name="amountForm" action="" ng-submit="enterAmount()">
-	Goal Amount<br> $<input type="number" min="0.01" step="0.01" name="amount" class="form-control" ng-model="goalAmount" placeholder="This will cost..." required>
-	<input type="submit" ng-show="amountForm.amount.$invalid" value="Skip">
-	<input type="submit" ng-show="amountForm.amount.$valid" value="Enter">
+    <div class="panelHeader">GOAL AMOUNT</div>
+	<div class="panelBody">
+        <span class="dollarSignLabel">$ </span>
+        <input type="text" min="0.01" step="0.01" id="goalAmountInput" name="amount" class="textInput goalInput" ng-model="goalAmount" placeholder="This will cost..." required currency>
+	    <input type="submit" class="submitButton goalSubmitButton" value="{{(goalAmount) ? 'Save' : 'Skip'}}" />
+    </div>
 	</form>
+    <div class="error" ng-show="amountForm.amount.$error.currency">Are you sure that's a number?</div>
 </div>

@@ -21,7 +21,7 @@ app.directive('goal', function() {
 });
 
 //var DOLLAR_AMOUNT = /^\$?[0-9]+(\.[0-9][0-9])?$/;
-var DOLLAR_AMOUNT = /^(?!\(.*[^)]$|[^(].*\)$)\(?\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\)?$/;
+var DOLLAR_AMOUNT = /^(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/;
 app.directive('currency', function() {
     return {
         require: 'ngModel',

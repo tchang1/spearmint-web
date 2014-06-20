@@ -33,6 +33,9 @@ angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userSe
                 goal.name = (goal.name) ? goal.name : '';
                 goal.amountSaved = (goal.amountSaved) ? goal.amountSaved : 0;
                 goal.targetAmount = (goal.targetAmount) ? goal.targetAmount : 0;
+                if (typeof goal.targetAmount == 'string') {
+                    goal.targetAmount.replace(/\s+/g, '');
+                }
                 goal.isDefined = ('' == goal.name) ? 0 : 1;
 
                 if (goal._id) {

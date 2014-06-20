@@ -180,14 +180,9 @@ angular.module('spearmintWebApp')
         var saveGoal = function(userGoal) {
             var deferred = $q.defer();
 
-            if (userGoal.targetAmount && userGoal.targetAmount != '') {
-                userGoal.targetAmount = userGoal.targetAmount.replace(/\$|,/g, '');
-            }
-
             console.log(userGoal.targetAmount);
             goalService.saveGoal(userGoal).then(
                 function(result) {
-                    goal.save(result);
                     deferred.resolve(result);
                 },
                 function(error) {
@@ -224,8 +219,12 @@ angular.module('spearmintWebApp')
             goal.save($scope.userGoal);
             saveGoal($scope.userGoal).then(
                 function(result) {
+                    if ($scope.userGoal.targetAmount && $scope.userGoal.targetAmount != '') {
+                        $scope.userGoal.targetAmount = $scope.userGoal.targetAmount.replace(/\$|,/g, '');
+                        $scope.userGoal.targetAmount = $scope.userGoal.targetAmount.replace(/\s+/g, '');
+                        logger.log($scope.userGoal.targetAmount);
+                    }
                     goal.save($scope.userGoal);
-                    $scope.userGoal.targetAmount = $scope.formatCurrency($scope.userGoal.targetAmount);
                     $scope.originalUserGoal = cloner.clone($scope.userGoal);
                     logger.log(result);
                 },
@@ -234,15 +233,6 @@ angular.module('spearmintWebApp')
                     displayModal('Error', 'An error has occured, please try again later', false);
                 }
             )
-        };
-
-        $scope.formatCurrency = function(value) {
-            if (value && value != '') {
-                if (value.charAt(0) != '$') {
-                    value = '$' + value;
-                }
-            }
-            return value;
         };
 
         $scope.emailToggled = function() {
@@ -325,8 +315,6 @@ angular.module('spearmintWebApp')
                 function(userGoal) {
                     $scope.originalUserGoal = userGoal;
                     $scope.userGoal = cloner.clone(userGoal);
-                    $scope.originalUserGoal.targetAmount = $scope.formatCurrency($scope.originalUserGoal.targetAmount);
-                    $scope.userGoal.targetAmount = $scope.formatCurrency($scope.userGoal.targetAmount);
                 },
 
                 function(error) {

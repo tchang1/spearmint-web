@@ -36,10 +36,10 @@
             <div id="goalAmountBox" class="settingEditBox">
                 <div class="panelHeader">AMOUNT</div>
                 <div class="panelBody">
-                    <input name="goalAmount" id="settingsGoalAmountInput" class="textInput" ng-change="userGoal.targetAmount = formatCurrency(userGoal.targetAmount);" ng-model="userGoal.targetAmount" type="text" placeholder="$0" currency/>
+                    <span class="dollarSignLabel">$ </span><input name="goalAmount" id="settingsGoalAmountInput" class="textInput" ng-model="userGoal.targetAmount" type="text" placeholder="$0" currency/>
                     <a class="textInputButton" href="#" ng-click="goalAmountButtonClicked($event)">{{(userGoal.targetAmount == originalUserGoal.targetAmount) ? "Edit" : "Save"}}</a>
                 </div>
-                <div class="error" ng-show="editGoalForm.goalAmount.$error.currency">Please enter a valid amount</div>
+                <div class="error" ng-show="editGoalForm.goalAmount.$error.currency">Are you sure that's a number?</div>
             </div>
             <input type="submit" style="display:none; width: 1px; height: 1px;"/>
 
@@ -63,7 +63,7 @@
             <div id="feedbackPanel" class="panelBody">
                 <form name="feedbackForm" ng-submit="submitFeedback()" novalidate>
                     <textarea id="feedbackTextArea" class="textInput" ng-model="feedback" rows="7" cols="80" placeholder="I'd love if you'd..."></textarea>
-                    <input type="submit" id="feedbackSubmitButton" value="Submit" />
+                    <input type="submit" class="submitButton" id="feedbackSubmitButton" value="Submit" />
                 </form>
             </div>
         </div>

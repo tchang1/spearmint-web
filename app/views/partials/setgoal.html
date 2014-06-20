@@ -3,8 +3,19 @@
 <div class="ftu-background"></div>
   
 	<form name="goalForm" action="" ng-submit="enterGoal()">
-	My Goal <br> <input type="text" name="goal" class="form-control" ng-model="userGoal" placeholder="I want to..." required>
-	<input type="submit" ng-show="goalForm.goal.$invalid" value="Skip">
-	<input type="submit" ng-show="goalForm.goal.$valid" value="Enter">
+    <div class="panelHeader">MY GOAL</div>
+	<div class="panelBody">
+        <input type="text" name="goal" id="goalNameInput" class="textInput goalInput" ng-model="userGoal" placeholder="I want to..." goal>
+	    <input type="submit" class="submitButton goalSubmitButton" value="{{(userGoal) ? 'Save' : 'Skip'}}">
+    </div>
 	</form>
+    <div class="error" ng-show="goalForm.goal.$error.goal">Goal names can only contain letters and numbers</div>
+
+    <div id="suggestedGoalsContainer">
+        <div class="panelHeader">SUGGESTIONS</div>
+        <div id="suggestedGoalsPanelBody" class="panelBody">
+            <div class="suggestedGoal" ng-repeat="suggestedGoal in suggestedGoals">
+                <a class="suggestedGoalLink" href="#" ng-click="selectSuggestedGoal($event, suggestedGoal);">{{suggestedGoal}}</a></div>
+        </div>
+    </div>
 </div>
