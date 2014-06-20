@@ -36,8 +36,7 @@ angular.module('spearmintWebApp')
                 goal.save(result);
                 userGoal=result;
                 imageService.getNextImages(userGoal).then(function(result) {
-
-                  currentImageURL = path+result[0].uri; 
+                  currentImageURL = path+result[0].uri;
                   nextImageURL = path+result[1].uri; 
 
                   PreloadImage(currentImageURL);

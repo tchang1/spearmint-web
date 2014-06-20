@@ -16,6 +16,41 @@ body{
     color: rgb(230, 40, 40);
 }
 
+input[type=checkbox], input[type=radio] {
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: inset 0px 0px 0px 1px #e6e6e6;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 1px;
+    display: inline-block;
+    width: 52px;
+    height: 31px;
+    position: relative;
+    cursor: pointer;
+    transition: all .3s ease-out;
+    margin: 0px;
+    transform: scale(1);
+    -webkit-transform: scale(1); /* Adjust size here */
+}
+input[type=checkbox]:checked, input[type=radio]:checked {
+    box-shadow: inset 0px 0px 0px 20px #53d76a;
+}
+input[type=checkbox]:after, input[type=radio]:after {
+    content: '';
+    position: absolute;
+    width: 29px;
+    height: 29px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 2px 1px rgba(0,0,0,.2);
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.1s ease-in .1s;
+}
+input[type="checkbox"]:checked:after,input[type="radio"]:checked:after {
+    left: 22px;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,

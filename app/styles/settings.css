@@ -158,6 +158,17 @@
     margin-top:10px;
 }
 
+.notificationType {
+    display: inline-block;
+    padding-top: 10px;
+}
+
+.notificationToggle {
+    display: block;
+    float: right;
+    top: 10px;
+}
+
 #feedbackPanel {
     height: 230px;
 }
@@ -167,15 +178,19 @@
 }
 
 #feedbackSubmitButton {
+    border: none;
     display: block;
     position: absolute;
     padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     right: 6px;
     bottom: 6px;
     border-radius: 6px;
     background-color: rgba(122, 193, 67, 80);
     color: white;
     text-decoration: none;
+    font-size: 12pt;
 }
 
 #transactionPanel {
