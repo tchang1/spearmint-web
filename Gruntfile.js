@@ -231,7 +231,7 @@ module.exports = function (grunt) {
              '<%= yeoman.dist %>/views/{,*/}*.jade'],
       css: ['<%= yeoman.dist %>/public/styles/{,*/}*.css'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>/public']
+        assetsDirs: ['<%= yeoman.dist %>/public/**/','<%= yeoman.dist %>/public/images/']
       }
     },
 
