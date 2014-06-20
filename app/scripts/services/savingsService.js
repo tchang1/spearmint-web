@@ -50,6 +50,33 @@ angular.module('spearmintWebApp').factory('savingsService', ['RESTService', '$q'
                         });
 
                 return deferred.promise;
+            },
+
+            deleteSavings: function(id) {
+                var deferred = $q.defer();
+
+                if (!id) {
+                    deferred.reject('Cannot delete savings without an id');
+                    return deferred.promise;
+                }
+
+                logger.log('deleting savings with id ' + id);
+
+
+                RESTService.delete({url: config.server.baseURL + config.server.savingsURL,
+                    data: {"_id": id}}).then(
+                    // success handler
+                    function(data) {
+                        logger.log('Savings deleted successfully.');
+                        deferred.resolve(data);
+                    },
+                    function(error) {
+                        logger.log('An error occurred while deleting savings');
+                        logger.log(error);
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
             }
         }
     }]);

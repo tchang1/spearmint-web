@@ -75,9 +75,9 @@
             <div class="panelHeader">TRANSACTIONS</div>
             <div id="transactionPanel" class="panelBody">
                 <div class="transactionLineItem" ng-repeat="transaction in transactions">
-                    <span class="transactionAmount">{{transaction.amount}}</span>
+                    <span class="transactionAmount">{{transaction.savingsAmount}}</span>
                     <span class="transactionDate">{{transaction.date}}</span>
-                    <a class="undoButton" href="#" ng-click="undoTransactionPressed($event, transaction.id)">Undo</a>
+                    <a class="undoButton" href="#" ng-click="undoTransactionPressed($event, transaction._id)">Undo</a>
                 </div>
 
             </div>
