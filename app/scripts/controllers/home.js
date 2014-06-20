@@ -7,7 +7,6 @@ angular.module('spearmintWebApp')
     // -------------------------------
     var imageNum = 0;
     var path = '../images/';
-    var goalFolders = ["pet", "travel"];
 
     // -------------------------------
 
