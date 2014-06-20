@@ -5,7 +5,7 @@ angular.module('spearmintWebApp').factory('RESTService', ['$http', '$q', 'cookie
 
         var addDefaultHeaders = function(headers) {
             headers = (headers) ? headers : {};
-
+            headers['Content-Type'] = 'application/json';
             return headers;
         };
 

@@ -70,23 +70,23 @@ angular.module('spearmintWebApp')
         $scope.emailNotification = true;
         $scope.feedback = '';
 
-        $scope.transactions = [
-            {
-                amount: '$5',
-                date: 'today',
-                id: '123'
-            },
-            {
-                amount: '$6',
-                date: 'today',
-                id: '124'
-            },
-            {
-                amount: '$7',
-                date: 'today',
-                id: '125'
-            }
-        ];
+//        $scope.transactions = [
+//            {
+//                amount: '$5',
+//                date: 'today',
+//                id: '123'
+//            },
+//            {
+//                amount: '$6',
+//                date: 'today',
+//                id: '124'
+//            },
+//            {
+//                amount: '$7',
+//                date: 'today',
+//                id: '125'
+//            }
+//        ];
 
         $scope.modal = {
             header: 'Header',
@@ -261,7 +261,7 @@ angular.module('spearmintWebApp')
             var i;
             var transaction;
             for (i = 0; i < $scope.transactions.length; i++) {
-                if ($scope.transactions[i].id == transactionID) {
+                if ($scope.transactions[i]._id == transactionID) {
                     transaction = $scope.transactions[i];
                     break;
                 }
@@ -277,17 +277,47 @@ angular.module('spearmintWebApp')
         };
 
         var undoTransaction = function(transactionID) {
+            console.log('transactionID ' + transactionID);
             var i;
             var indexToRemove = -1;
+            var undoAmount = 0;
             for (i = 0; i < $scope.transactions.length; i++) {
-                if ($scope.transactions[i].id == transactionID) {
+                if ($scope.transactions[i]._id == transactionID) {
                     indexToRemove = i;
+                    undoAmount = $scope.transactions[i].savingsAmount;
+                    undoAmount = undoAmount.replace(/\$/g, '');
+                    undoAmount = parseFloat(undoAmount);
                     break;
                 }
             }
 
             if (-1 != indexToRemove) {
-                $scope.transactions.splice(indexToRemove, 1);
+                savingsService.deleteSavings(transactionID).then(
+                    function(success) {
+                        $scope.transactions.splice(indexToRemove, 1);
+                        getGoal().then(
+                            function(userGoal) {
+                                logger.log(userGoal);
+                                userGoal.amountSaved = userGoal.amountSaved - undoAmount;
+                                goal.save(userGoal);
+                                $scope.userGoal.amountSaved = userGoal.amountSaved;
+                                $scope.originalUserGoal.amountSaved = userGoal.amountSaved;
+                                logger.log('updated goal: ');
+                                logger.log(undoAmount);
+
+                                logger.log(userGoal);
+                                goalService.saveGoal(userGoal);
+                            }
+                        )
+                    },
+
+                    function(error) {
+                        logger.log('Error deleting savings' + error);
+                        displayModal('Error', 'An error has occured, please try again later', false);
+                    }
+                );
+
+
             }
 
         };
@@ -297,7 +327,7 @@ angular.module('spearmintWebApp')
             $scope.modal.visible = false;
 
             if (identifier == modalIdentifiers.undoTransaction) {
-                undoTransaction(data.id);
+                undoTransaction(data._id);
             }
         };
 
@@ -324,11 +354,22 @@ angular.module('spearmintWebApp')
 
             savingsService.getSavings().then(
                 function(result) {
-                    logger.log('savings:');
-                    logger.log(result);
+                    if (result) {
+                        $scope.transactions = result;
+                        var i;
+                        for (i = 0; i < $scope.transactions.length; i++) {
+                            var date = dateFromObjectId($scope.transactions[i]._id);
+                            $scope.transactions[i].savingsAmount = '$' + $scope.transactions[i].savingsAmount;
+                            $scope.transactions[i].date = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+                        }
+                    }
                 }
             )
 
+        };
+
+        var dateFromObjectId = function (objectId) {
+            return new Date(parseInt(objectId.substring(0, 8 ), 16) * 1000);
         };
 
         setup();
