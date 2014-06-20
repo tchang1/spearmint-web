@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'logger', 'cloner',
-        function ($scope, $location, $q, goal, goalService, userService, savingsService, feedbackService, logger, cloner) {
+  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'logger', 'cloner', 'sharedProperties',
+        function ($scope, $location, $q, goal, goalService, userService, savingsService, feedbackService, logger, cloner, sharedProperties) {
 
 
-        var imageToDisplay = 'images/travel/image1.jpg';
+        var imageToDisplay = sharedProperties.get('currentBackgroundImage');
         document.getElementById("backgroundImage").style.background = "url(" + imageToDisplay +") no-repeat center center fixed";
-        document.getElementById("backgroundImage").style.backgroundSize = "100% 100%";
+        document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
 
         var modalIdentifiers = {
             undoTransaction: 'undoTransaction',

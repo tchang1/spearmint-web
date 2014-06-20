@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('HomeCtrl', ['$scope', '$location', 'logger', 'progressIndicator', 'goal', 'goalService', 'savingsService', 'imageService', function ($scope, $location, logger, progressIndicator, goal, goalService, savingsService, imageService) {
+  .controller('HomeCtrl', ['$scope', '$location', 'logger', 'progressIndicator', 'goal', 'goalService', 'savingsService', 'imageService', 'sharedProperties',
+        function ($scope, $location, logger, progressIndicator, goal, goalService, savingsService, imageService, sharedProperties) {
 
     // To Do: delete this code once service to get correct image is created 
     // -------------------------------
@@ -77,7 +78,11 @@ angular.module('spearmintWebApp')
     }
     document.ontouchmove = function(event){
       event.preventDefault();
-    }
+    };
+
+    $scope.storeCurrentImage = function() {
+        sharedProperties.set('currentBackgroundImage', currentImageURL);
+    };
 
     // Reveal the clear image when the user holds down on the screen
     $scope.unblur = function() {
