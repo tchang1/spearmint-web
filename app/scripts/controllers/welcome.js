@@ -131,6 +131,7 @@ angular.module('spearmintWebApp')
                 $scope.holding = false; 
                 //repressOccured = true;
                 progressIndicator.stop();
+                progressIndicator.reset(); 
                 $location.path('/ftu');
  
             }
