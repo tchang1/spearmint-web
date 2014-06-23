@@ -47,7 +47,7 @@ angular.module('spearmintWebApp')
             logger.log("Clearing interval");
             clearInterval(timingVar);
             logger.log("Go to FTU in 4 secs");
-            setTimeout(goToFTU, 4000);
+            setTimeout(goToFTU, 2500);
         }
     };
 
@@ -94,7 +94,7 @@ angular.module('spearmintWebApp')
 
         if (FTUIndex < 2) {
             $scope.firstScreen = false; 
-            timingVar = setInterval(rotateImages, 4000);
+            timingVar = setInterval(rotateImages, 2500);
             logger.log("4 sec interval set");
         } else { 
             $scope.holding = true; 
