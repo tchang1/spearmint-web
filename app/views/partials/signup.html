@@ -12,14 +12,11 @@
 
         </div>
         <div class="form-group has-error">
-        <p class="help-block redirect" ng-show="form.email.$error.email && submitted">
+        <p class="help-block error" ng-show="form.email.$error.email && submitted">
           Doesn't look like a valid email.
         </p>
-        <p class="help-block redirect" ng-show="form.email.$error.required && submitted">
+        <p class="help-block error" ng-show="form.email.$error.required && submitted">
           What's your email address?
-        </p>
-        <p class="help-block redirect" ng-show="form.email.$error.mongoose">
-          {{ errors.email }}
         </p>
       </div>
 
@@ -34,12 +31,9 @@
       </div>
 
         <div class="form-group has-error">
-        <p class="help-block redirect"
+        <p class="help-block error"
            ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
           Password must be at least 3 characters.
-        </p>
-        <p class="help-block" ng-show="form.password.$error.mongoose">
-          {{ errors.password }}
         </p>
         </div>
 

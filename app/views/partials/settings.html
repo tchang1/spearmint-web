@@ -1,5 +1,14 @@
-<ng-include src="'views/partials/ios-modal-popup.html'">
-</ng-include>
+<div ng-show="modal.visible" id="iosModalWindow">
+    <div id="iosModalHeader">{{modal.header}}</div>
+    <div id="iosModalBody">{{modal.body}}</div>
+    <div id="iosModalButtonPanel">
+
+        <a href="#" class="iosModalButton" ng-click="modalOKPressed($event, modal.name, modal.data)">{{modal.buttonText}}</a>
+        <a href='#' ng-show="modal.cancelOption" id="iosModalCancelButton" class="iosModalButton" ng-click="modalCancelPressed($event, modal.name, modal.data)">{{modal.cancelText}}</a>
+
+
+    </div>
+</div>
 
 <div id="settingsPage">
     <div id="backgroundImage" class="blur"></div>

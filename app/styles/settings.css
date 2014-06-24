@@ -258,7 +258,7 @@
 
 .animateToTheRight {
     left: 200%;
-    -webkit-animation: animateCenterToRight 0.5s; /* Chrome, Safari, Opera */
+    -webkit-animation: animateCenterToRight 0.5s;
     animation: animateCenterToRight 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
@@ -266,7 +266,7 @@
 
 .animateRightToCenter {
     left: 0;
-    -webkit-animation: animateRightToCenter 0.5s; /* Chrome, Safari, Opera */
+    -webkit-animation: animateRightToCenter 0.5s;
     animation: animateRightToCenter 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
@@ -274,7 +274,7 @@
 
 .animateLeftToCenter {
     left: 0;
-    -webkit-animation: animateLeftToCenter 0.5s; /* Chrome, Safari, Opera */
+    -webkit-animation: animateLeftToCenter 0.5s;
     animation: animateLeftToCenter 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
@@ -282,11 +282,10 @@
 
 .animateToTheLeft {
     left: -100%;
-    -webkit-animation: animateCenterToLeft 0.5s; /* Chrome, Safari, Opera */
+    -webkit-animation: animateCenterToLeft 0.5s;
     animation: animateCenterToLeft 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
-    /*border: 10px solid blue;*/
 }
 
 .settingScreen {
@@ -298,9 +297,8 @@
 }
 
 .centeredSetting {
-    /*left: -100%;*/
     left: 0;
-    -webkit-animation: animateRightToCenter 0.5s; /* Chrome, Safari, Opera */
+    -webkit-animation: animateRightToCenter 0.5s;
     animation: animateRightToCenter 0.5s;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
