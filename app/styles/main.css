@@ -12,8 +12,11 @@ body{
 }
 
 .error {
-    font-size: 14pt;
     color: #D0021B;
+    margin-top: 5px; 
+    margin-bottom: 5px; 
+    text-align: center; 
+    font-size: 11pt;
 }
 
 input[type=checkbox], input[type=radio] {
@@ -285,14 +288,10 @@ body {
     text-align: center; 
     margin-left: auto; 
     margin-right: auto; 
-    position: fixed;
+    margin-top: 15px;
 
-    left: 50%; 
-    min-width:200px;
-    text-align: center;
-    margin-left: -100px; 
+    display: block;
 
-    bottom: 25px;
   }
 
 
@@ -463,7 +462,7 @@ body {
   .redirect { 
     margin-top: 20px;
     text-align: center; 
-    color: white;
+    color: white; 
   }
 
   .login { 
