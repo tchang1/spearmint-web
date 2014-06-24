@@ -102,41 +102,48 @@ angular.module('spearmintWebApp')
       $scope.holding = false; 
       progressIndicator.stop();
 
-      var userGoal = goal.getStoredGoal(); 
-      if (!userGoal) {
-        goalService.getGoal().then(
-              // success handler
-              function(result) {
-                goal.save(result);
-                logger.log("result from getGoal() " + result);
-                continueReblur(result);
-              },
+      var dollarAmount = progressIndicator.getAmount();
 
-              // error handler
-              function(error) {
-                logger.log('Failed to retreive goal');
-                logger.error(error);
-              }
-            )
-      } else { 
-        continueReblur(userGoal);
+      progressIndicator.reset(); 
+      if(dollarAmount ==0) {
+        $scope.message = "Tap and hold to save";
+      }
+      else {
+        var userGoal = goal.getStoredGoal();
+
+        if (!userGoal) {
+          goalService.getGoal().then(
+                // success handler
+                function(result) {
+                  goal.save(result);
+                  logger.log("result from getGoal() " + result);
+                  continueReblur(result,dollarAmount);
+                },
+
+                // error handler
+                function(error) {
+                  logger.log('Failed to retreive goal');
+                  logger.error(error);
+                }
+              )
+        } else { 
+          continueReblur(userGoal,dollarAmount);
+        }
       }
       
     };
 
     // Continuation of the reblur function 
-    var continueReblur = function(userGoal) { 
+    var continueReblur = function(userGoal,dollarAmount) { 
       // Get and save user progress toward their goal
-      var dollarAmount = progressIndicator.getAmount();
+      
       userGoal.amountSaved += dollarAmount; 
       goal.save(userGoal); 
       goalService.saveGoal(userGoal);
       var savings = {goalid:userGoal._id, savingsAmount: dollarAmount};
 
       // Display messaging to indicate progress 
-      if (dollarAmount == 0) { 
-        $scope.message = "Tap and hold to save";
-      } else if (userGoal.amountSaved > userGoal.targetAmount) {
+        if (userGoal.amountSaved > userGoal.targetAmount) {
         $scope.message = "Congratulations! You reached your goal!"; 
       } else if (userGoal.amountSaved > 0) {
         $scope.message = "You just saved $" + dollarAmount;
@@ -146,15 +153,14 @@ angular.module('spearmintWebApp')
       }
 
       // Wait 1 second for reblur animation to stop, then transition to next image 
-      setTimeout(function(){transitionToNextImage(userGoal)}, 1000);
-      progressIndicator.reset(); 
+      setTimeout(function(){transitionToNextImage()}, 1000);
       savingsService.createNewSavings(savings);
 
 
     };
 
 
-    var transitionToNextImage = function(userGoal) { 
+    var transitionToNextImage = function() { 
       var userGoal = goal.getStoredGoal(); 
 
       document.getElementById("saving-screen").style.background = "url(" + nextImageURL +") no-repeat center center fixed";
