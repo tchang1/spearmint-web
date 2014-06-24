@@ -170,6 +170,7 @@ angular.module('spearmintWebApp')
           currentImageURL = path+result[0].uri;
           nextImageURL = path+result[1].uri;
           PreloadImage(nextImageURL);
+          logger.log("preloaded:"+nextImageURL);
 
         },
         function(error) {
