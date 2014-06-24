@@ -169,14 +169,14 @@ angular.module('spearmintWebApp')
 
           currentImageURL = path+result[0].uri;
           nextImageURL = path+result[1].uri;
+          PreloadImage(nextImageURL);
 
         },
         function(error) {
           logger.log("getting images failed");
         });
 
-      PreloadImage(nextImageURL);
-
+      
     };
 
 }]);
