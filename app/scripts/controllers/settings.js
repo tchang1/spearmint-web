@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'logger', 'cloner', 'sharedProperties',
-        function ($scope, $location, $q, goal, goalService, userService, savingsService, feedbackService, logger, cloner, sharedProperties) {
+  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'imageService', 'logger', 'cloner', 'sharedProperties',
+        function ($scope, $location, $q, goal, goalService, userService, savingsService, feedbackService, imageService, logger, cloner, sharedProperties) {
 
-
+        var path = '../images/';
         var imageToDisplay = sharedProperties.get('currentBackgroundImage');
-        document.getElementById("backgroundImage").style.background = "url(" + imageToDisplay +") no-repeat center center fixed";
-        document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
+        if (imageToDisplay) {
+            document.getElementById("backgroundImage").style.background = "url(" + imageToDisplay +") no-repeat center center fixed";
+            document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
+        }
 
         var modalIdentifiers = {
             undoTransaction: 'undoTransaction',
@@ -345,6 +347,20 @@ angular.module('spearmintWebApp')
                 function(userGoal) {
                     $scope.originalUserGoal = userGoal;
                     $scope.userGoal = cloner.clone(userGoal);
+
+                    if (!imageToDisplay) {
+                        imageService.getNextImages(userGoal).then(function(result) {
+                                imageToDisplay = path+result[0].uri;
+                                sharedProperties.set('currentBackgroundImage', imageToDisplay);
+                                document.getElementById("backgroundImage").style.background = "url(" + imageToDisplay +") no-repeat center center fixed";
+                                document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
+                            },
+                            function(error) {
+                                logger.log("getting images failed");
+                            });
+
+
+                    }
                 },
 
                 function(error) {
