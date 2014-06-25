@@ -31,6 +31,8 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
         var amountPositionYOffset = 32;
         var doubleDigitXOffset = -16;
 
+        var accelerationFactor = 0.07;
+
         var FPS = 30;
         var maxAmount = 99;
 
@@ -67,13 +69,11 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
                     }
                     ctx.beginPath();
                     ctx.strokeStyle = strokeColors[previousColorIndex];
-                    var p1 = ((circ) * progress) + theeQuart;
                     ctx.arc(width/2, height/2, (height/2) - lineWidth - padding, ((circ) * progress) + theeQuart, theeQuart, false);
                     ctx.stroke();
                 }
                 ctx.strokeStyle = strokeColors[currentColorIndex];
                 ctx.beginPath();
-                var p2 = ((circ) * progress) + theeQuart;
                 ctx.arc(width/2, height/2, (height/2) - lineWidth - padding, theeQuart, ((circ) * progress) + theeQuart, false);
                 ctx.stroke();
             }
@@ -89,8 +89,8 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
 
         var update = function() {
             if (shouldUpdate) {
-                progress += 1 / FPS;
-                if (progress > 0.99) {
+                progress += (1 + amount * accelerationFactor) / FPS;
+                if (progress > 1) {
                     if (amount < maxAmount) {
                         amount ++;
                         progress = 0.01;
