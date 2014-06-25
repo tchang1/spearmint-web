@@ -271,7 +271,7 @@ angular.module('spearmintWebApp')
 
             if (transaction) {
                 displayModal('Undo this Moment?',
-                            transaction.amount + ' on ' + transaction.date,
+                            transaction.savingsAmount + ' on ' + transaction.date,
                             true,
                             modalIdentifiers.undoTransaction,
                             transaction);
