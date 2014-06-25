@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SettingsCtrl', ['$scope', '$location', '$q', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'imageService', 'logger', 'cloner', 'sharedProperties',
-        function ($scope, $location, $q, goal, goalService, userService, savingsService, feedbackService, imageService, logger, cloner, sharedProperties) {
+  .controller('SettingsCtrl', ['$scope', '$location', '$q', '$analytics', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'imageService', 'logger', 'cloner', 'sharedProperties',
+        function ($scope, $location, $q, $analytics ,goal, goalService, userService, savingsService, feedbackService, imageService, logger, cloner, sharedProperties) {
 
         var path = '../images/';
         var imageToDisplay = sharedProperties.get('currentBackgroundImage');
@@ -117,6 +117,9 @@ angular.module('spearmintWebApp')
         $scope.selectLink = function($event, linkID) {
             $event.preventDefault();
 
+            $analytics.eventTrack('linkTap', {  category: 'nav_button' , label: 'settings_'+linkID });
+
+
             if ('depositAccount' == linkID || 'fundingAccount' == linkID) {
 
                 displayModal('Not so fast!',
@@ -136,6 +139,8 @@ angular.module('spearmintWebApp')
         $scope.goBackToMainSettingsPage = function($event) {
             $event.preventDefault();
             if ($scope.screens.menu.displayed) {
+                $analytics.eventTrack('linkTap', {  category: 'nav_button' , label: 'settings_backToHome' });
+
                 $location.path('/home');
             }
             else {
@@ -144,6 +149,8 @@ angular.module('spearmintWebApp')
                         $scope.screens[screen].displayed = false;
                     }
                 }
+                $analytics.eventTrack('linkTap', {  category: 'nav_button' , label: 'settings_backToSettings' });
+
                 $scope.screens.menu.displayed = true;
             }
         };
@@ -200,9 +207,12 @@ angular.module('spearmintWebApp')
             $event.preventDefault();
             if ($scope.originalUserGoal.name == $scope.userGoal.name) {
                 angular.element('#settingsGoalNameInput').focus();
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_editGoalName' });
+
             }
             else {
                 $scope.goalFormSubmitted();
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_saveGoalName' });
             }
         };
 
@@ -211,9 +221,12 @@ angular.module('spearmintWebApp')
             $scope.goalFormSubmitted();
             if ($scope.originalUserGoal.name == $scope.userGoal.name) {
                 angular.element('#settingsGoalAmountInput').focus();
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_editGoalAmount' });
+
             }
             else {
                 logger.log('saving amount');
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_saveGoalAmount' });
             }
         };
 
@@ -232,6 +245,8 @@ angular.module('spearmintWebApp')
                 },
 
                 function(error) {
+                    $analytics.eventTrack('error', {  category: 'error' , label: error});
+
                     displayModal('Error', 'An error has occured, please try again later', false);
                 }
             )
@@ -239,9 +254,11 @@ angular.module('spearmintWebApp')
 
         $scope.emailToggled = function() {
             if ($scope.emailNotification) {
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_emailOn' });
                 logger.log('Opted in for email notification');
             }
             else {
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_emailOff' });
                 logger.log('Opted out for email notification');
             }
         };
@@ -270,6 +287,7 @@ angular.module('spearmintWebApp')
             }
 
             if (transaction) {
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_undoTransactionInitiated' });
                 displayModal('Undo this Moment?',
                             transaction.savingsAmount + ' on ' + transaction.date,
                             true,
@@ -339,6 +357,8 @@ angular.module('spearmintWebApp')
         };
 
         $scope.logout = function($event) {
+            $analytics.eventTrack('actionTap', {  category: 'nav_button' , label: 'settings_logout' });
+
             userService.logout();
         };
 
