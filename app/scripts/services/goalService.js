@@ -30,7 +30,7 @@ angular.module('spearmintWebApp').factory('goalService', ['RESTService', 'userSe
                     return deferred.promise;
                 }
 
-                goal.name = (goal.name) ? goal.name : '';
+                goal.name = (goal.name) ? goal.name : 'Enter a goal';
                 goal.amountSaved = (goal.amountSaved) ? goal.amountSaved : 0;
                 goal.targetAmount = (goal.targetAmount) ? goal.targetAmount : 0;
                 if (typeof goal.targetAmount == 'string') {

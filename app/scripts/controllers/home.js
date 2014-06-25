@@ -143,7 +143,7 @@ angular.module('spearmintWebApp')
       var savings = {goalid:userGoal._id, savingsAmount: dollarAmount};
 
       // Display messaging to indicate progress 
-        if (userGoal.amountSaved > userGoal.targetAmount) {
+        if (userGoal.amountSaved > userGoal.targetAmount && userGoal.targetAmount!=0) {
         $scope.message = "Congratulations! You reached your goal!"; 
       } else if (userGoal.amountSaved > 0) {
         $scope.message = "You just saved $" + dollarAmount;
