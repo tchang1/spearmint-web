@@ -5,7 +5,7 @@
     <div class="panelHeader">GOAL AMOUNT</div>
 	<div class="panelBody">
         <span class="dollarSignLabel">$ </span>
-        <input type="text" min="0.01" step="0.01" id="goalAmountInput" name="amount" class="textInput goalInput" ng-model="goalAmount" placeholder="This will cost..." currency>
+        <input type="text" pattern="[0-9]*" min="0.01" step="0.01" id="goalAmountInput" name="amount" class="textInput goalInput" ng-model="goalAmount" placeholder="This will cost..." currency>
 	    <input type="submit" class="submitButton goalSubmitButton" value="{{(goalAmount) ? 'Save' : 'Skip'}}" />
     </div>
 	</form>
