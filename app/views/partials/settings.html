@@ -40,7 +40,7 @@
                 <div class="panelHeader">MY GOAL</div>
                 <div class="panelBody">
                     <input name="goalName" id="settingsGoalNameInput" class="textInput" type="text" ng-model="userGoal.name" placeholder="I want to..." goal/>
-                    <a class="textInputButton" href="#" ng-click="goalNameButtonClicked($event)">{{(userGoal.name == originalUserGoal.name) ? "Edit" : "Save"}}</a>
+                    <a class="textInputButton" href="#" ng-class="{'textInputButtonWhite' : !(userGoal.name == originalUserGoal.name), 'textInputButtonGrey' : (userGoal.name == originalUserGoal.name)}" ng-click="goalNameButtonClicked($event)">{{(userGoal.name == originalUserGoal.name) ? "Edit" : "Save"}}</a>
                 </div>
                 <div class="error" ng-show="editGoalForm.goalName.$error.goal">Goal names can only contain letters and numbers</div>
             </div>
@@ -48,7 +48,7 @@
                 <div class="panelHeader">AMOUNT</div>
                 <div class="panelBody">
                     <span class="dollarSignLabel">$ </span><input name="goalAmount" id="settingsGoalAmountInput" class="textInput" ng-model="userGoal.targetAmount" type="text" pattern="[0-9]*" placeholder="0" currency/>
-                    <a class="textInputButton" href="#" ng-click="goalAmountButtonClicked($event)">{{(userGoal.targetAmount == originalUserGoal.targetAmount) ? "Edit" : "Save"}}</a>
+                    <a class="textInputButton" href="#" ng-class="{'textInputButtonWhite' : !(userGoal.targetAmount == originalUserGoal.targetAmount), 'textInputButtonGrey' : (userGoal.targetAmount == originalUserGoal.targetAmount)}" ng-click="goalAmountButtonClicked($event)">{{(userGoal.targetAmount == originalUserGoal.targetAmount) ? "Edit" : "Save"}}</a>
                 </div>
                 <div class="error" ng-show="editGoalForm.goalAmount.$error.currency">Are you sure that's a number?</div>
             </div>
