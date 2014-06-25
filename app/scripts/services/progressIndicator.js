@@ -8,6 +8,7 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
         var imd = null;
         var circ = Math.PI * 2;
         var quart = Math.PI / 2;
+        var theeQuart = Math.PI * 1.5;
         var barFilledOnce = false;
         var previousProgress = -1;
         var currentColorIndex = 0;
@@ -24,10 +25,12 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
         var height = 160;
         var marginBottom = 10;
         var padding = 10;
-        var dollarSignPositionX = 35;
-        var dollarSignPositionY = 65;
-        var amountPositionX = 47;
-        var amountPositionY = 107;
+        var textPositionX = 48;
+        var textPositionY = 72;
+        var amountPositionXOffset = 12;
+        var amountPositionYOffset = 32;
+        var doubleDigitXOffset = -16;
+
         var FPS = 30;
         var maxAmount = 99;
 
@@ -37,6 +40,14 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
         var draw = function() {
             clear();
             if (visible) {
+                var dollarPositionX = textPositionX;
+                var dollarPositionY = textPositionY;
+                var amountPositionX = textPositionX + amountPositionXOffset;
+                var amountPositionY = textPositionY + amountPositionYOffset;
+                if (amount >= 10) {
+                    dollarPositionX += doubleDigitXOffset;
+                    amountPositionX += doubleDigitXOffset;
+                }
                 ctx.beginPath();
                 ctx.fillStyle = backgroundColor;
                 ctx.strokeStyle = backgroundColor;
@@ -45,7 +56,7 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
 
                 ctx.fillStyle = fontColor;
                 ctx.font=dollarFont;
-                ctx.fillText('$',dollarSignPositionX,dollarSignPositionY);
+                ctx.fillText('$',dollarPositionX,dollarPositionY);
                 ctx.font=numberFont;
                 ctx.fillText('' + amount, amountPositionX, amountPositionY);
 
@@ -56,13 +67,14 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
                     }
                     ctx.beginPath();
                     ctx.strokeStyle = strokeColors[previousColorIndex];
-
-                    ctx.arc(width/2, height/2, (height/2) - lineWidth - padding, -(quart), ((circ)) - quart, true);
+                    var p1 = ((circ) * progress) + theeQuart;
+                    ctx.arc(width/2, height/2, (height/2) - lineWidth - padding, ((circ) * progress) + theeQuart, theeQuart, false);
                     ctx.stroke();
                 }
                 ctx.strokeStyle = strokeColors[currentColorIndex];
                 ctx.beginPath();
-                ctx.arc(width/2, height/2, (height/2) - lineWidth - padding, -(quart), ((circ) * progress) - quart, false);
+                var p2 = ((circ) * progress) + theeQuart;
+                ctx.arc(width/2, height/2, (height/2) - lineWidth - padding, theeQuart, ((circ) * progress) + theeQuart, false);
                 ctx.stroke();
             }
         };
@@ -78,10 +90,10 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
         var update = function() {
             if (shouldUpdate) {
                 progress += 1 / FPS;
-                if (progress > 1) {
+                if (progress > 0.99) {
                     if (amount < maxAmount) {
                         amount ++;
-                        progress = 0;
+                        progress = 0.01;
                     }
                     else {
                         progress = 1;
@@ -113,7 +125,7 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
                 ctx = canvas.getContext('2d');
                 ctx.beginPath();
                 ctx.strokeStyle = strokeColors[currentColorIndex];
-                ctx.lineCap = 'square';
+                ctx.lineCap = 'butt';
 
                 ctx.fillStyle = backgroundColor;
                 ctx.lineWidth = lineWidth;
