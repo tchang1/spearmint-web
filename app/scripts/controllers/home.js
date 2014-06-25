@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('HomeCtrl', ['$scope', '$location', 'logger', 'progressIndicator', 'goal', 'goalService', 'savingsService', 'imageService', 'sharedProperties',
-        function ($scope, $location, logger, progressIndicator, goal, goalService, savingsService, imageService, sharedProperties) {
+  .controller('HomeCtrl', ['$scope', '$location', '$analytics', 'logger', 'progressIndicator', 'goal', 'goalService', 'savingsService', 'imageService', 'sharedProperties',
+        function ($scope, $location, $analytics, logger, progressIndicator, goal, goalService, savingsService, imageService, sharedProperties) {
 
     // To Do: delete this code once service to get correct image is created 
     // -------------------------------
@@ -103,6 +103,9 @@ angular.module('spearmintWebApp')
       progressIndicator.stop();
 
       var dollarAmount = progressIndicator.getAmount();
+
+      $analytics.eventTrack('holdRelease', {  category: 'save' , label: 'home_releaseButton', value: dollarAmount });
+
 
       progressIndicator.reset(); 
       if(dollarAmount ==0) {
