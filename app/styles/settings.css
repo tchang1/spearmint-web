@@ -159,10 +159,18 @@
 
 .textInputButton {
     text-decoration: none;
-    color: rgba(207,207,207, .6);
+
     position: absolute;
     right: 10px;
     margin-top:10px;
+}
+
+.textInputButtonWhite {
+    color: white;
+}
+
+.textInputButtonGrey {
+    color: rgba(207,207,207, .6);
 }
 
 .notificationType {
