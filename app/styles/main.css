@@ -485,7 +485,8 @@ body {
   }
 
   .goalSubmitButton {
-      float: right;
+      position: relative;
+      right: -5px;
       margin-top: 10px;
   }
 

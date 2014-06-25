@@ -35,6 +35,16 @@ angular.module('spearmintWebApp')
         $scope.userGoal = goalName;
     };
 
+   $scope.goalLinkClicked = function($event) {
+        $event.preventDefault();
+       $scope.enterGoal();
+   };
+
+    $scope.amountLinkClicked = function($event) {
+        $event.preventDefault();
+        $scope.enterAmount();
+    };
+
     angular.element('#goalNameInput').focus();
 
   }]); 
