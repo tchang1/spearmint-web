@@ -63,7 +63,7 @@ angular.module('spearmintWebApp').factory('savingsService', ['RESTService', '$q'
                 logger.log('deleting savings with id ' + id);
 
 
-                RESTService.delete({url: config.server.baseURL + config.server.savingsURL,
+                RESTService.put({url: config.server.baseURL + config.server.savingsURL,
                     data: {"_id": id}}).then(
                     // success handler
                     function(data) {
