@@ -6,7 +6,7 @@
     <div class="panelHeader">MY GOAL</div>
 	<div class="panelBody">
         <input type="text" name="goal" id="goalNameInput" class="textInput goalInput" ng-model="userGoal" placeholder="I want to..." goal>
-	    <input type="submit" class="submitButton goalSubmitButton" value="{{(userGoal) ? 'Save' : 'Skip'}}">
+	    <input type="submit" class="submitButton goalSubmitButton" value="{{(userGoal) ? 'Next' : 'Skip'}}">
     </div>
 	</form>
     <div class="error" ng-show="goalForm.goal.$error.goal">Goal names can only contain letters and numbers</div>

@@ -17,8 +17,9 @@ angular.module('spearmintWebApp')
     };
 
     var changeBackground = function(imageURL) {
-        document.getElementById("ftu-screen").style.background = "url(" + imageURL +") no-repeat center center fixed";
-        document.getElementById("ftu-screen").style.backgroundSize = "auto 100%";
+        logger.log('FTU background image: ' + imageURL);
+        document.getElementById("ftu-screen").style.backgroundImage = "url(" + imageURL +")";
+//        document.getElementById("ftu-screen").style.backgroundSize = "auto 100%";
     };
 
     var goToFTU = function() { 

@@ -45,8 +45,7 @@ angular.module('spearmintWebApp')
                   PreloadImage(currentImageURL);
                   PreloadImage(nextImageURL);
 
-                  document.getElementById("saving-screen").style.background = "url(" + currentImageURL +") no-repeat center center fixed";
-                  document.getElementById("saving-screen").style.backgroundSize = "auto 100%";
+                  document.getElementById("saving-screen").style.backgroundImage = "url(" + currentImageURL +")";
                 },
                 function(error) {
                   logger.log("getting images failed");
@@ -71,8 +70,9 @@ angular.module('spearmintWebApp')
                   PreloadImage(currentImageURL);
                   PreloadImage(nextImageURL);
 
-                  document.getElementById("saving-screen").style.background = "url(" + currentImageURL +") no-repeat center center fixed";
-                  document.getElementById("saving-screen").style.backgroundSize = "auto 100%";
+              logger.log('setting background image to: ' + currentImageURL);
+
+                  document.getElementById("saving-screen").style.backgroundImage = "url(" + currentImageURL +")";
                 },
                 function(error) {
                   logger.log("getting images failed");
@@ -163,9 +163,7 @@ angular.module('spearmintWebApp')
     var transitionToNextImage = function() { 
       var userGoal = goal.getStoredGoal(); 
 
-      document.getElementById("saving-screen").style.background = "url(" + nextImageURL +") no-repeat center center fixed";
-      document.getElementById("saving-screen").style.backgroundSize = "auto 100%";
-
+      document.getElementById("saving-screen").style.backgroundImage = "url(" + nextImageURL +")";
 
       progressIndicator.reset(); 
 
