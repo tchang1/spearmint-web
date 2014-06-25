@@ -60,6 +60,9 @@ angular.module('spearmintWebApp')
         ) // To Do: change this to call back end function that returns 
     }
     else {
+      if (userGoal.amountSaved>0) {
+          $scope.messageFooter = "Total saved so far is $" + userGoal.amountSaved;
+      }
       logger.log("local goal , using it");
 
       imageService.getNextImages(userGoal).then(function(result) {
