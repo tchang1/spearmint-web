@@ -609,11 +609,11 @@ body {
 }
 
 .opacity-animate-out {
-   -webkit-animation: fadeout ease-in 3s;
+   -webkit-animation: opacityfadeout ease-in 3s;
     opacity: 0;
   }
 
-   @-webkit-keyframes fadeout { 
+   @-webkit-keyframes opacityfadeout { 
   0% { opacity: 1; }
   20% { opacity: 0.9; }
   40% { opacity: 0.5; }
