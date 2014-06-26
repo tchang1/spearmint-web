@@ -6,7 +6,9 @@ angular.module('spearmintWebApp')
 
       document.ontouchmove = function(event){
         event.preventDefault();
-      }
+      };
+
+      $scope.error = '';
 
       $scope.signupUser = function(form) { 
         $scope.submitted = true;
@@ -18,7 +20,8 @@ angular.module('spearmintWebApp')
           userService.createUser($scope.user.email, $scope.user.password).then(
           function(result) {
             logger.log('User created successfully');
-            var userGoal = goal.getStoredGoal(); 
+            var userGoal = goal.getStoredGoal();
+            userGoal = (userGoal) ? userGoal : {};
 
             goalService.saveGoal(userGoal).then(
                      // success handler
@@ -36,7 +39,7 @@ angular.module('spearmintWebApp')
                 $analytics.eventTrack('response', {  category: 'signup' , label: 'signupGoalCreateFail:'+error});
                 logger.error(error);
               }
-            )
+            );
 
             userService.login($scope.user.email, $scope.user.password).then(
             function(result) {
@@ -57,6 +60,7 @@ angular.module('spearmintWebApp')
           function(error) {
             logger.log('Failed to create user');
             logger.error(error);
+            $scope.error = error.data;
           }
           );
         }
