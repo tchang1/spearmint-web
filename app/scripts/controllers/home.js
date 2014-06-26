@@ -20,7 +20,7 @@ angular.module('spearmintWebApp')
     }
 
     // SETUP Page with initial message, progress indicator, and load the images to show 
-    $scope.message = "Tap and hold to save";
+    $scope.message = "Press and hold to save";
     $scope.messageFooter = ""; 
     $scope.holding = false; 
 
@@ -29,6 +29,8 @@ angular.module('spearmintWebApp')
 
     var currentImageURL;
     var nextImageURL;
+    var fadeMessageTimer, fadeMessageTimer2, fadeMessageTimer3,timersStarted;
+
 
     var userGoal = goal.getStoredGoal();
     if (!userGoal) {
@@ -61,7 +63,7 @@ angular.module('spearmintWebApp')
     }
     else {
       if (userGoal.amountSaved>0) {
-          $scope.messageFooter = "Total saved so far is $" + userGoal.amountSaved;
+          $scope.messageFooter = "Total Saved $" + userGoal.amountSaved;
       }
       logger.log("local goal , using it");
 
@@ -94,7 +96,11 @@ angular.module('spearmintWebApp')
       document.getElementById("saving-screen").className="unblur";
       $scope.message = ""; 
       $scope.messageFooter = ""; 
-      $scope.holding = true; 
+      $scope.holding = true;
+      clearTimeout(fadeMessageTimer);
+      clearTimeout(fadeMessageTimer2);
+      clearTimeout(fadeMessageTimer3);
+
       progressIndicator.start();
       logger.log("unblur called"); 
     };
@@ -109,6 +115,7 @@ angular.module('spearmintWebApp')
 
       $analytics.eventTrack('holdRelease', {  category: 'save' , label: 'home_releaseButton', value: dollarAmount });
 
+      document.getElementById("home-screen-message").className="";
 
       progressIndicator.reset(); 
       if(dollarAmount ==0) {
@@ -116,7 +123,6 @@ angular.module('spearmintWebApp')
       }
       else {
         var userGoal = goal.getStoredGoal();
-
         if (!userGoal) {
           goalService.getGoal().then(
                 // success handler
@@ -153,13 +159,25 @@ angular.module('spearmintWebApp')
         $scope.message = "Congratulations! You reached your goal!"; 
       } else if (userGoal.amountSaved > 0) {
         $scope.message = "You just saved $" + dollarAmount;
-        $scope.messageFooter = "Total saved so far is $" + userGoal.amountSaved; 
+        $scope.messageFooter = "Total Saved $" + userGoal.amountSaved; 
       } else { 
         $scope.message = "You just saved $" + dollarAmount + " Great job!";
       }
 
       // Wait 1 second for reblur animation to stop, then transition to next image 
       setTimeout(function(){transitionToNextImage()}, 1000);
+      timersStarted=true;
+      fadeMessageTimer = setTimeout(function(){
+        logger.log("fading out");
+        document.getElementById("home-screen-message").className="opacity-animate-out";}, 3000);
+      fadeMessageTimer2 = setTimeout(function(){
+        logger.log("changing msg");
+        $scope.message="Press and hold to save";
+        $scope.$apply()}, 6500);
+      fadeMessageTimer3 = setTimeout(function(){
+        logger.log("fade in");
+        document.getElementById("home-screen-message").className="opacity-animate";}, 7000);
+
       savingsService.createNewSavings(savings);
 
 

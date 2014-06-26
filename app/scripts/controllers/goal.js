@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('GoalCtrl', ['$scope', '$location', 'goal', 'logger', function ($scope, $location, goal, logger) {
+  .controller('GoalCtrl', ['$scope', '$location', '$analytics', 'goal', 'logger', function ($scope, $location, $analytics, goal, logger) {
 
-  	// var userGoal = element(by.binding("userGoal"));
-  	// var goalAmount = element(by.binding("goalAmount"));
+	// var userGoal = element(by.binding("userGoal"));
+	// var goalAmount = element(by.binding("goalAmount"));
     $scope.goalAmount = '';
 
     $scope.suggestedGoals = [
@@ -16,27 +16,41 @@ angular.module('spearmintWebApp')
         'Pay off debt'
     ];
 
-  	$scope.enterGoal = function() { 
-  		var goalObject = {name: $scope.userGoal};
-  		goal.save(goalObject);
-  		$location.path('/setamount');
-        setTimeout(function() {
-            angular.element('#goalAmountInput').focus();
-        }, 100)
-  	};
+	$scope.enterGoal = function() { 
+	var goalObject = {name: $scope.userGoal};
+		goal.save(goalObject);
+		$location.path('/setamount');
+      setTimeout(function() {
+          angular.element('#goalAmountInput').focus();
+      }, 100)
+	};
 
-  	$scope.enterAmount = function() { 
-   		goal.getStoredGoal().targetAmount = $scope.goalAmount; 
-  		$location.path('/signup');
-  	};
+	$scope.enterAmount = function() { 
+ 	goal.getStoredGoal().targetAmount = $scope.goalAmount;
+    if (!$scope.userGoal) {
+      $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'amount_skipped'});
+    }
+    else {
+      $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'amount_entered'});
+    }
+
+		$location.path('/signup');
+	};
 
     $scope.selectSuggestedGoal = function($event, goalName) {
         $event.preventDefault();
         $scope.userGoal = goalName;
+        $analytics.eventTrack('choiceMade', {  category: 'ftu_goal' , label: 'suggested_goal_selected:'+goalName});
     };
 
    $scope.goalLinkClicked = function($event) {
         $event.preventDefault();
+      if (!$scope.userGoal) {
+        $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'goal_skipped'});
+      }
+      else {
+        $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'goal_saved'});
+      }
        $scope.enterGoal();
    };
 

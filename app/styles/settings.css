@@ -122,8 +122,8 @@
 
 #logOutPanel {
     border-radius: 6px;
-    padding-top: 10px;
-    padding-bottom: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     background-color: rgba(30, 30, 30, .4);
     padding-left: 5%;
     padding-right: 5%;
@@ -154,7 +154,17 @@
     font-size: 14pt;
     color: white;
     margin-top:13px;
-    width: 150px;
+    width: 180px;
+}
+
+.textInputLong {
+    outline: 0;
+    border: 0;
+    background-color: rgba(0,0,0,0);
+    font-size: 14pt;
+    color: white;
+    margin-top:13px;
+    width: 250px;
 }
 
 .textInputButton {

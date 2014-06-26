@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('FTUCtrl', ['$scope', '$location', 'logger', function ($scope, $location, logger) {
+  .controller('FTUCtrl', ['$scope', '$location', '$analytics', 'logger', function ($scope, $location, $analytics, logger) {
 
     // var ftuMessages = [
     //   { title: 'Don\'t spend as much!',
@@ -38,6 +38,8 @@ angular.module('spearmintWebApp')
     $scope.message2 = "The savings add up quickly!";
 
     $scope.setGoal = function() {
+      $analytics.eventTrack('linkTap', {  category: 'ftu_goal' , label: 'proceed_to_setGoal'});
+
       $location.path('/setgoal');
     };
 
