@@ -205,8 +205,7 @@ angular.module('spearmintWebApp')
 
         $scope.goalNameButtonClicked = function($event)  {
             $event.preventDefault();
-            $('input:focus').blur();
-            $('textarea:focus').blur();
+
             if ($scope.originalUserGoal.name == $scope.userGoal.name) {
                 angular.element('#settingsGoalNameInput').focus();
                 $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_editGoalName' });
@@ -220,21 +219,22 @@ angular.module('spearmintWebApp')
 
         $scope.goalAmountButtonClicked  = function($event) {
             $event.preventDefault();
-            $('input:focus').blur();
-            $('textarea:focus').blur();
-            $scope.goalFormSubmitted();
-            if ($scope.originalUserGoal.name == $scope.userGoal.name) {
+
+            if ($scope.originalUserGoal.targetAmount == $scope.userGoal.targetAmount) {
                 angular.element('#settingsGoalAmountInput').focus();
                 $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_editGoalAmount' });
 
             }
             else {
                 logger.log('saving amount');
+                $scope.goalFormSubmitted();
                 $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_saveGoalAmount' });
             }
         };
 
         $scope.goalFormSubmitted = function()  {
+            $('input:focus').blur();
+            $('textarea:focus').blur();
             goal.save($scope.userGoal);
             saveGoal($scope.userGoal).then(
                 function(result) {
@@ -290,10 +290,11 @@ angular.module('spearmintWebApp')
             }
         };
 
-
-            angular.element('#feedbackTextArea').on('blur', function(){
-                    $(window).scrollTop(0)
+        var fixInput = function(inputID) {
+            angular.element(inputID).on('blur', function(){
+                $(window).scrollTop(0)
             });
+        };
 
         $scope.undoTransactionPressed = function($event, transactionID) {
             $event.preventDefault();
@@ -384,6 +385,11 @@ angular.module('spearmintWebApp')
         };
 
         var setup = function() {
+
+            fixInput('#feedbackTextArea');
+            fixInput('#settingsGoalNameInput');
+            fixInput('#settingsGoalAmountInput');
+
             getGoal().then(
                 function(userGoal) {
                     $scope.originalUserGoal = userGoal;
