@@ -74,7 +74,8 @@
             <div id="feedbackPanel" class="panelBody">
                 <form name="feedbackForm" ng-submit="submitFeedback()" novalidate>
                     <textarea id="feedbackTextArea" class="textInput" ng-model="feedback" rows="7" cols="80" placeholder="I'd love if you'd..."></textarea>
-                    <input type="submit" class="submitButton" id="feedbackSubmitButton" value="Submit" />
+                    <a href="#" class="submitButton" id="feedbackSubmitButton" ng-click="feedbackButtonPressed($event);">Submit</a>
+                    <input type="submit" style="display:none; width: 1px; height: 1px;"/>
                 </form>
             </div>
         </div>

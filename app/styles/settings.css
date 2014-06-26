@@ -1,5 +1,5 @@
 #settingsPage {
-    position: fixed;
+    position: absolute;
     font-size: 16pt;
     height: 100%;
     overflow: hidden;
@@ -17,7 +17,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index:-1;
+    z-index: 0;
     background-repeat: repeat;
     background-size: 100% 100%;
 
