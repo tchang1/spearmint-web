@@ -3,6 +3,7 @@
 angular.module('spearmintWebApp')
   .controller('LoginCtrl', ['$scope', '$location', '$analytics', 'logger', 'goal', 'userService', 'goalService', 
     function ($scope, $location, $analytics, logger, goal, userService, goalService) {
+        $scope.error = '';
 
       document.ontouchmove = function(event){
         event.preventDefault();
@@ -25,6 +26,13 @@ angular.module('spearmintWebApp')
             function(error) {
               $analytics.eventTrack('response', {  category: 'login' , label: 'loginFail:'+error});
               logger.error(error);
+              if (error.errorCode == 404) {
+                  $scope.error = 'Could not log in due to network issues';
+              }
+              else {
+                  $scope.error = 'Invalid username or password';
+              }
+
             }
           );
 
