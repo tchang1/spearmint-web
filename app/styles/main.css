@@ -539,11 +539,15 @@ body {
 .suggestedGoal {
     font-size: 14pt;
     padding: 10px 5px;
+    display: inline-block;
+    width: 100%;
 }
 
 .suggestedGoalLink {
     text-decoration: none;
     color: #F2F4F5;
+    display: inline-block;
+    width: 100%
 }
   #welcome-screen-message { 
     width: 300px; 

@@ -19,7 +19,8 @@ angular.module('spearmintWebApp')
                 loginURL: '/login',
                 logoutURL: '/logout',
                 myImageURL: '/images/me',
-                feedbackURL: '/feedback'
+                feedbackURL: '/feedback',
+                notifications: '/notifications/me'
             }
         }
     });

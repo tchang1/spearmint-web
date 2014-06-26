@@ -265,6 +265,7 @@ angular.module('spearmintWebApp')
                 $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_emailOff' });
                 logger.log('Opted out for email notification');
             }
+            userService.saveNotificationPreferences({'notifications' : ($scope.emailNotification == true) ? 'Y' : 'N'});
         };
 
         $scope.feedbackButtonPressed = function($event) {
@@ -412,6 +413,18 @@ angular.module('spearmintWebApp')
 
                 function(error) {
                     displayModal('Error', 'An error has occured, please try again later', false);
+                }
+            );
+
+            userService.getNotificationPreferences().then(
+                function(data) {
+                    logger.log('notification data:');
+                    logger.log(data);
+                    $scope.emailNotification = data.notifications == 'Y';
+                },
+
+                function(error) {
+                    logger.error(error);
                 }
             );
 
