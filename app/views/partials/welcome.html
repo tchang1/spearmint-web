@@ -4,8 +4,12 @@
 	<div id="welcome-screen-message" > {{message}} </div>
 	<div ng-show="firstScreen"><img id="logo" src="../images/FTU/Moment_with_Mint.png"></div>
 	<p id="catch-phrase" ng-show="firstScreen"> Love how you spend every dollar </p>
+	
 	<div ng-show="firstScreen"> <img id="hand" src="../images/FTU/Hand_Dark.png"> </div>
-	<div ng-show="onblur"> <img id="hand-light" src="../images/FTU/Hand_Light.png"> </div>
+	<div ng-show="onblur"> <img id="hand-light" src="../images/FTU/keep_holding.png"> </div>
+	<div class="login" ng-show="thirdOffense"> <a href="/ftu" class="text-center new-account">Skip</a></div>
+
+	<div id="release-message" class="opacity-none "> Release the Screen </div>
 	<canvas id="progressIndicator" ng-show="holding" width="240" height="240"></canvas>
 	<div ng-show="firstScreen" class="login"> <a href="/login" class="text-center new-account">Already have an account?</a></div>
 	

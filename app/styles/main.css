@@ -293,6 +293,22 @@ body {
 
   }
 
+  .get-started-div { 
+    text-align: center; 
+    margin-left: auto; 
+    margin-right: auto; 
+
+    display: block;
+    position: fixed;
+    left:50%;
+    min-width:200px;
+    text-align: center;
+    margin-left: -100px; 
+
+    bottom: 55px;
+
+  }
+
 
 
   .UIPageControl nav{
@@ -548,6 +564,39 @@ body {
   #message2 { 
     margin-top: 50px; 
   }
+
+  #release-message {
+    top:50%; 
+    height:auto; 
+    width: 150px; 
+    color: white;
+    font-weight: bold; 
+    display: block;
+    position: fixed;
+    left: 50%;
+
+    text-align: center; 
+    margin-left: -75px; 
+  }
+
+  .opacity-none { 
+    opacity: 0; 
+  }
+
+  .opacity-animate {
+   -webkit-animation: fadeinrelease ease-in 3s;
+    opactiy: 1;
+  }
+
+   @-webkit-keyframes fadeinrelease { 
+  0% { opacity: 0; }
+  20% { opacity: 0; }
+  40% { opacity: 0.3; }
+  60% { opacity: 0.5; }
+  80% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+
 
   #landscape{
   position: absolute;

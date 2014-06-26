@@ -23,15 +23,11 @@ angular.module('spearmintWebApp')
     };
 
     var goToFTU = function() { 
-        FTUIndex += 1; 
-        $scope.onblur = true; 
-        document.getElementById("ftu-screen").className="blur blur-animate";
-        $scope.message = ""; 
-
+        $scope.holding = false; 
+        progressIndicator.stop();
+        progressIndicator.reset(); 
+        $location.path('/ftu');
         $scope.$apply();
-
-        var nextImageURL = FTUImages[FTUIndex];
-        changeBackground(nextImageURL);
     };
 
     var rotateImages = function() {
@@ -44,11 +40,20 @@ angular.module('spearmintWebApp')
         logger.log(FTUMessages[FTUIndex]);
         $scope.$apply(); 
 
-        if (FTUIndex > 1) { 
+        if (FTUIndex > 2) { 
+            // Set a timer once we are on the last screen so that user gets booted to the ftu (set goal) screen after 10 seconds 
+            setTimeout(goToFTU, 10000);
+
             logger.log("Clearing interval");
             clearInterval(timingVar);
-            logger.log("Go to FTU in 4 secs");
-            setTimeout(goToFTU, 2500);
+            $scope.holding = true; 
+            $scope.$apply(); 
+            progressIndicator.start();
+            logger.log("should see progress indicator");
+            //document.getElementById("release-message").className="opacity-animate";
+            releaseMessageTimer = setTimeout(function(){document.getElementById("release-message").className="opacity-animate";}, 3000);
+            // logger.log("Go to FTU in 4 secs");
+            // setTimeout(goToFTU, 2500);
         }
     };
 
@@ -67,6 +72,7 @@ angular.module('spearmintWebApp')
                         "When you are feeling tempted, press and hold to contribute to your goal.", 
                         "The longer you hold down, the more you contribute to your goal."];
     var timingVar; 
+    var releaseMessageTimer; 
 
 
     changeBackground(FTUImages[FTUIndex]);
@@ -74,7 +80,8 @@ angular.module('spearmintWebApp')
     $scope.firstScreen = true; 
     $scope.onblur = false; 
     $scope.holding = false; 
-    var repressOccured = false; 
+    $scope.thirdOffense = false; 
+    var offenseNum = 0; 
 
     for (var i = 0; i < FTUImages.length; i++) {
         PreloadImage(FTUImages[i]);
@@ -90,17 +97,29 @@ angular.module('spearmintWebApp')
         $scope.onblur = false; 
         document.getElementById("ftu-screen").className="unblur";
         $scope.message = FTUMessages[FTUIndex]; 
+        $scope.thirdOffense = false; 
         logger.log("index is "+FTUIndex);
         logger.log("called unblur");
 
-        if (FTUIndex < 2) {
+        if (FTUIndex < 3) {
             $scope.firstScreen = false; 
-            timingVar = setInterval(rotateImages, 2500);
+            timingVar = setInterval(rotateImages, 3500);
             logger.log("4 sec interval set");
         } else { 
+            // Set a timer once we are on the last screen so that user gets booted to the ftu (set goal) screen after 10 seconds 
+            setTimeout(goToFTU, 10000);
+
             $scope.holding = true; 
+            progressIndicator.show(); 
             progressIndicator.start();
             logger.log("should see progress indicator");
+
+            var dollarAmount = progressIndicator.getAmount();
+            if (dollarAmount < 3 ){
+                releaseMessageTimer = setTimeout(function(){document.getElementById("release-message").className="opacity-animate";}, 2000);
+            } else {
+                document.getElementById("release-message").className="opacity-animate";
+            }
 
         }
     };
@@ -108,33 +127,35 @@ angular.module('spearmintWebApp')
     $scope.reblur = function() {
         if (document.getElementById("ftu-screen").className=="unblur") {
 
+            offenseNum += 1; 
+
+            if (offenseNum == 2) {
+                document.getElementById("hand-light").src = "../images/FTU/hold_for_4.png"
+            } else if (offenseNum > 2) { 
+                $scope.thirdOffense = true; 
+            }
+
             $scope.onblur = true; 
             document.getElementById("ftu-screen").className="blur blur-animate";
             $scope.message = ""; 
 
             logger.log("called reblur");
 
-            if (FTUIndex < 2) {
+            if (FTUIndex < 3) {
                 clearInterval(timingVar);
                 logger.log("index < 2, interval cleared");
 
-            } else if (FTUIndex == 2) { 
-                clearInterval(timingVar);
-                logger.log("index is 2, interval cleared");
-
-                //goToFTU();
-            //}
-            // } else if (repressOccured) { 
-            //     $scope.holding = false; 
-            //     progressIndicator.stop();
-            //     $location.path('/ftu');
             } else {
-                $scope.holding = false; 
-                //repressOccured = true;
-                progressIndicator.stop();
-                progressIndicator.reset(); 
-                $location.path('/ftu');
- 
+                var dollarAmount = progressIndicator.getAmount();
+                // If they release after saving 3 or more dollars then redirect to set a goal 
+                if (dollarAmount > 2) { 
+                    goToFTU(); 
+                } else { // Otherwise just pause the progress indicator 
+                    progressIndicator.stop();
+                    progressIndicator.hide();
+                    clearTimeout(releaseMessageTimer);
+                    document.getElementById("release-message").className="opacity-none"
+                }
             }
         }
 
