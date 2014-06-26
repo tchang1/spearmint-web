@@ -380,9 +380,17 @@ angular.module('spearmintWebApp')
         };
 
         $scope.logout = function($event) {
+            $event.preventDefault();
             $analytics.eventTrack('actionTap', {  category: 'nav_button' , label: 'settings_logout' });
 
-            userService.logout();
+            userService.logout().then(
+                function(data) {
+                    $location.path('/login');
+                },
+                function(error) {
+                    logger.error(error);
+                    displayModal('Error', 'An error has occured, please try again later', false);
+                });
         };
 
         var setup = function() {

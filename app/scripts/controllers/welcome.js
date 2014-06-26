@@ -72,7 +72,7 @@ angular.module('spearmintWebApp')
     var FTUIndex = 0; 
     var FTUImages = ["../images/FTU/cookies.jpg", "../images/FTU/Concert.jpg", "../images/FTU/Piggy-Bank.jpg", "../images/FTU/Travel.jpg", "../images/FTU/Path.jpg"];     
     var FTUMessages = ["The temptation to buy stuff you don't need is everywhere.", 
-                        "Which leaves less money for things that are important to your.", 
+                        "Which leaves less money for things that are important to you.", 
                         "When you are feeling tempted, press and hold to contribute to your goal.", 
                         "The longer you hold down, the more you contribute to your goal."];
     var timingVar; 

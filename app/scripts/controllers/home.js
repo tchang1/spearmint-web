@@ -11,6 +11,14 @@ angular.module('spearmintWebApp')
 
     // -------------------------------
 
+    //$('meta[name=viewport]').remove();
+    //$('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, user-scalable=no');
+    // $('head').append( '<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, user-scalable=no">' );
+
+   addToHomescreen({ 
+    startDelay: 0,
+    modal: true
+  }); 
  
     function PreloadImage (src) {
         var img = new Image ();

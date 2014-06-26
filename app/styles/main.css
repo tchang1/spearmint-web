@@ -448,8 +448,9 @@ body {
     position: fixed;
     right: 10px;
     top: 10px;
-    width: 42px;
-    height: 42px;
+    padding-top: 20px; 
+    width: 35px;
+    height: 35px;
     z-index: 50;
   }
 
