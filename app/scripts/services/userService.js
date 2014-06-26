@@ -53,18 +53,50 @@ angular.module('spearmintWebApp').factory('userService', ['RESTService', '$q', '
                 return deferred.promise;
             },
 
-            isLoggedIn: function() {
+//            isLoggedIn: function() {
+//                var deferred = $q.defer();
+//                var sessionID = cookieManager.get(config.cookieSessionKey);
+//                if (!sessionID) {
+//                    deferred.reject({errorCode: errors.errorCode.sessionCookieNotFound});
+//                    return deferred.promise;
+//                }
+//                RESTService.get({url: config.server.baseURL + config.server.userServiceURL,
+//                                 body: {email: email, password: password}}).then(
+//                    // success handler
+//                    function() {
+//                        deferred.resolve(true);
+//                    },
+//
+//                    // error handler
+//                    function(error) {
+//                        deferred.reject(error);
+//                    });
+//                return deferred.promise;
+//            },
+
+            getNotificationPreferences: function() {
                 var deferred = $q.defer();
-                var sessionID = cookieManager.get(config.cookieSessionKey);
-                if (!sessionID) {
-                    deferred.reject({errorCode: errors.errorCode.sessionCookieNotFound});
-                    return deferred.promise;
-                }
-                RESTService.get({url: config.server.baseURL + config.server.userServiceURL,
-                                 body: {email: email, password: password}}).then(
+                RESTService.get({url: config.server.baseURL + config.server.notifications,
+                    data: {}}).then(
                     // success handler
-                    function() {
-                        deferred.resolve(true);
+                    function(data) {
+                        deferred.resolve(data);
+                    },
+
+                    // error handler
+                    function(error) {
+                        deferred.reject(error);
+                    });
+                return deferred.promise;
+            },
+
+            saveNotificationPreferences: function(preference) {
+                var deferred = $q.defer();
+                RESTService.put({url: config.server.baseURL + config.server.notifications,
+                    data: preference}).then(
+                    // success handler
+                    function(data) {
+                        deferred.resolve(data);
                     },
 
                     // error handler
