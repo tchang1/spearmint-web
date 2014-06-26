@@ -154,7 +154,17 @@
     font-size: 14pt;
     color: white;
     margin-top:13px;
-    width: 150px;
+    width: 180px;
+}
+
+.textInputLong {
+    outline: 0;
+    border: 0;
+    background-color: rgba(0,0,0,0);
+    font-size: 14pt;
+    color: white;
+    margin-top:13px;
+    width: 250px;
 }
 
 .textInputButton {

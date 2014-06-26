@@ -6,7 +6,7 @@
       <div class="form-group loginField" ng-class="{ 'has-success': form.email.$valid && submitted,
                                           'has-error': form.email.$invalid && submitted }">
 
-        <input type="email" name="email" class="textInput form-control" ng-model="user.email" placeholder="Email address"
+        <input type="email" name="email" class="textInputLong form-control" ng-odel="user.email" placeholder="Email address"
                required
                mongoose-error/>
 
@@ -23,7 +23,7 @@
       <div class="form-group loginField" ng-class="{ 'has-success': form.password.$valid && submitted,
                                           'has-error': form.password.$invalid && submitted }">
         
-        <input type="password" name="password" class="textInput form-control" ng-model="user.password" placeholder="New password"
+        <input type="password" name="password" class="textInputLong form-control" ng-model="user.password" placeholder="New password"
                ng-minlength="3"
                required
                mongoose-error/>
