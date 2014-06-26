@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('WelcomeCtrl', ['$scope', '$location', 'goalService', 'userService', 'logger', 'progressIndicator',
-        function ($scope, $location, goalService, userService, logger, progressIndicator) {
+  .controller('WelcomeCtrl', ['$scope', '$location', '$analytics', 'goalService', 'userService', 'logger', 'progressIndicator',
+        function ($scope, $location, $analytics, goalService, userService, logger, progressIndicator) {
 
     // $scope.getStarted = function() {
     //     $location.path('/ftu');
@@ -40,6 +40,9 @@ angular.module('spearmintWebApp')
         logger.log(FTUMessages[FTUIndex]);
         $scope.$apply(); 
 
+        $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_imageRotated', value: FTUIndex });
+
+
         if (FTUIndex > 2) { 
             // Set a timer once we are on the last screen so that user gets booted to the ftu (set goal) screen after 10 seconds 
             setTimeout(goToFTU, 10000);
@@ -50,6 +53,7 @@ angular.module('spearmintWebApp')
             $scope.$apply(); 
             progressIndicator.start();
             logger.log("should see progress indicator");
+            $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_spinnerShown'});
             //document.getElementById("release-message").className="opacity-animate";
             releaseMessageTimer = setTimeout(function(){document.getElementById("release-message").className="opacity-animate";}, 3000);
             // logger.log("Go to FTU in 4 secs");
@@ -94,6 +98,9 @@ angular.module('spearmintWebApp')
 
     // Reveal the clear image when the user holds down on the screen
     $scope.unblur = function() {
+
+        $analytics.eventTrack('holdStart', {  category: 'ftu_hold' , label: 'ftu_index', value: FTUIndex });
+
         $scope.onblur = false; 
         document.getElementById("ftu-screen").className="unblur";
         $scope.message = FTUMessages[FTUIndex]; 
@@ -127,7 +134,9 @@ angular.module('spearmintWebApp')
     $scope.reblur = function() {
         if (document.getElementById("ftu-screen").className=="unblur") {
 
-            offenseNum += 1; 
+            offenseNum += 1;
+            $analytics.eventTrack('holdRelease', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex , value: offenseNum});
+ 
 
             if (offenseNum == 2) {
                 document.getElementById("hand-light").src = "../images/FTU/hold_for_4.png"
@@ -149,12 +158,16 @@ angular.module('spearmintWebApp')
                 var dollarAmount = progressIndicator.getAmount();
                 // If they release after saving 3 or more dollars then redirect to set a goal 
                 if (dollarAmount > 2) { 
+                    $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_finish_goToGoal' , value: offenseNum});
+
                     goToFTU(); 
                 } else { // Otherwise just pause the progress indicator 
                     progressIndicator.stop();
                     progressIndicator.hide();
                     clearTimeout(releaseMessageTimer);
                     document.getElementById("release-message").className="opacity-none"
+                    $analytics.eventTrack('holdRelease', {  category: 'ftu_hold' , label: 'ftu_release_before_$2' , value: offenseNum});
+
                 }
             }
         }
