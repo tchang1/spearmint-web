@@ -26,7 +26,7 @@ angular.module('spearmintWebApp')
             function(error) {
               $analytics.eventTrack('response', {  category: 'login' , label: 'loginFail:'+error});
               logger.error(error);
-              if (error.errorCode == 404) {
+              if (error.errorCode == 404 || error.errorCode == 0) {
                   $scope.error = 'Could not log in due to network issues';
               }
               else {

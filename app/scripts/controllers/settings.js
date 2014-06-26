@@ -400,8 +400,8 @@ angular.module('spearmintWebApp')
                         imageService.getNextImages(userGoal).then(function(result) {
                                 imageToDisplay = path+result[0].uri;
                                 sharedProperties.set('currentBackgroundImage', imageToDisplay);
-                                document.getElementById("backgroundImage").style.background = "url(" + imageToDisplay +") no-repeat center center fixed";
-                                document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
+                                document.getElementById("backgroundImage").style.backgroundImage = "url(" + imageToDisplay +")";
+//                                document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
                             },
                             function(error) {
                                 logger.log("getting images failed");
