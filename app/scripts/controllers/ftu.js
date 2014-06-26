@@ -34,7 +34,7 @@ angular.module('spearmintWebApp')
     //    /* if we are on the last valueprop then show the set a goal, otherwise show skip, both go to set a goal page */ 
     //  };
 
-    $scope.message1 = "Let go ont he amount you want to contribute. We will keep track of your progress.";
+    $scope.message1 = "Let go on the amount you want to contribute. We will keep track of your progress.";
     $scope.message2 = "The savings add up quickly!";
 
     $scope.setGoal = function() {
