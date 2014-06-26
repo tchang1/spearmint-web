@@ -585,7 +585,7 @@ body {
 
   .opacity-animate {
    -webkit-animation: fadeinrelease ease-in 3s;
-    opactiy: 1;
+    opacity: 1;
   }
 
    @-webkit-keyframes fadeinrelease { 
@@ -595,6 +595,20 @@ body {
   60% { opacity: 0.5; }
   80% { opacity: 0.9; }
   100% { opacity: 1; }
+}
+
+.opacity-animate-out {
+   -webkit-animation: fadeout ease-in 3s;
+    opacity: 0;
+  }
+
+   @-webkit-keyframes fadeout { 
+  0% { opacity: 1; }
+  20% { opacity: 0.9; }
+  40% { opacity: 0.5; }
+  60% { opacity: 0.3; }
+  80% { opacity: 0.1; }
+  100% { opacity: 0; }
 }
 
 
