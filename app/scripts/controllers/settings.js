@@ -205,6 +205,8 @@ angular.module('spearmintWebApp')
 
         $scope.goalNameButtonClicked = function($event)  {
             $event.preventDefault();
+            $('input:focus').blur();
+            $('textarea:focus').blur();
             if ($scope.originalUserGoal.name == $scope.userGoal.name) {
                 angular.element('#settingsGoalNameInput').focus();
                 $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_editGoalName' });
@@ -218,6 +220,8 @@ angular.module('spearmintWebApp')
 
         $scope.goalAmountButtonClicked  = function($event) {
             $event.preventDefault();
+            $('input:focus').blur();
+            $('textarea:focus').blur();
             $scope.goalFormSubmitted();
             if ($scope.originalUserGoal.name == $scope.userGoal.name) {
                 angular.element('#settingsGoalAmountInput').focus();
@@ -263,8 +267,20 @@ angular.module('spearmintWebApp')
             }
         };
 
+        $scope.feedbackButtonPressed = function($event) {
+            $event.preventDefault();
+            $('input:focus').blur();
+            $('textarea:focus').blur();
+            $scope.submitFeedback();
+        };
+
+
         $scope.submitFeedback = function() {
+            $('input:focus').blur();
+            $('textarea:focus').blur();
+
             logger.log('feedback: ' + $scope.feedback);
+
             if ($scope.feedback && $scope.feedback != '') {
                 displayModal('Thanks!',
                     'We\'re actively working in making this app better.  We appreciate the feedback.!',
@@ -273,6 +289,11 @@ angular.module('spearmintWebApp')
                 $scope.feedback = '';
             }
         };
+
+
+            angular.element('#feedbackTextArea').on('blur', function(){
+                    $(window).scrollTop(0)
+            });
 
         $scope.undoTransactionPressed = function($event, transactionID) {
             $event.preventDefault();
