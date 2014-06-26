@@ -63,7 +63,7 @@ angular.module('spearmintWebApp')
     }
     else {
       if (userGoal.amountSaved>0) {
-          $scope.messageFooter = "Total saved $" + userGoal.amountSaved;
+          $scope.messageFooter = "Total Saved $" + userGoal.amountSaved;
       }
       logger.log("local goal , using it");
 
@@ -159,7 +159,7 @@ angular.module('spearmintWebApp')
         $scope.message = "Congratulations! You reached your goal!"; 
       } else if (userGoal.amountSaved > 0) {
         $scope.message = "You just saved $" + dollarAmount;
-        $scope.messageFooter = "Total saved $" + userGoal.amountSaved; 
+        $scope.messageFooter = "Total Saved $" + userGoal.amountSaved; 
       } else { 
         $scope.message = "You just saved $" + dollarAmount + " Great job!";
       }
