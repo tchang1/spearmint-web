@@ -119,7 +119,10 @@ angular.module('spearmintWebApp')
 
       progressIndicator.reset(); 
       if(dollarAmount ==0) {
-        $scope.message = "Tap and hold to save";
+          clearTimeout(fadeMessageTimer);
+          clearTimeout(fadeMessageTimer2);
+          clearTimeout(fadeMessageTimer3);
+        $scope.message = "Press and hold to save";
       }
       else {
         var userGoal = goal.getStoredGoal();
@@ -169,14 +172,14 @@ angular.module('spearmintWebApp')
       timersStarted=true;
       fadeMessageTimer = setTimeout(function(){
         logger.log("fading out");
-        document.getElementById("home-screen-message").className="opacity-animate-out";}, 3000);
+        document.getElementById("home-screen-message").className="opacity-animate-out";}, 1000);
       fadeMessageTimer2 = setTimeout(function(){
         logger.log("changing msg");
         $scope.message="Press and hold to save";
-        $scope.$apply()}, 6500);
+        $scope.$apply()}, 2500);
       fadeMessageTimer3 = setTimeout(function(){
         logger.log("fade in");
-        document.getElementById("home-screen-message").className="opacity-animate";}, 7000);
+        document.getElementById("home-screen-message").className="opacity-animate";}, 2700);
 
       savingsService.createNewSavings(savings);
 

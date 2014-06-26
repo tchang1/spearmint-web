@@ -599,7 +599,7 @@ body {
   }
 
   .opacity-animate {
-   -webkit-animation: fadeinrelease ease-in 3s;
+   -webkit-animation: fadeinrelease ease-in 1.5s;
     opacity: 1;
   }
 
@@ -613,7 +613,7 @@ body {
 }
 
 .opacity-animate-out {
-   -webkit-animation: opacityfadeout ease-in 3s;
+   -webkit-animation: opacityfadeout ease-in 1.5s;
     opacity: 0;
   }
 
