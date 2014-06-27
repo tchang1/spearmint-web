@@ -12,6 +12,8 @@ angular.module('spearmintWebApp')
     //     $location.path('/login');
     // };
 
+    var goToFTUTimer;
+
     document.ontouchmove = function(event){
         event.preventDefault();
     };
@@ -22,10 +24,12 @@ angular.module('spearmintWebApp')
 //        document.getElementById("ftu-screen").style.backgroundSize = "auto 100%";
     };
 
-    var goToFTU = function() { 
-        $scope.holding = false; 
+    var goToFTU = function() {
+        clearTimeout(goToFTUTimer);
+        $scope.holding = false;
         progressIndicator.stop();
-        progressIndicator.reset(); 
+        progressIndicator.reset();
+
         $location.path('/ftu');
         $scope.$apply();
     };
@@ -45,7 +49,7 @@ angular.module('spearmintWebApp')
 
         if (FTUIndex > 2) { 
             // Set a timer once we are on the last screen so that user gets booted to the ftu (set goal) screen after 10 seconds 
-            setTimeout(goToFTU, 10000);
+            goToFTUTimer = setTimeout(goToFTU, 10000);
 
             logger.log("Clearing interval");
             clearInterval(timingVar);
@@ -57,7 +61,6 @@ angular.module('spearmintWebApp')
             //document.getElementById("release-message").className="opacity-animate";
             releaseMessageTimer = setTimeout(function(){document.getElementById("release-message").className="opacity-animate";}, 3000);
             // logger.log("Go to FTU in 4 secs");
-            // setTimeout(goToFTU, 2500);
         }
     };
 
@@ -114,7 +117,7 @@ angular.module('spearmintWebApp')
             logger.log("4 sec interval set");
         } else { 
             // Set a timer once we are on the last screen so that user gets booted to the ftu (set goal) screen after 10 seconds 
-            setTimeout(goToFTU, 10000);
+            goToFTUTimer = setTimeout(goToFTU, 10000);
 
             $scope.holding = true; 
             progressIndicator.show(); 

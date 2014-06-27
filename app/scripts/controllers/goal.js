@@ -3,9 +3,8 @@
 angular.module('spearmintWebApp')
   .controller('GoalCtrl', ['$scope', '$location', '$analytics', 'goal', 'logger', function ($scope, $location, $analytics, goal, logger) {
 
-	// var userGoal = element(by.binding("userGoal"));
-	// var goalAmount = element(by.binding("goalAmount"));
     $scope.goalAmount = '';
+    $scope.userGoal = '';
 
     $scope.suggestedGoals = [
         'Move to a new place',
@@ -16,23 +15,20 @@ angular.module('spearmintWebApp')
         'Pay off debt'
     ];
 
-	$scope.enterGoal = function() { 
-	var goalObject = {name: $scope.userGoal};
-		goal.save(goalObject);
-		$location.path('/setamount');
-      setTimeout(function() {
-          angular.element('#goalAmountInput').focus();
-      }, 100)
+	$scope.enterGoal = function() {
+        var goalObject = {name: $scope.userGoal};
+            goal.save(goalObject);
+            $location.path('/setamount');
 	};
 
-	$scope.enterAmount = function() { 
- 	goal.getStoredGoal().targetAmount = $scope.goalAmount;
-    if (!$scope.userGoal) {
-      $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'amount_skipped'});
-    }
-    else {
-      $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'amount_entered'});
-    }
+	$scope.enterAmount = function() {
+        goal.getStoredGoal().targetAmount = $scope.goalAmount;
+        if (!$scope.userGoal) {
+          $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'amount_skipped'});
+        }
+        else {
+          $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'amount_entered'});
+        }
 
 		$location.path('/signup');
 	};
@@ -40,6 +36,8 @@ angular.module('spearmintWebApp')
     $scope.selectSuggestedGoal = function($event, goalName) {
         $event.preventDefault();
         $scope.userGoal = goalName;
+
+        document.getElementById('goalNameInput').value = goalName;
         $analytics.eventTrack('choiceMade', {  category: 'ftu_goal' , label: 'suggested_goal_selected:'+goalName});
     };
 
@@ -58,7 +56,4 @@ angular.module('spearmintWebApp')
         $event.preventDefault();
         $scope.enterAmount();
     };
-
-    angular.element('#goalNameInput').focus();
-
   }]); 
