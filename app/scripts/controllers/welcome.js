@@ -144,15 +144,13 @@ angular.module('spearmintWebApp')
                 $scope.thirdOffense = true; 
             }
 
-            $scope.onblur = true; 
-            document.getElementById("ftu-screen").className="blur blur-animate";
-            $scope.message = ""; 
 
             logger.log("called reblur");
 
             if (FTUIndex < 3) {
                 clearInterval(timingVar);
                 logger.log("index < 2, interval cleared");
+                continueReblur();
 
             } else {
                 var dollarAmount = progressIndicator.getAmount();
@@ -167,12 +165,19 @@ angular.module('spearmintWebApp')
                     clearTimeout(releaseMessageTimer);
                     document.getElementById("release-message").className="opacity-none"
                     $analytics.eventTrack('holdRelease', {  category: 'ftu_hold' , label: 'ftu_release_before_$2' , value: offenseNum});
+                    continueReblur(); 
 
                 }
             }
         }
 
 
+    };
+
+    var continueReblur = function() { 
+        $scope.onblur = true; 
+        document.getElementById("ftu-screen").className="blur blur-animate";
+        $scope.message = ""; 
     };
 
   }]); 
