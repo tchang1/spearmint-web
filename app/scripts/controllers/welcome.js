@@ -40,7 +40,7 @@ angular.module('spearmintWebApp')
         logger.log(FTUMessages[FTUIndex]);
         $scope.$apply(); 
 
-        $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_imageRotated', value: FTUIndex });
+        $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_imageRotated_to_'+FTUIndex, value: FTUIndex });
 
 
         if (FTUIndex > 2) { 
@@ -99,7 +99,7 @@ angular.module('spearmintWebApp')
     // Reveal the clear image when the user holds down on the screen
     $scope.unblur = function() {
 
-        $analytics.eventTrack('holdStart', {  category: 'ftu_hold' , label: 'ftu_index', value: FTUIndex });
+        $analytics.eventTrack('holdStart', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex, value: FTUIndex });
 
         $scope.onblur = false; 
         document.getElementById("ftu-screen").className="unblur";
