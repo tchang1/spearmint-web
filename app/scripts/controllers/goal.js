@@ -47,7 +47,7 @@ angular.module('spearmintWebApp')
         $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'goal_skipped'});
       }
       else {
-        $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'goal_saved'});
+        $analytics.eventTrack('actionTap', {  category: 'ftu_goal' , label: 'goal_saved_is_'+$scope.userGoal});
       }
        $scope.enterGoal();
    };

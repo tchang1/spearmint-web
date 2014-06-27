@@ -235,6 +235,7 @@ angular.module('spearmintWebApp')
         $scope.goalFormSubmitted = function()  {
             $('input:focus').blur();
             $('textarea:focus').blur();
+            setTimeout(function(){ window.scrollTo(0, 0); }, 10); 
             goal.save($scope.userGoal);
             saveGoal($scope.userGoal).then(
                 function(result) {
@@ -279,6 +280,7 @@ angular.module('spearmintWebApp')
         $scope.submitFeedback = function() {
             $('input:focus').blur();
             $('textarea:focus').blur();
+            setTimeout(function(){ window.scrollTo(0, 0); }, 10);
 
             logger.log('feedback: ' + $scope.feedback);
 

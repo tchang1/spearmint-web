@@ -11,14 +11,13 @@ angular.module('spearmintWebApp')
 
     // -------------------------------
 
-    //$('meta[name=viewport]').remove();
-    //$('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, user-scalable=no');
-    // $('head').append( '<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, user-scalable=no">' );
-
-   addToHomescreen({ 
-    startDelay: 0,
-    modal: true
-  }); 
+   var addToHome = addToHomescreen({ 
+      startDelay: 4,
+      modal: true, 
+      autostart: false,
+      message: 'Save anytime by adding Moment to your home screen. Tap the address bar, then tap %icon, then choose <strong>Add to Home Screen</strong>.',
+      maxDisplayCount: 1
+    }); 
  
     function PreloadImage (src) {
         var img = new Image ();
@@ -209,6 +208,8 @@ angular.module('spearmintWebApp')
           currentImageURL = path+result[0].uri;
           nextImageURL = path+result[1].uri;
           PreloadImage(nextImageURL);
+
+          addToHome.show();
           logger.log("preloaded:"+nextImageURL);
 
         },
