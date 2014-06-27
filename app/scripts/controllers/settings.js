@@ -293,7 +293,7 @@ angular.module('spearmintWebApp')
 
         var fixInput = function(inputID) {
             angular.element(inputID).on('blur', function(){
-                $(window).scrollTop(0)
+                $(window).scrollTop(0);
             });
         };
 
