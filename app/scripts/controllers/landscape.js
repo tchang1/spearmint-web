@@ -1,7 +1,9 @@
 // Listen for resize changes
     window.addEventListener("resize", function() {
- 
-          if( window.outerWidth > window.outerHeight )
+
+        var slackPercent = 0.15;
+        $('#landscape').show();
+        if( window.outerWidth - (window.outerWidth * slackPercent) > window.outerHeight )
           {
               window.scrollTo(1,1);
               $('#landscape').show();
