@@ -638,8 +638,8 @@ body {
  display: none;
  z-index: 20000;
  opacity: 0.9;
-      border: 100px solid green;
 }
+
 #landscape p{
     background: url("../images/landscape.png") no-repeat scroll 0 0 transparent;
     color: #FFFFFF;
