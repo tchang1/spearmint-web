@@ -14,6 +14,14 @@ angular.module('spearmintWebApp')
 
     var goToFTUTimer;
 
+    var params= $location.search();
+    var variants = new Array(0,1);
+    var variant=0;
+    if (params.variant && variants.indexOf(parseInt(params.variant))!=-1) {
+        variant=parseInt(params.variant);
+    }
+    logger.log("variant="+variant);
+
     document.ontouchmove = function(event){
         event.preventDefault();
     };
@@ -30,7 +38,7 @@ angular.module('spearmintWebApp')
         progressIndicator.stop();
         progressIndicator.reset();
 
-        $location.path('/ftu');
+        $location.search("variant",""+variant).path('/ftu');
         $scope.$apply();
     };
 
@@ -40,8 +48,8 @@ angular.module('spearmintWebApp')
 
         var nextImageURL = FTUImages[FTUIndex];
         changeBackground(nextImageURL);
-        $scope.message = FTUMessages[FTUIndex]; 
-        logger.log(FTUMessages[FTUIndex]);
+        $scope.message = FTUMessages[variant][FTUIndex]; 
+        logger.log(FTUMessages[variant][FTUIndex]);
         $scope.$apply(); 
 
         $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_imageRotated_to_'+FTUIndex, value: FTUIndex });
@@ -74,10 +82,14 @@ angular.module('spearmintWebApp')
     //SETUP first image 
     var FTUIndex = 0; 
     var FTUImages = ["../images/FTU/cookies.jpg", "../images/FTU/Concert.jpg", "../images/FTU/Piggy-Bank.jpg", "../images/FTU/Travel.jpg", "../images/FTU/Path.jpg"];     
-    var FTUMessages = ["The temptation to buy stuff you don't need is everywhere.", 
+    var FTUMessages = [["The temptation to buy stuff you don't need is everywhere.", 
                         "Which leaves less money for things that are important to you.", 
                         "When you are feeling tempted, press and hold to contribute to your goal.", 
-                        "The longer you hold down, the more you contribute to your goal."];
+                        "The longer you hold down, the more you contribute to your goal."],
+                        ["The temptation to buy stuff is everywhere", 
+                        "Which leaves less money for what's important to you", 
+                        "When you skip a purchase, press and hold to contribute to something important instead", 
+                        "The longer you hold, the more you contribute"]];
     var timingVar; 
     var releaseMessageTimer; 
 
@@ -106,7 +118,7 @@ angular.module('spearmintWebApp')
 
         $scope.onblur = false; 
         document.getElementById("ftu-screen").className="unblur";
-        $scope.message = FTUMessages[FTUIndex]; 
+        $scope.message = FTUMessages[variant][FTUIndex]; 
         $scope.thirdOffense = false; 
         logger.log("index is "+FTUIndex);
         logger.log("called unblur");

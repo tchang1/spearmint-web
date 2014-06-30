@@ -34,13 +34,23 @@ angular.module('spearmintWebApp')
     //    /* if we are on the last valueprop then show the set a goal, otherwise show skip, both go to set a goal page */ 
     //  };
 
-    $scope.message1 = "Let go on the amount you want to contribute. We will keep track of your progress.";
-    $scope.message2 = "The savings add up quickly!";
+    var params= $location.search();
+    var variants = new Array(0,1);
+    var variant=0;
+    if (params.variant && variants.indexOf(parseInt(params.variant))!=-1) {
+        variant=parseInt(params.variant);
+    }
+    logger.log("variant="+variant);
+
+    var messages= new Array(["Let go on the amount you want to contribute. We will keep track of your progress.","The savings add up quickly!"],["Let go on the amount you would have otherwise spent","You'll reach your goal before you know it!"]);
+
+    $scope.message1 = messages[variant][0];
+    $scope.message2 = messages[variant][1];
 
     $scope.setGoal = function() {
       $analytics.eventTrack('linkTap', {  category: 'ftu_goal' , label: 'proceed_to_setGoal'});
-
-      $location.path('/setgoal');
+      $location.search()
+      $location.url($location.path()).path('/setgoal');
     };
 
   }]);
