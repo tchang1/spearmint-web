@@ -69,6 +69,9 @@ angular.module('spearmintWebApp')
             //document.getElementById("release-message").className="opacity-animate";
             releaseMessageTimer = setTimeout(function(){document.getElementById("release-message").className="opacity-animate";}, 3000);
             // logger.log("Go to FTU in 4 secs");
+        } else if (FTUIndex == 2) { // If we are on the piggy bank image
+            clearInterval(timingVar);
+            timingVarPiggyBank = setTimeout(rotateImages, 5000);
         }
     };
 
@@ -91,6 +94,7 @@ angular.module('spearmintWebApp')
                         "When you skip a purchase, press and hold to contribute to something important instead", 
                         "The longer you hold, the more you contribute"]];
     var timingVar; 
+    var timingVarPiggyBank; 
     var releaseMessageTimer; 
 
 
@@ -123,11 +127,14 @@ angular.module('spearmintWebApp')
         logger.log("index is "+FTUIndex);
         logger.log("called unblur");
 
-        if (FTUIndex < 3) {
+        if (FTUIndex < 2) {
             $scope.firstScreen = false; 
             timingVar = setInterval(rotateImages, 3500);
             logger.log("4 sec interval set");
-        } else { 
+        } else if (FTUIndex == 2) { 
+            timingVarPiggyBank = setTimeout(rotateImages, 5000);
+        }
+            else { 
             // Set a timer once we are on the last screen so that user gets booted to the ftu (set goal) screen after 10 seconds 
             goToFTUTimer = setTimeout(goToFTU, 10000);
 
@@ -164,7 +171,8 @@ angular.module('spearmintWebApp')
 
             if (FTUIndex < 3) {
                 clearInterval(timingVar);
-                logger.log("index < 2, interval cleared");
+                clearInterval(timingVarPiggyBank);
+                logger.log("index < 3, interval cleared");
                 continueReblur();
 
             } else {
