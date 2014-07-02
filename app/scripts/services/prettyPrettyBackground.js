@@ -22,7 +22,7 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
                     height = window.screen.height;
                     canvasEngine.init(canvas, 0, 0, width, height);
                     me._updateSize();
-                    window.addEventListener("resize", me._updateSize, false);
+//                    window.addEventListener("resize", me._updateSize, false);
                     initialized = true;
                 }
             },

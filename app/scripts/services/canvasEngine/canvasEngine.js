@@ -40,8 +40,6 @@ var canvasEngine = {
             canvasEngine.previousTime = canvasEngine.currentTime;
             canvasEngine.currentTime = milliseconds;
             deltaTime = canvasEngine.currentTime - canvasEngine.previousTime;
-//            console.log(deltaTime);
-//            deltaTime = 1000/canvasEngine.FPS;
 
             canvasEngine.TimerManager.updateTimers(deltaTime);
             canvasEngine.ImageManager.update();
