@@ -1,14 +1,18 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SettingsCtrl', ['$scope', '$location', '$q', '$analytics', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'imageService', 'logger', 'cloner', 'sharedProperties',
-        function ($scope, $location, $q, $analytics ,goal, goalService, userService, savingsService, feedbackService, imageService, logger, cloner, sharedProperties) {
+  .controller('SettingsCtrl', ['$scope', '$location', '$q', '$analytics', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'imageService', 'logger', 'cloner', 'sharedProperties', 'prettyPrettyBackground',
+        function ($scope, $location, $q, $analytics ,goal, goalService, userService, savingsService, feedbackService, imageService, logger, cloner, sharedProperties, prettyPrettyBackground) {
 
-        var path = '../images/';
-        var imageToDisplay = sharedProperties.get('currentBackgroundImage');
-        if (imageToDisplay) {
-            document.getElementById("backgroundImage").style.background = "url(" + imageToDisplay +") no-repeat center center fixed";
-            document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
+        prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
+
+        if (!prettyPrettyBackground.hasImage()) {
+            var path = '../images/';
+            var imageToDisplay = sharedProperties.get('currentBackgroundImage');
+            if (imageToDisplay) {
+                prettyPrettyBackground.setImage('imageToDisplay', true);
+                prettyPrettyBackground.start();
+            }
         }
 
         var modalIdentifiers = {

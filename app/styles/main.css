@@ -4,10 +4,15 @@ html {
 body{
     font-family: 'Lato', sans-serif;
     background-color: rgba(0,0,0,.3);
+    /*background-color: red;*/
 }
 
 .container {
     height: 100%;
+}
+
+#imageCanvas {
+    z-index: -1;
 }
 
 .error {

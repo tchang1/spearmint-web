@@ -1,8 +1,18 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SignupCtrl', ['$scope', '$location','$analytics', 'logger', 'goal', 'userService', 'goalService', 
-    function ($scope, $location, $analytics, logger, goal, userService, goalService) {
+  .controller('SignupCtrl', ['$scope', '$location','$analytics', 'logger', 'goal', 'userService', 'goalService', 'prettyPrettyBackground',
+    function ($scope, $location, $analytics, logger, goal, userService, goalService, prettyPrettyBackground) {
+
+        prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
+        if (!prettyPrettyBackground.hasImage()) {
+            prettyPrettyBackground.transitionToImage('/images/FTU/Path.jpg', 500, true, new canvasEngine.Color(0,0,0,0.3));
+        }
+        else {
+            prettyPrettyBackground.setImage('/images/FTU/Path.jpg', true, new canvasEngine.Color(0,0,0,0.3));
+            prettyPrettyBackground.start();
+        }
+
 
       document.ontouchmove = function(event){
         event.preventDefault();

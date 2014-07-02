@@ -1,10 +1,11 @@
 <div id="saving-container" hm-hold="unblur()" hm-release="reblur()">
 	<a id="shield"></a>
-	<div id="ftu-screen" class="blur"> </div>
+	<!--<div id="ftu-screen" class="blur"> </div>-->
+
 	<div id="welcome-screen-message" > {{message}} </div>
 	<div ng-show="firstScreen"><img id="logo" src="../images/FTU/Moment_with_Mint.png"></div>
 	<p id="catch-phrase" ng-show="firstScreen"> Love how you spend every dollar </p>
-	
+
 	<div ng-show="firstScreen"> <img id="hand" src="../images/FTU/Hand_Dark.png"> </div>
 	<div ng-show="onblur"> <img id="hand-light" src="../images/FTU/keep_holding.png"> </div>
 	<div class="login" ng-show="thirdOffense"> <a analytics-on analytics-event="linkTap" analytics-category="nav_button" analytics-label="ftu_offenceSkip" href="/ftu" class="text-center new-account">Skip</a></div>

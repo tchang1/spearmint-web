@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('GoalCtrl', ['$scope', '$location', '$analytics', 'goal', 'logger', function ($scope, $location, $analytics, goal, logger) {
+  .controller('GoalCtrl', ['$scope', '$location', '$analytics', 'goal', 'logger', 'prettyPrettyBackground', function ($scope, $location, $analytics, goal, logger, prettyPrettyBackground) {
+
+    prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
 
     $scope.goalAmount = '';
     $scope.userGoal = '';

@@ -38,6 +38,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <canvas id="imageCanvas"></canvas>
     <div class="container" id="container" ng-view=""></div>
     <div id="landscape"><p><b>Rotate Device to Portrait</b></p></div>
 
@@ -83,6 +84,23 @@
     <!-- endbower -->
     <!-- endbuild -->
 
+    <!-- Non Bower Libraries -->
+    <script src="libraries/classy.js"></script>
+
+    <!--Canvas Engine Scripts -->
+    <script src="scripts/services/canvasEngine/canvasEngine.js"></script>
+    <script src="scripts/services/canvasEngine/ArrayAddon.js"></script>
+    <script src="scripts/services/canvasEngine/Colors.js"></script>
+    <script src="scripts/services/canvasEngine/HashArray.js"></script>
+    <script src="scripts/services/canvasEngine/IDManager.js"></script>
+    <script src="scripts/services/canvasEngine/Promise.js"></script>
+    <script src="scripts/services/canvasEngine/Math.js"></script>
+    <script src="scripts/services/canvasEngine/timer.js"></script>
+    <script src="scripts/services/canvasEngine/LinearInterpolation.js"></script>
+    <script src="scripts/services/canvasEngine/Pause.js"></script>
+    <script src="scripts/services/canvasEngine/Object3D.js"></script>
+    <script src="scripts/services/canvasEngine/imageManager.js"></script>
+
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="bower_components/angulartics/src/angulartics-ga.js"></script>
@@ -103,6 +121,7 @@
         <script src="scripts/services/savingsService.js"></script>
         <script src="scripts/services/imageService.js"></script>
         <script src="scripts/services/feedbackService.js"></script>
+        <script src="scripts/services/prettyPrettyBackground.js"></script>
 
         <script src="scripts/controllers/welcome.js"></script>
         <script src="scripts/controllers/signup.js"></script>

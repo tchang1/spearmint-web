@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('WelcomeCtrl', ['$scope', '$location', '$analytics', 'goalService', 'userService', 'logger', 'progressIndicator',
-        function ($scope, $location, $analytics, goalService, userService, logger, progressIndicator) {
+  .controller('WelcomeCtrl', ['$scope', '$location', '$analytics', 'goalService', 'userService', 'logger', 'progressIndicator', 'prettyPrettyBackground',
+        function ($scope, $location, $analytics, goalService, userService, logger, progressIndicator, prettyPrettyBackground) {
 
     // $scope.getStarted = function() {
     //     $location.path('/ftu');
@@ -22,14 +22,24 @@ angular.module('spearmintWebApp')
     }
     logger.log("variant="+variant);
 
+    prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
+
     document.ontouchmove = function(event){
         event.preventDefault();
     };
 
     var changeBackground = function(imageURL) {
-        logger.log('FTU background image: ' + imageURL);
-        document.getElementById("ftu-screen").style.backgroundImage = "url(" + imageURL +")";
+        if (prettyPrettyBackground.hasImage()) {
+            prettyPrettyBackground.transitionToImage(imageURL, 1000, false, new canvasEngine.Color(0,0,0,.2));
+        }
+        else {
+            prettyPrettyBackground.setImage(imageURL, true, new canvasEngine.Color(0,0,0,.2));
+            prettyPrettyBackground.start();
+        }
+//        logger.log('FTU background image: ' + imageURL);
+//        document.getElementById("ftu-screen").style.backgroundImage = "url(" + imageURL +")";
 //        document.getElementById("ftu-screen").style.backgroundSize = "auto 100%";
+
     };
 
     var goToFTU = function() {
@@ -121,8 +131,9 @@ angular.module('spearmintWebApp')
         $analytics.eventTrack('holdStart', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex, value: FTUIndex });
 
         $scope.onblur = false; 
-        document.getElementById("ftu-screen").className="unblur";
-        $scope.message = FTUMessages[variant][FTUIndex]; 
+//        document.getElementById("ftu-screen").className="unblur";
+        prettyPrettyBackground.unblur(1000);
+        $scope.message = FTUMessages[variant][FTUIndex];
         $scope.thirdOffense = false; 
         logger.log("index is "+FTUIndex);
         logger.log("called unblur");
@@ -154,7 +165,7 @@ angular.module('spearmintWebApp')
     };
 
     $scope.reblur = function() {
-        if (document.getElementById("ftu-screen").className=="unblur") {
+        if (!prettyPrettyBackground.isBlurred()) {
 
             offenseNum += 1;
             $analytics.eventTrack('holdRelease', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex , value: offenseNum});
@@ -199,7 +210,8 @@ angular.module('spearmintWebApp')
 
     var continueReblur = function() { 
         $scope.onblur = true; 
-        document.getElementById("ftu-screen").className="blur blur-animate";
+//        document.getElementById("ftu-screen").className="blur blur-animate";
+        prettyPrettyBackground.blur(1000);
         $scope.message = ""; 
     };
 

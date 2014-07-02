@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('FTUCtrl', ['$scope', '$location', '$analytics', 'logger', function ($scope, $location, $analytics, logger) {
+  .controller('FTUCtrl', ['$scope', '$location', '$analytics', 'logger', 'prettyPrettyBackground', function ($scope, $location, $analytics, logger, prettyPrettyBackground) {
 
     // var ftuMessages = [
     //   { title: 'Don\'t spend as much!',
@@ -33,7 +33,14 @@ angular.module('spearmintWebApp')
     //    /* move the divs around and update the pages indicator */ 
     //    /* if we are on the last valueprop then show the set a goal, otherwise show skip, both go to set a goal page */ 
     //  };
-
+    prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
+    if (prettyPrettyBackground.hasImage()) {
+        prettyPrettyBackground.transitionToImage('/images/FTU/Path.jpg', 500, true, new canvasEngine.Color(0,0,0,0.3));
+    }
+    else {
+        prettyPrettyBackground.setImage('/images/FTU/Path.jpg', true, new canvasEngine.Color(0,0,0,0.3));
+        prettyPrettyBackground.start();
+    }
     var params= $location.search();
     var variants = new Array(0,1);
     var variant=0;
@@ -49,7 +56,7 @@ angular.module('spearmintWebApp')
 
     $scope.setGoal = function() {
       $analytics.eventTrack('linkTap', {  category: 'ftu_goal' , label: 'proceed_to_setGoal'});
-      $location.search()
+      $location.search();
       $location.url($location.path()).path('/setgoal');
     };
 

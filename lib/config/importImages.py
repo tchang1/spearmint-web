@@ -19,7 +19,7 @@ def visit(arg, dirname, names):
 	for name in names:
 		subname = os.path.join(dirname, name)
 		if ((not os.path.isdir(subname)) and (name != '.DS_Store')):
-			subname = subname.replace('../../app/images/', '/')
+			subname = subname.replace('../../app/images/', '')
 			put(subname, categoryid)
  
 
