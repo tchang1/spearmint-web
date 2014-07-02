@@ -33,6 +33,8 @@ angular.module('spearmintWebApp')
     //    /* move the divs around and update the pages indicator */ 
     //    /* if we are on the last valueprop then show the set a goal, otherwise show skip, both go to set a goal page */ 
     //  };
+
+
     prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
     if (prettyPrettyBackground.hasImage()) {
         prettyPrettyBackground.transitionToImage('/images/FTU/Path.jpg', 500, true, new canvasEngine.Color(0,0,0,0.3));
@@ -41,6 +43,8 @@ angular.module('spearmintWebApp')
         prettyPrettyBackground.setImage('/images/FTU/Path.jpg', true, new canvasEngine.Color(0,0,0,0.3));
         prettyPrettyBackground.start();
     }
+
+
     var params= $location.search();
     var variants = new Array(0,1);
     var variant=0;

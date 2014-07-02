@@ -13,7 +13,7 @@ angular.module('spearmintWebApp')
     // };
 
     var goToFTUTimer;
-
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     var params= $location.search();
     var variants = new Array(0,1);
     var variant=0;
@@ -36,9 +36,11 @@ angular.module('spearmintWebApp')
             prettyPrettyBackground.setImage(imageURL, true, new canvasEngine.Color(0,0,0,.2));
             prettyPrettyBackground.start();
         }
-//        logger.log('FTU background image: ' + imageURL);
-//        document.getElementById("ftu-screen").style.backgroundImage = "url(" + imageURL +")";
-//        document.getElementById("ftu-screen").style.backgroundSize = "auto 100%";
+
+        if((userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )) {
+//            logger.log('FTU background image: ' + imageURL);
+            document.getElementById("ftu-screen").style.backgroundImage = "url(" + imageURL +")";
+        }
 
     };
 
@@ -130,8 +132,10 @@ angular.module('spearmintWebApp')
 
         $analytics.eventTrack('holdStart', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex, value: FTUIndex });
 
-        $scope.onblur = false; 
-//        document.getElementById("ftu-screen").className="unblur";
+        $scope.onblur = false;
+        if((userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )) {
+            document.getElementById("ftu-screen").className="unblur";
+        }
         prettyPrettyBackground.unblur(1000);
         $scope.message = FTUMessages[variant][FTUIndex];
         $scope.thirdOffense = false; 
@@ -165,7 +169,14 @@ angular.module('spearmintWebApp')
     };
 
     $scope.reblur = function() {
-        if (!prettyPrettyBackground.isBlurred()) {
+        var isBlurred = !prettyPrettyBackground.isBlurred();
+
+        if((userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )) {
+            isBlurred = document.getElementById("ftu-screen").className=="unblur";
+        }
+
+
+            if (isBlurred) {
 
             offenseNum += 1;
             $analytics.eventTrack('holdRelease', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex , value: offenseNum});
@@ -209,8 +220,10 @@ angular.module('spearmintWebApp')
     };
 
     var continueReblur = function() { 
-        $scope.onblur = true; 
-//        document.getElementById("ftu-screen").className="blur blur-animate";
+        $scope.onblur = true;
+        if((userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )) {
+            document.getElementById("ftu-screen").className="blur blur-animate";
+        }
         prettyPrettyBackground.blur(1000);
         $scope.message = ""; 
     };

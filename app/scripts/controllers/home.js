@@ -15,7 +15,9 @@ angular.module('spearmintWebApp')
    var blurTime = 700;
    var unblurTime = 700;
 
+   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
    prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
+
 
    var addToHome = addToHomescreen({ 
       startDelay: 4,
@@ -59,16 +61,20 @@ angular.module('spearmintWebApp')
 
                   PreloadImage(currentImageURL);
                   PreloadImage(nextImageURL);
-                        logger.log('current image url 1: ' + currentImageURL);
+                    logger.log('current image url 1: ' + currentImageURL);
+                    if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+                    {
+                        document.getElementById("saving-screen").style.backgroundImage = "url(" + currentImageURL +")";
+                    }
 
-//                  document.getElementById("saving-screen").style.backgroundImage = "url(" + currentImageURL +")";
-                        if (prettyPrettyBackground.hasImage()) {
-                            prettyPrettyBackground.transitionToImage(currentImageURL, 500, true);
-                        }
-                        else {
-                            prettyPrettyBackground.setImage(currentImageURL, true);
-                            prettyPrettyBackground.start();
-                        }
+                    if (prettyPrettyBackground.hasImage()) {
+                        prettyPrettyBackground.transitionToImage(currentImageURL, 500, true);
+                    }
+                    else {
+                        prettyPrettyBackground.setImage(currentImageURL, true);
+                        prettyPrettyBackground.start();
+                    }
+
                 },
                 function(error) {
                   logger.log("getting images failed");
@@ -98,14 +104,20 @@ angular.module('spearmintWebApp')
 
                   logger.log('setting background image to: ' + currentImageURL);
               logger.log('current image url 2: ' + currentImageURL);
-//                  document.getElementById("saving-screen").style.backgroundImage = "url(" + currentImageURL +")";
-                  if (prettyPrettyBackground.hasImage()) {
-                      prettyPrettyBackground.transitionToImage(currentImageURL, 500, true);
-                  }
-                  else {
-                      prettyPrettyBackground.setImage(currentImageURL, true);
-                      prettyPrettyBackground.start();
+
+              if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+              {
+                  document.getElementById("saving-screen").style.backgroundImage = "url(" + currentImageURL +")";
               }
+
+              if (prettyPrettyBackground.hasImage()) {
+                  prettyPrettyBackground.transitionToImage(currentImageURL, 500, true);
+              }
+              else {
+                  prettyPrettyBackground.setImage(currentImageURL, true);
+                  prettyPrettyBackground.start();
+              }
+
                 },
                 function(error) {
                   logger.log("getting images failed");
@@ -121,8 +133,14 @@ angular.module('spearmintWebApp')
 
     // Reveal the clear image when the user holds down on the screen
     $scope.unblur = function() {
-//      document.getElementById("saving-screen").className="unblur";
-      prettyPrettyBackground.unblur(unblurTime);
+        if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+        {
+            document.getElementById("saving-screen").className="unblur";
+        }
+
+        prettyPrettyBackground.unblur(unblurTime);
+
+
       $scope.message = ""; 
       $scope.messageFooter = ""; 
       $scope.holding = true;
@@ -136,8 +154,14 @@ angular.module('spearmintWebApp')
 
     // Reblur the image and begin transition to next image when user releases hold on screen 
     $scope.reblur = function() {
-//      document.getElementById("saving-screen").className= "blur blur-animate";
-      prettyPrettyBackground.blur(blurTime);
+        if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+        {
+            document.getElementById("saving-screen").className= "blur blur-animate";
+        }
+
+        prettyPrettyBackground.blur(blurTime);
+
+
       $scope.holding = false; 
       progressIndicator.stop();
 
@@ -218,10 +242,14 @@ angular.module('spearmintWebApp')
 
 
     var transitionToNextImage = function() { 
-      var userGoal = goal.getStoredGoal(); 
+      var userGoal = goal.getStoredGoal();
 
-//      document.getElementById("saving-screen").style.backgroundImage = "url(" + nextImageURL +")";
-      prettyPrettyBackground.transitionToImage(nextImageURL, imageTransitionTime, true);
+        if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+        {
+            document.getElementById("saving-screen").style.backgroundImage = "url(" + nextImageURL +")";
+        }
+
+        prettyPrettyBackground.transitionToImage(nextImageURL, imageTransitionTime, true);
 
 
       progressIndicator.reset(); 

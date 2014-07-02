@@ -99,7 +99,7 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
                 deltaTime = canvasEngine.currentTime - canvasEngine.previousTime;
 
                 var progressUpdate  = (deltaTime * ((1 + amount * accelerationFactor) / FPS)) / (1000/FPS);
-                progress += progressUpdate;
+                progress += (1 + amount * accelerationFactor) / FPS;
                 if (progress > 1) {
                     if (amount < maxAmount) {
                         amount ++;
@@ -123,7 +123,7 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
 
                 setTimeout(function() {
                     update();
-                }, 1000/FPS - (deltaTime - 1000/FPS));
+                }, 1000/FPS);
             }
         };
 

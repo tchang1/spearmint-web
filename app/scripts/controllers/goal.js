@@ -5,6 +5,7 @@ angular.module('spearmintWebApp')
 
     prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
 
+
     $scope.goalAmount = '';
     $scope.userGoal = '';
 

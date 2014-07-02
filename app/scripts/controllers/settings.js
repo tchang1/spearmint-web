@@ -4,14 +4,23 @@ angular.module('spearmintWebApp')
   .controller('SettingsCtrl', ['$scope', '$location', '$q', '$analytics', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'imageService', 'logger', 'cloner', 'sharedProperties', 'prettyPrettyBackground',
         function ($scope, $location, $q, $analytics ,goal, goalService, userService, savingsService, feedbackService, imageService, logger, cloner, sharedProperties, prettyPrettyBackground) {
 
+        var path = '../images/';
+        var imageToDisplay = sharedProperties.get('currentBackgroundImage');
+
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
         prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
 
         if (!prettyPrettyBackground.hasImage()) {
-            var path = '../images/';
-            var imageToDisplay = sharedProperties.get('currentBackgroundImage');
             if (imageToDisplay) {
-                prettyPrettyBackground.setImage('imageToDisplay', true);
+                prettyPrettyBackground.setImage(imageToDisplay, true);
                 prettyPrettyBackground.start();
+            }
+        }
+
+        if((userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )) {
+            if (imageToDisplay) {
+                document.getElementById("backgroundImage").style.backgroundImage = "url(" + imageToDisplay +")";
             }
         }
 
@@ -414,8 +423,20 @@ angular.module('spearmintWebApp')
                         imageService.getNextImages(userGoal).then(function(result) {
                                 imageToDisplay = path+result[0].uri;
                                 sharedProperties.set('currentBackgroundImage', imageToDisplay);
-                                document.getElementById("backgroundImage").style.backgroundImage = "url(" + imageToDisplay +")";
-//                                document.getElementById("backgroundImage").style.backgroundSize = "auto 100%";
+
+                                if (!prettyPrettyBackground.hasImage()) {
+                                    if (imageToDisplay) {
+                                        prettyPrettyBackground.setImage(imageToDisplay, true);
+                                        prettyPrettyBackground.start();
+                                    }
+                                }
+
+                                if((userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )) {
+                                    if (imageToDisplay) {
+                                        document.getElementById("backgroundImage").style.backgroundImage = "url(" + imageToDisplay +")";
+                                    }
+                                }
+
                             },
                             function(error) {
                                 logger.log("getting images failed");

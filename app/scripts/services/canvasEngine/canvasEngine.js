@@ -28,6 +28,7 @@ var canvasEngine = {
         canvasEngine.canvas.style.position = "fixed";
         canvasEngine.canvas.style.top = yPos + 'px';
         canvasEngine.canvas.style.left = xPos + 'px';
+        canvasEngine.canvas.style.display = "block";
         canvasEngine.ImageManager.resizeAllImagesTo({width: width, height: height});
     },
 

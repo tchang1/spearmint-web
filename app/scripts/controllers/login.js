@@ -10,6 +10,7 @@ angular.module('spearmintWebApp')
             prettyPrettyBackground.setImage('/images/FTU/Path.jpg', true, new canvasEngine.Color(0,0,0,0.3));
             prettyPrettyBackground.start();
         }
+
       document.ontouchmove = function(event){
         event.preventDefault();
       };

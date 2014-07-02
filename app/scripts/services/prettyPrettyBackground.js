@@ -12,10 +12,11 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
 
         var width;
         var height;
-
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
         return {
             initWithCanvas: function(canvas) {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 var me = this;
                 if (!initialized) {
                     width = window.innerWidth;
@@ -29,6 +30,7 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
 
 
             setImage: function(imageURL, blurred, tint) {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 hasAnImage = true;
 //                canvasEngine.ImageManager.createImage(bottomImageName);
                 canvasEngine.ImageManager.createImage(topImageName, {
@@ -49,15 +51,18 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
             },
 
             start: function() {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 logger.log('starting');
                 canvasEngine.run();
             },
 
             stop: function() {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 canvasEngine.pause();
             },
 
             blur: function(time) {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 logger.log('blurring');
                 _isBlurred = true;
                 var topImage = canvasEngine.ImageManager.getImage(topImageName);
@@ -73,6 +78,7 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
             },
 
             unblur: function(time) {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 logger.log('unblurring');
                 _isBlurred = false;
                 var topImage = canvasEngine.ImageManager.getImage(topImageName);
@@ -87,6 +93,7 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
             },
 
             transitionToImage: function(newImage, time, blurred, tint) {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 blurred = (blurred == true);
                 canvasEngine.ImageManager.createImage(bottomImageName, {
                     url: newImage,
@@ -118,6 +125,7 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
             },
 
             _updateSize: function() {
+                if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
                 logger.log('updating size');
                 width = window.innerWidth;
                 height = window.innerHeight;
