@@ -5,7 +5,7 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
 
         var topImageName = 'topImage';
         var bottomImageName = 'bottomImage';
-        var blurAmount = 10.0;
+        var blurAmount = 5.0;
         var hasAnImage = false;
         var _isBlurred = true;
         var initialized = false;
