@@ -34,10 +34,43 @@ angular.module('spearmintWebApp')
         return img; 
     }
 
+    // Messaging for home screen 
+    function shuffleArray(array) {
+      for (var i = array.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+      }
+      return array;
+    }
+
+    var welcomeMessages = ["Skipped the coffee?", "Took the bus today?", "Dinner at home?", "Brought your lunch to work?", "Waited till it went on sale?", 
+                            "Bought the generic brand?", "Wash your own car?", "Walked instead of driving?", "Skipped a round of drinks?", "Returned something you didn't need?", 
+                            "Bought it off criagslist?", "Had a date night in?", "Skipped the soda?", "Saw a free concert?", "Had salad instead of steak?", "Worked overtime?"]; 
+    var congratsMessages = ["Truly amazing!", "Hip hip horray!", "Quite amazing!", "Great work!", "Three cheers mate!", "Sweet!", "Wonderfully done!", "So great!", 
+                            "Way to go champ!", "You rock!", "Terrific!", "Looking sharp!", "Oh my word!", "Woah! Incredible!", "Superior work!", "Quite impressive!", "Top notch!"];
+
+
     // SETUP Page with initial message, progress indicator, and load the images to show 
-    $scope.message = "Press and hold to save";
+    welcomeMessages = shuffleArray(welcomeMessages); 
+    var welcomeIndex = 0; 
+    $scope.suggestionMessage = welcomeMessages[welcomeIndex]; 
+    $scope.$apply(); 
+    $scope.message = "Press and hold to keep the savings.";
     $scope.messageFooter = ""; 
     $scope.holding = false; 
+
+    var welcomeTimer = setInterval(function(){
+      welcomeIndex += 1; 
+      if (welcomeIndex > (welcomeMessages.length - 1)) { 
+        welcomeIndex = 0; 
+      }
+      $scope.suggestionMessage = welcomeMessages[welcomeIndex]; 
+      $scope.$apply()}, 4000); 
+
+    congratsMessages = shuffleArray(congratsMessages); 
+    var congratsIndex = 0; 
 
     progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
     progressIndicator.show();
@@ -143,10 +176,12 @@ angular.module('spearmintWebApp')
 
       $scope.message = ""; 
       $scope.messageFooter = ""; 
+      $scope.suggestionMessage = ""; 
       $scope.holding = true;
       clearTimeout(fadeMessageTimer);
       clearTimeout(fadeMessageTimer2);
       clearTimeout(fadeMessageTimer3);
+      clearInterval(welcomeTimer);
 
       progressIndicator.start();
       logger.log("unblur called"); 
@@ -176,7 +211,7 @@ angular.module('spearmintWebApp')
           clearTimeout(fadeMessageTimer);
           clearTimeout(fadeMessageTimer2);
           clearTimeout(fadeMessageTimer3);
-        $scope.message = "Press and hold to save";
+        $scope.message = "Press and hold to keep it";
       }
       else {
         var userGoal = goal.getStoredGoal();
@@ -211,12 +246,24 @@ angular.module('spearmintWebApp')
       goalService.saveGoal(userGoal);
       var savings = {goalid:userGoal._id, savingsAmount: dollarAmount};
 
+      // Get the congrats message 
+      var congrats = congratsMessages[congratsIndex];
+      congratsIndex += 1; 
+      if (congratsIndex > (congratsMessages.length - 1)) { 
+        congratsIndex = 0; 
+      }
+
+
       // Display messaging to indicate progress 
-        if (userGoal.amountSaved > userGoal.targetAmount && userGoal.targetAmount!=0) {
+      if (userGoal.amountSaved > userGoal.targetAmount && userGoal.targetAmount!=0) {
         $scope.message = "Congratulations! You reached your goal!"; 
       } else if (userGoal.amountSaved > 0) {
-        $scope.message = "You just saved $" + dollarAmount;
-        $scope.messageFooter = "Total Saved $" + userGoal.amountSaved; 
+        $scope.message = congrats + " You just kept $" + dollarAmount;
+        if (userGoal.name == "Enter a goal") {
+          $scope.messageFooter = "Total saved: $" + userGoal.amountSaved; 
+        } else { 
+          $scope.messageFooter = "Money saved for " + userGoal.name + ": $" + userGoal.amountSaved; 
+        }
       } else { 
         $scope.message = "You just saved $" + dollarAmount + " Great job!";
       }
@@ -226,14 +273,25 @@ angular.module('spearmintWebApp')
       timersStarted=true;
       fadeMessageTimer = setTimeout(function(){
         logger.log("fading out");
-        document.getElementById("home-screen-message").className="opacity-animate-out";}, 1000);
+        document.getElementById("home-screen-message").className="opacity-animate-out";}, 3000);
       fadeMessageTimer2 = setTimeout(function(){
         logger.log("changing msg");
-        $scope.message="Press and hold to save";
-        $scope.$apply()}, 2500);
+        $scope.suggestionMessage = welcomeMessages[welcomeIndex];
+        $scope.message="Press and hold to keep the savings.";
+        $scope.$apply()}, 4500);
       fadeMessageTimer3 = setTimeout(function(){
         logger.log("fade in");
-        document.getElementById("home-screen-message").className="opacity-animate";}, 2700);
+        document.getElementById("home-screen-message").className="opacity-animate";
+        welcomeTimer = setInterval(function(){
+          welcomeIndex += 1; 
+          if (welcomeIndex > (welcomeMessages.length - 1)) { 
+            welcomeIndex = 0; 
+          }
+          $scope.suggestionMessage = welcomeMessages[welcomeIndex]; 
+          $scope.$apply()}, 4000);   
+      }, 4700);
+
+
 
       savingsService.createNewSavings(savings);
 

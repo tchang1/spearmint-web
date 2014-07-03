@@ -423,11 +423,23 @@ body {
    100% {  -webkit-filter:  blur(10px) brightness(80%);}
   }
 
+  #home-screen-welcome-message { 
+    text-align: center; 
+    margin-top: 150px; 
+    font-size: 24px; 
+    height: 75px;
+    color: white;
+    font-weight: bold; 
+  }
+
   #home-screen-message { 
     text-align: center; 
-    margin-top: 250px; 
-    font-size: 26px; 
-    height: 200px;
+    font-size: 24px; 
+    height: 100px;
+    width: 200px;
+    position: fixed;
+    left:50%;
+    margin-left: -100px;
     color: white;
     font-weight: bold; 
   }
@@ -438,7 +450,8 @@ body {
     font-weight: bold; 
     position: fixed;
     left:50%;
-    min-width:200px;
+    min-width:100px;
+    max-width:200px;
     text-align: center;
     margin-left: -100px;
     bottom:50px;
