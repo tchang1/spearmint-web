@@ -107,11 +107,11 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
 //                        var topImage = canvasEngine.ImageManager.getImage(topImageName);
                         image.setAlpha(1.0, time).then(
                     function(success) {
-//                        logger.log('swapping images');
+                        logger.log('swapping images');
                         canvasEngine.ImageManager.renameImage(bottomImageName, topImageName);
 //                        canvasEngine.ImageManager.setImage(topImageName, canvasEngine.ImageManager.getImage(bottomImageName));
 //                        canvasEngine.ImageManager.clearImage(bottomImageName);
-                        logger.log(canvasEngine.ImageManager);
+//                        logger.log(canvasEngine.ImageManager);
                     })}
                 );
 

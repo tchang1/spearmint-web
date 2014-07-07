@@ -48,8 +48,8 @@ var canvasEngine = {
             canvasEngine._draw();
 
             var timeoutWait = 1000/canvasEngine.FPS - (deltaTime - 1000/canvasEngine.FPS);
-            if (timeoutWait < 0) {
-                timeoutWait = 0;
+            if (timeoutWait < 2) {
+                timeoutWait = 2;
             }
             canvasEngine.timeout = setTimeout(canvasEngine._update, timeoutWait);
         }

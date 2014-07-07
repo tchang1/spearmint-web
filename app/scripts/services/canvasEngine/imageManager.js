@@ -92,18 +92,25 @@ canvasEngine.ImageManager = {
         var me = this;
         var image;
         var shouldDraw = false;
+        var promisesToFulfill = [];
+        var i;
         for (image in me._imageMap) {
             if (me._imageMap.hasOwnProperty(image)) {
                 if (me._imageMap[image]) {
                     if (me._imageMap[image]._image.complete && me._imageMap[image]._completePromise) {
-                        console.log('image loading complete');
                         me._imageMap[image]._completePromise.setSuccessful(true);
                         me._imageMap[image]._completePromise.setResponse(me._imageMap[image]);
+
                         me._imageMap[image]._completePromise.fulfill();
                         me._imageMap[image]._completePromise = null;
                         me._imageMap[image].setDirty(true);
                     }
-                    me._imageMap[image].update();
+
+                    var promises = me._imageMap[image].update();
+                    if (promises.length > 0) {
+                        promisesToFulfill = promisesToFulfill.concat(promises);
+                    }
+
                     shouldDraw = me._imageMap[image].isDirty();
                     if (shouldDraw) {
                         me._shouldDraw = true;
@@ -112,13 +119,19 @@ canvasEngine.ImageManager = {
                 }
             }
         }
+        for (i = 0; i < promisesToFulfill.length; i++) {
+            if (promisesToFulfill[i]) {
+                promisesToFulfill[i].fulfill();
+                promisesToFulfill[i] = null;
+            }
+        }
     },
 
     draw: function(context) {
         var me = this;
         var image;
         var imageData;
-        if (true) {
+        if (me._shouldDraw) {
             canvasEngine.clear();
             context.save();
             for (image in me._imageMap) {
@@ -126,21 +139,21 @@ canvasEngine.ImageManager = {
                     if (me._imageMap[image] && me._imageMap[image]._url !='' && me._imageMap[image]._image.complete) {
 
                         var bottomData;
+
+                        // Draw the image so we can access all dem pixels
+                        context.drawImage(me._imageMap[image].getImage(), me._imageMap[image]._position.x, me._imageMap[image]._position.y, me._imageMap[image]._size.x, me._imageMap[image]._size.y);
                         if (imageData) {
                             bottomData = imageData;
                         }
                         else {
-                             bottomData = me._imageMap[image]._getImageData(context);
+                            bottomData = me._imageMap[image]._getImageData(context);
                         }
-
-                        // Draw the image so we can access all dem pixals
-                        context.drawImage(me._imageMap[image].getImage(), me._imageMap[image]._position.x, me._imageMap[image]._position.y, me._imageMap[image]._size.x, me._imageMap[image]._size.y);
 
                         imageData = me._imageMap[image]._getImageData(context);
                         if (imageData) {
 
                             if (me._imageMap[image]._blurRadius > 1) {
-                                imageData = me._imageMap[image]._blurImageData(imageData);
+                                imageData = me._imageMap[image]._blurImageData(imageData, context);
                             }
 
                             if (me._imageMap[image]._color.a < 1.0 || me._imageMap[image]._tint) {
@@ -161,18 +174,20 @@ canvasEngine.ImageManager = {
 };
 
 canvasEngine.Image = canvasEngine.Object3D.$extend({
-    _color: null,
-    _blurRadius: 0,
-    _imageInterpolations: new canvasEngine.HashArray(),
-    _image: null,
-    _size: new canvasEngine.Math.Vector3(0,0,0),
-    _tint: null,
-    _url: null,
-    _position: null,
-    _imageLoaded: false,
-    _imagePromises: {},
-    _completePromise: null,
-    _dirty: true,
+//    _color: null,
+//    _blurRadius: 0,
+//    _imageInterpolations: new canvasEngine.HashArray(),
+//    _image: null,
+//    _size: new canvasEngine.Math.Vector3(0,0,0),
+//    _tint: null,
+//    _url: null,
+//    _position: null,
+//    _imageLoaded: false,
+//    _imagePromises: {},
+//    _completePromise: null,
+//    _dirty: true,
+//    _cachedBlurs: [],
+//    _cachedImageData: null,
 
     __init__: function(properties) {
         var me = this;
@@ -189,14 +204,20 @@ canvasEngine.Image = canvasEngine.Object3D.$extend({
         me._color = (properties.color) ? properties.color : new canvasEngine.Color(0,0,0, 1.0);
         me._color.a = (typeof properties.alpha === 'undefined') ? 1.0 : properties.alpha;
         me._blurRadius = (properties.blurRadius) ? properties.blurRadius : 0;
-        me._size = (properties.size) ? (properties.size) : me._size;
+        me._size = (properties.size) ? (properties.size) : new canvasEngine.Math.Vector3(0,0,0);
         me._tint = properties.tint;
 
         me._image = new Image();
+        me._imagedLoaded = false;
         me._image.onLoad = function() {
             me._imageLoaded = true;
         };
         me._image.src = me._url;
+        me._imagePromises = {};
+        me._imageInterpolations = new canvasEngine.HashArray();
+        me._dirty = true;
+        me._cachedBlurs = [];
+        me._cachedImageData = null;
 
         return me._completePromise;
     },
@@ -279,7 +300,6 @@ canvasEngine.Image = canvasEngine.Object3D.$extend({
             var alphaInterpolation  = new canvasEngine.LinearInterpolation(new canvasEngine.Math.Vector3(me._color.a, 0, 0), new canvasEngine.Math.Vector3(color.a, 0, 0), time, false);
             me._imageInterpolations.add(canvasEngine.InterpolationConstants.COLOR_INTERPOLATION, colorInterpolation);
             me._imageInterpolations.add(canvasEngine.InterpolationConstants.ALPHA_INTERPOLATION, alphaInterpolation);
-            console.log(alphaInterpolation);
 
             me._imagePromises[alphaInterpolation.id] = promise;
         }
@@ -396,13 +416,34 @@ canvasEngine.Image = canvasEngine.Object3D.$extend({
             interpolationType = me._imageInterpolations.getNextIndex();
         }
 
-        for (i = 0; i < promisesToFulfill.length; i++) {
-            promisesToFulfill[i].fulfill();
+//        for (i = 0; i < promisesToFulfill.length; i++) {
+//            promisesToFulfill[i].fulfill();
+//        }
+        return promisesToFulfill;
+    },
+
+    _copyImageData: function(imageData, context) {
+        var me = this;
+        var copy;
+        var copyData;
+        var i;
+        copy = context.createImageData(imageData);
+        copyData = new Uint8ClampedArray(imageData.data);
+        copy.data.set(copyData);
+
+        for (i = 0; i < imageData.data.length; i ++) {
+            copy.data[i] = imageData.data[i];
         }
+
+        return copy;
     },
 
     _getImageData: function(context) {
+
         var me = this;
+        if (me._cachedImageData) {
+            return me._copyImageData(me._cachedImageData, context);
+        }
         var imageData;
         var top_x = me._position.x;
         var top_y = me._position.y;
@@ -429,6 +470,7 @@ canvasEngine.Image = canvasEngine.Object3D.$extend({
             throw new Error("unable to access image data: " + e);
         }
 
+        me._cachedImageData = me._copyImageData(imageData, context);
         return imageData;
     },
 
@@ -574,15 +616,24 @@ canvasEngine.Image = canvasEngine.Object3D.$extend({
 //        return imageData;
 //    }
 
-    _blurImageData: function(imageData) {
+    _blurImageData: function(imageData, context) {
         var me = this;
+
+        var copy;
+        var copyData;
+        var radius = Math.round(me._blurRadius);
+
+        if (me._cachedBlurs[radius]) {
+            return me._copyImageData(me._cachedBlurs[radius], context);
+        }
+
         var position = me.getPosition();
         var top_x = position.x;
         var top_y = position.y;
         var size = me.getSize();
         var width = size.x;
         var height = size. y;
-        var radius = me._blurRadius;
+//        var radius = me._blurRadius;
         var iterations = 2;
         if ( isNaN(radius) || radius < 1 ) return;
         radius |= 0;
@@ -723,6 +774,9 @@ canvasEngine.Image = canvasEngine.Object3D.$extend({
                 }
             }
         }
+
+        me._cachedBlurs[radius] = me._copyImageData(imageData, context);
+
         return imageData;
     },
 

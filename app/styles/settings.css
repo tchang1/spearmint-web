@@ -96,7 +96,7 @@
     position: relative;
     margin-left: 20px;
     margin-right: 20px;
-
+    -webkit-overflow-scrolling: touch;
 }
 
 #goalAmountBox {
@@ -234,6 +234,7 @@
 #transactionPanel {
     height: 280px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .transactionAmount {

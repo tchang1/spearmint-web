@@ -47,7 +47,7 @@ angular.module('spearmintWebApp')
     var changeBackground = function(imageURL) {
         
         if (prettyPrettyBackground.hasImage()) {
-           prettyPrettyBackground.transitionToImage(imageURL, 1000, false, new canvasEngine.Color(0,0,0,.2));
+           prettyPrettyBackground.transitionToImage(imageURL, 1000, true, new canvasEngine.Color(0,0,0,.2));
         }
         else {
             prettyPrettyBackground.setImage(imageURL, true, new canvasEngine.Color(0,0,0,.2));
