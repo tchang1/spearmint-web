@@ -39,7 +39,7 @@
             <div id="goalNameBox" class="settingEditBox">
                 <div class="panelHeader">MY GOAL</div>
                 <div class="panelBody">
-                    <input name="goalName" id="settingsGoalNameInput" class="textInput" type="text" ng-model="userGoal.name" placeholder="I want to..." goal/>
+                    <input name="goalName" id="settingsGoalNameInput" class="textInput" type="text" ng-model="userGoal.name" placeholder="I want..." goal/>
                     <a class="textInputButton" href="#" ng-class="{'textInputButtonWhite' : !(userGoal.name == originalUserGoal.name), 'textInputButtonGrey' : (userGoal.name == originalUserGoal.name)}" ng-click="goalNameButtonClicked($event)">{{(userGoal.name == originalUserGoal.name) ? "Edit" : "Save"}}</a>
                 </div>
                 <div class="error" ng-show="editGoalForm.goalName.$error.goal">Goal names can only contain letters and numbers</div>

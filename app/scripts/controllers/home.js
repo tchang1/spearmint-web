@@ -46,33 +46,66 @@ angular.module('spearmintWebApp')
     }
 
     var welcomeMessages = ["Skipped the coffee?", "Took the bus today?", "Dinner at home?", "Brought your lunch to work?", "Waited till it went on sale?", 
-                            "Bought the generic brand?", "Wash your own car?", "Walked instead of driving?", "Skipped a round of drinks?", "Returned something you didn't need?", 
-                            "Bought it off criagslist?", "Had a date night in?", "Skipped the soda?", "Saw a free concert?", "Had salad instead of steak?", "Worked overtime?"]; 
+                          "Bought the generic brand?", "Washed your own car?", "Walked instead of driving?", "Skipped a round of drinks?", "Returned something you didn't need?", 
+                          "Bought it off Craigslist?", "Had a date night in?", "Skipped the soda?", "Saw a free concert?", "Got salad instead of steak?", "Worked overtime?",
+                          "Coupon clipping?", "Biked to work?", "Borrowed a library book?", "Used a free ATM?", "Coffee at home?"]; 
     var congratsMessages = ["Truly amazing!", "Hip hip horray!", "Quite amazing!", "Great work!", "Three cheers mate!", "Sweet!", "Wonderfully done!", "So great!", 
-                            "Way to go champ!", "You rock!", "Terrific!", "Looking sharp!", "Oh my word!", "Woah! Incredible!", "Superior work!", "Quite impressive!", "Top notch!"];
+                            "Way to go champ!", "You rock!", "Terrific!", "Looking sharp!", "Oh my word!", "Woah! Incredible!", "Superior work!", "Quite impressive!", "Top notch!", 
+                            "Excellent!", "You're on a roll!", "Oh my gosh!", "Exceptional!", "Wonderful!", "Just what was needed!", "First class!", "Nice job!", "Far out!", 
+                            "Legendary!", "Brilliant!", "Impressive!", "Neat-o!", "Cool beans!", "How did you get so good?!", "Beautiful!", "Are you good or what?!", 
+                            "Magnificent!", "Bravo!", "World class!", "Unbelievable!", "Rock on!", "You should be very proud!", "Perfection!", "Now you're cooking!",  "Ace job!", 
+                            "Props!", "Powerfully done!", "You're on fire!"];
 
 
     // SETUP Page with initial message, progress indicator, and load the images to show 
+
+    // get a random set of four messages from the welcome messages
     welcomeMessages = shuffleArray(welcomeMessages); 
+    welcomeMessages = welcomeMessages.slice(0,4); 
     var welcomeIndex = 0; 
+
+    // set all of the initial messaging for the home screen
     $scope.suggestionMessage = welcomeMessages[welcomeIndex]; 
-    $scope.$apply(); 
-    $scope.message = "Press and hold to keep the savings.";
+    $scope.message = "Press and hold <br/> to <b>Keep</b> the savings.";
     $scope.messageFooter = ""; 
     $scope.holding = false; 
 
-    var welcomeTimer = setInterval(function(){
-      welcomeIndex += 1; 
-      if (welcomeIndex > (welcomeMessages.length - 1)) { 
-        welcomeIndex = 0; 
-      }
-      $scope.suggestionMessage = welcomeMessages[welcomeIndex]; 
-      $scope.$apply()}, 4000); 
+    var textOnScreenTime = 4000; 
+    var fadeAndTransitionTime = textOnScreenTime + 500; 
+    var welcomeFadeTimer; 
+    var welcomeTimer;
+    var welcomeFadeOutTimer; 
 
+    var setupWelcomeTimers = function() { 
+        // Set timers for fading the welcome text
+      welcomeFadeTimer = setTimeout(function(){
+          document.getElementById("home-screen-welcome-message").className="opacity-animate-out-welcome";}, textOnScreenTime);
+      welcomeFadeOutTimer = setTimeout(function(){
+          document.getElementById("home-screen-welcome-message").className="opacity-animate-welcome";}, fadeAndTransitionTime);
+
+      // Set an interval for changing the text of the welcome message
+      welcomeTimer = setInterval(function(){
+        welcomeFadeTimer = setTimeout(function(){
+          document.getElementById("home-screen-welcome-message").className="opacity-animate-out-welcome";}, textOnScreenTime);
+        welcomeFadeOutTimer = setTimeout(function(){
+          document.getElementById("home-screen-welcome-message").className="opacity-animate-welcome";}, fadeAndTransitionTime);
+
+        welcomeIndex += 1; 
+        if (welcomeIndex > (welcomeMessages.length - 1)) { 
+          welcomeIndex = 0; 
+        }
+        $scope.suggestionMessage = welcomeMessages[welcomeIndex]; 
+        $scope.$apply()}, fadeAndTransitionTime); 
+    };
+
+    setupWelcomeTimers(); 
+
+    // randomize the congrats messages that the suer sees 
     congratsMessages = shuffleArray(congratsMessages); 
     var congratsIndex = 0; 
 
     progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
+    progressIndicator.setMax(99);
     progressIndicator.show();
 
     var currentImageURL;
@@ -88,6 +121,13 @@ angular.module('spearmintWebApp')
           function(result) {
                 goal.save(result);
                 userGoal=result;
+
+                if (userGoal.name == "Enter a goal") {
+                  $scope.messageFooter = "Money kept: $" + userGoal.amountSaved; 
+                } else { 
+                  $scope.messageFooter = "Money for " + userGoal.name + ": $" + userGoal.amountSaved; 
+                }
+
                 imageService.getNextImages(userGoal).then(function(result) {
                   currentImageURL = path+result[0].uri;
                   nextImageURL = path+result[1].uri; 
@@ -122,10 +162,13 @@ angular.module('spearmintWebApp')
         ) // To Do: change this to call back end function that returns 
     }
     else {
-      if (userGoal.amountSaved>0) {
-          $scope.messageFooter = "Total Saved $" + userGoal.amountSaved;
-      }
       logger.log("local goal , using it");
+
+      if (userGoal.name == "Enter a goal") {
+          $scope.messageFooter = "Money kept: $" + userGoal.amountSaved; 
+        } else { 
+          $scope.messageFooter = "Money for " + userGoal.name + ": $" + userGoal.amountSaved; 
+        }
 
       imageService.getNextImages(userGoal).then(function(result) {
 
@@ -156,12 +199,16 @@ angular.module('spearmintWebApp')
                   logger.log("getting images failed");
       });
     }
+
     document.ontouchmove = function(event){
       event.preventDefault();
     };
 
     $scope.storeCurrentImage = function() {
         sharedProperties.set('currentBackgroundImage', currentImageURL);
+        clearInterval(welcomeTimer);
+        clearTimeout(welcomeFadeTimer);
+        clearTimeout(welcomeFadeOutTimer);
     };
 
     // Reveal the clear image when the user holds down on the screen
@@ -173,6 +220,7 @@ angular.module('spearmintWebApp')
 
         prettyPrettyBackground.unblur(unblurTime);
 
+        document.getElementsByClassName("welcome-showMe-fingerprint")[0].className="welcome-showMe-fingerprint";
 
       $scope.message = ""; 
       $scope.messageFooter = ""; 
@@ -182,6 +230,8 @@ angular.module('spearmintWebApp')
       clearTimeout(fadeMessageTimer2);
       clearTimeout(fadeMessageTimer3);
       clearInterval(welcomeTimer);
+      clearTimeout(welcomeFadeTimer);
+      clearTimeout(welcomeFadeOutTimer);
 
       progressIndicator.start();
       logger.log("unblur called"); 
@@ -196,6 +246,7 @@ angular.module('spearmintWebApp')
 
         prettyPrettyBackground.blur(blurTime);
 
+        logger.log("reblur called"); 
 
       $scope.holding = false; 
       progressIndicator.stop();
@@ -205,13 +256,19 @@ angular.module('spearmintWebApp')
       $analytics.eventTrack('holdRelease', {  category: 'save' , label: 'home_releaseButton', value: dollarAmount });
 
       document.getElementById("home-screen-message").className="";
+      document.getElementsByClassName("welcome-showMe-fingerprint")[0].className="welcome-showMe-fingerprint";
+
+      clearInterval(welcomeTimer);
+      clearTimeout(welcomeFadeTimer);
+      clearTimeout(welcomeFadeOutTimer);
 
       progressIndicator.reset(); 
       if(dollarAmount ==0) {
           clearTimeout(fadeMessageTimer);
           clearTimeout(fadeMessageTimer2);
           clearTimeout(fadeMessageTimer3);
-        $scope.message = "Press and hold to keep it";
+          setupWelcomeTimers(); 
+        $scope.message = "Press and hold <br/>to <b>Keep</b> the savings.";
       }
       else {
         var userGoal = goal.getStoredGoal();
@@ -253,43 +310,44 @@ angular.module('spearmintWebApp')
         congratsIndex = 0; 
       }
 
+      // Hide the fingerprint temporarily 
+      document.getElementsByClassName("welcome-showMe-fingerprint")[0].style.opacity = 0; 
+      document.getElementById("home-screen-message-footer").style.fontWeight = "bold"; 
 
       // Display messaging to indicate progress 
       if (userGoal.amountSaved > userGoal.targetAmount && userGoal.targetAmount!=0) {
         $scope.message = "Congratulations! You reached your goal!"; 
       } else if (userGoal.amountSaved > 0) {
-        $scope.message = congrats + " You just kept $" + dollarAmount;
+        $scope.message = congrats + "<br />You just kept $" + dollarAmount;
         if (userGoal.name == "Enter a goal") {
-          $scope.messageFooter = "Total saved: $" + userGoal.amountSaved; 
+          $scope.messageFooter = "Money kept: $" + userGoal.amountSaved; 
         } else { 
-          $scope.messageFooter = "Money saved for " + userGoal.name + ": $" + userGoal.amountSaved; 
+          $scope.messageFooter = "Money for " + userGoal.name + ": $" + userGoal.amountSaved; 
         }
       } else { 
         $scope.message = "You just saved $" + dollarAmount + " Great job!";
       }
 
       // Wait 1 second for reblur animation to stop, then transition to next image 
-      setTimeout(function(){transitionToNextImage()}, 1000);
+      setTimeout(function(){transitionToNextImage()}, 2500);
       timersStarted=true;
       fadeMessageTimer = setTimeout(function(){
         logger.log("fading out");
-        document.getElementById("home-screen-message").className="opacity-animate-out";}, 3000);
+        document.getElementById("home-screen-welcome-message").className="opacity-animate-out";
+        document.getElementById("home-screen-message").className="opacity-animate-out";}, 2500);
       fadeMessageTimer2 = setTimeout(function(){
         logger.log("changing msg");
         $scope.suggestionMessage = welcomeMessages[welcomeIndex];
-        $scope.message="Press and hold to keep the savings.";
-        $scope.$apply()}, 4500);
+        $scope.message="Press and hold <br/>to <b>Keep</b> the savings.";
+        $scope.$apply()}, 4000);
       fadeMessageTimer3 = setTimeout(function(){
         logger.log("fade in");
+        document.getElementsByClassName("welcome-showMe-fingerprint")[0].className="welcome-showMe-fingerprint opacity-animate";
+        document.getElementsByClassName("welcome-showMe-fingerprint")[0].style.opacity = 1; 
         document.getElementById("home-screen-message").className="opacity-animate";
-        welcomeTimer = setInterval(function(){
-          welcomeIndex += 1; 
-          if (welcomeIndex > (welcomeMessages.length - 1)) { 
-            welcomeIndex = 0; 
-          }
-          $scope.suggestionMessage = welcomeMessages[welcomeIndex]; 
-          $scope.$apply()}, 4000);   
-      }, 4700);
+        document.getElementById("home-screen-welcome-message").className="opacity-animate";
+        setupWelcomeTimers();    
+      }, 4200);
 
 
 

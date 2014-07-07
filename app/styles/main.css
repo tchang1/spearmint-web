@@ -570,21 +570,35 @@ body {
 
   #home-screen-welcome-message { 
     text-align: center; 
-    margin-top: 150px; 
-    font-size: 24px; 
-    height: 75px;
+    margin-top: 100px; 
+    font-size: 18px; 
+    height: 65px;
     color: white;
     font-weight: bold; 
   }
+
+/*  .welcome-transition-out { 
+    -webkit-animation: fadeoutin ease-out 1s;
+  }
+
+  .welcome-transition-in { 
+    -webkit-animation: fadeoutin ease-out 1s;
+  }
+
+  @-webkit-keyframes fadeoutin {
+     0% {    -webkit-filter: blur(10px);}
+    50% { -webkit-filter:  blur(5px);}
+   100% {  -webkit-filter:  blur(0px);}
+  }*/
 
   #home-screen-message { 
     text-align: center; 
     font-size: 24px; 
     height: 100px;
-    width: 200px;
+    width: 300px;
     position: fixed;
     left:50%;
-    margin-left: -100px;
+    margin-left: -150px;
     color: white;
     font-weight: bold; 
   }
@@ -595,11 +609,11 @@ body {
     font-weight: bold; 
     position: fixed;
     left:50%;
-    min-width:100px;
-    max-width:200px;
+    min-width:300px;
+    max-width:300px;
     text-align: center;
-    margin-left: -100px;
-    bottom:50px;
+    margin-left: -150px;
+    bottom:25px;
   }
 
   #settings-button {
@@ -763,10 +777,21 @@ body {
     opacity: 1;
   }
 
+  .opacity-animate-welcome {
+   -webkit-animation: fadeinreleasewelcome ease-in 0.5s;
+    opacity: 1;
+  }
+
    @-webkit-keyframes fadeinrelease { 
   0% { opacity: 0; }
   20% { opacity: 0; }
   40% { opacity: 0.3; }
+  60% { opacity: 0.5; }
+  80% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+@-webkit-keyframes fadeinreleasewelcome { 
+  0% { opacity: 0.1; }
   60% { opacity: 0.5; }
   80% { opacity: 0.9; }
   100% { opacity: 1; }
@@ -777,6 +802,11 @@ body {
     opacity: 0;
   }
 
+.opacity-animate-out-welcome {
+   -webkit-animation: opacityfadeoutwelcome ease-in 0.5s;
+    opacity: 0.5;
+  }
+
    @-webkit-keyframes opacityfadeout { 
   0% { opacity: 1; }
   20% { opacity: 0.9; }
@@ -784,6 +814,13 @@ body {
   60% { opacity: 0.3; }
   80% { opacity: 0.1; }
   100% { opacity: 0; }
+}
+
+@-webkit-keyframes opacityfadeoutwelcome { 
+  0% { opacity: 1; }
+  20% { opacity: 0.9; }
+  40% { opacity: 0.5; }
+  100% { opacity: 0.1; }
 }
 
 
