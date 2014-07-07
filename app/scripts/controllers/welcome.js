@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('WelcomeCtrl', ['$scope', '$location', '$analytics', 'goalService', 'userService', 'logger', 'progressIndicator', 'prettyPrettyBackground',
-        function ($scope, $location, $analytics, goalService, userService, logger, progressIndicator, prettyPrettyBackground) {
+  .controller('WelcomeCtrl', ['$scope', '$location', '$timeout', '$analytics', 'goalService', 'userService', 'logger', 'progressIndicator', 'prettyPrettyBackground',
+        function ($scope, $location, $timeout, $analytics, goalService, userService, logger, progressIndicator, prettyPrettyBackground) {
 
     // $scope.getStarted = function() {
     //     $location.path('/ftu');
@@ -74,19 +74,24 @@ angular.module('spearmintWebApp')
 
     var rotateImages = function() {
         FTUIndex += 1; 
-        logger.log("incrementing index to "+FTUIndex+", rotating images"); 
+        logger.log("incrementing index to "+FTUIndex+", rotating images");
 
+        $scope.showTotal=false;
         var nextImageURL = FTUImages[FTUIndex];
         changeBackground(nextImageURL);
         $scope.message = blurMessages[variant][FTUIndex];
         logger.log($scope.message);
         $scope.releaseMessage= releaseMessages[FTUIndex];
         $scope.fingerMessage= fingerMessages[FTUIndex];
+        $scope.totalMessage= totalMessages[FTUIndex];
+        
+
 
 
         if (FTUIndex>0) {
             $scope.showMe=true;      
-        }  
+        }
+
 
         $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_imageRotated_to_'+FTUIndex, value: FTUIndex });
 
@@ -123,28 +128,35 @@ angular.module('spearmintWebApp')
     var FTUIndex = 0; 
     var FTUImages = ["../images/FTU/ireland.jpg", "../images/FTU/ireland.jpg", "../images/FTU/ridge.jpg"];     
     
-    var blurMessages = [["","Decided to skip the $3 coffee today?",
-                        "Decided to take $2 public transit over $10 cab?"]];
-    var unblurMessages = [["","Keep the $3 coffee instead and you'll be rewarded with a motivational photo", 
-                        "Use the money you keep to treat yourself"]];                    
-    var fingerMessages = ["","to <b>keep</b> the $3 you didn't spend!",
+    var blurMessages = [["","Pretend you decided to skip the $3 coffee that you usually buy",
+                        "When you decided to take a $2 bus over a $10 cab"]];
+    var unblurMessages = [["","Release the screen on the amount that you will keep. In this case $3", 
+                        "Everytime you record keeping something you get to see a new photo"]];                    
+    var fingerMessages = ["","to <b>keep</b> the $3 for your goal instead",
                         "to <b>keep</b> the difference"];
-    var releaseMessages = ["","Release the screen on the amount that you will keep. In this case $3.",
+    var releaseMessages = ["","Release the screen",
                         "Release the screen on the amount that you will keep. In this case $8."];
+    var totalMessages = ["","Each time you use keep we will add to your goal",
+                        "People reach their goals faster with keep."];
+    var holdMessages = ["Keep Holding",
+                        "Hold down on the screen for 4 seconds"];      
     var timingVar; 
     var timingVarPiggyBank; 
-    var releaseMessageTimer; 
+    var releaseMessageTimer;
+    var rotateTimer;
 
 
     changeBackground(FTUImages[FTUIndex]);
     $scope.message = "";
     $scope.releaseMessage="";
     $scope.findgerMessage="";
+    $scope.holdMessage="Keep Holding";
     $scope.firstScreen = true; 
     $scope.onblur = false;
     $scope.showMe=false;
     $scope.holding = false; 
     $scope.thirdOffense = false;
+    $scope.showTotal=false;
 
     var offenseNum = 0; 
 
@@ -166,7 +178,7 @@ angular.module('spearmintWebApp')
 
     // Reveal the clear image when the user holds down on the screen
     $scope.unblur = function() {
-    if ($scope.firstScreen) {
+    if ($scope.firstScreen || $scope.showTotal) {
         return;
     }
 
@@ -200,7 +212,7 @@ angular.module('spearmintWebApp')
     };
 
     $scope.reblur = function() {
-        if ($scope.firstScreen) {
+        if ($scope.firstScreen || $scope.showTotal) {
         return;
         }
         var isBlurred = !prettyPrettyBackground.isBlurred();
@@ -217,8 +229,8 @@ angular.module('spearmintWebApp')
  
 
             if (offenseNum == 2) {
-                document.getElementById("hand-light").src = "../images/FTU/hold_for_4.png"
-            } else if (offenseNum > 2) { 
+                $scope.holdMessage=holdMessages[1];
+            } else if (offenseNum > 2) {
                 $scope.thirdOffense = true; 
             }
 
@@ -237,12 +249,13 @@ angular.module('spearmintWebApp')
                     progressIndicator.hide();
                     document.getElementById("release-message").className="opacity-none"
                     $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_finish_goToGoal' , value: offenseNum});
-
-                    continueReblur();
-                    rotateImages();
+                    $scope.message = "";
+                    showResult();
+                    continueReblur(false);
                 } 
                 else if (FTUIndex==2 && dollarAmount ==8) {
-                    goToFTU();
+                    continueReblur(false);
+                    $timeout(goToFTU,1000);
                 }
                 else { // Otherwise just pause the progress indicator
                     clearTimeout(releaseMessageTimer); 
@@ -251,7 +264,7 @@ angular.module('spearmintWebApp')
                     document.getElementById("release-message").className="opacity-none"
                     $analytics.eventTrack('holdRelease', {  category: 'ftu_hold' , label: 'ftu_release_before_$2' , value: offenseNum});
                     $scope.message = "";
-                    continueReblur(); 
+                    continueReblur(true); 
 
                 }
             
@@ -260,8 +273,15 @@ angular.module('spearmintWebApp')
 
     };
 
-    var continueReblur = function() { 
-        $scope.onblur = true;
+    var showResult = function() {
+        $scope.showTotal=true;
+        $scope.messageFooter= "Total Kept: <b>$3</b>";
+        logger.log("setting timer for rotate");
+        rotateTimer= $timeout(rotateImages,3000);
+    }
+
+    var continueReblur = function(setOnBlur) { 
+        $scope.onblur = setOnBlur;
         if((userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )) {
             document.getElementById("ftu-screen").className="blur blur-animate";
         }

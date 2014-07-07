@@ -225,7 +225,7 @@ body {
   }
 
   .welcome-showMe-message {
-    width:150px;
+    width:175px;
     margin-right: auto; 
     margin-left: auto; 
     display: block;
@@ -238,6 +238,58 @@ body {
     margin-left: auto; 
     display: block;
     text-align: center;
+  }
+
+  .absoluteCenter {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+  }
+
+  .welcome-hold-fingerprint {
+    display:block;
+    width:100px;
+    height:100px;
+    background-image: url(/images/icons/fingerprint.svg);
+    background-size: 100px 100px;
+  }
+
+  .welcome-hold-text {
+    display: block;
+    position: fixed;
+    width:80%;
+    left:50%;
+    margin-left:-40%;
+    top:50%;
+    margin-top:60px;
+    color:white;
+    text-align: center;
+  }
+
+  .welcome-screen-message { 
+    text-align: center;
+    font-size: 24px;
+    height: 100px;
+    width: 280px;
+    position: fixed;
+    left: 50%;
+    top:50%;
+    margin-top:-50px;
+    margin-left: -140px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .welcome-screen-message-footer { 
+    font-size: 16px; 
+    color: white;
+    font-weight: bold; 
+    position: fixed;
+    left:50%;
+    width:150px;
+    margin-left:-75px;
+    text-align: center;
+    bottom:50px; 
   }
 
   .greenButton {
@@ -395,10 +447,11 @@ body {
 
   .get-started-div { 
 
-    width: 96%;
-    position: fixed;
-
-    bottom: 55px;
+    width: 90%;
+    left:50%;
+    position:absolute;
+    margin-left: -45%;
+    z-index:50;
 
   }
 

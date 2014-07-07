@@ -53,7 +53,7 @@ angular.module('spearmintWebApp')
     }
     logger.log("variant="+variant);
 
-    var messages= new Array(["Spend your money guilt free and know that you've earned it!",""],["Let go on the amount you would have otherwise spent","You'll reach your goal before you know it!"]);
+    var messages= new Array(["Use Keep to record moments when you choose to save for your goal.",""],["Let go on the amount you would have otherwise spent","You'll reach your goal before you know it!"]);
 
     $scope.message1 = messages[variant][0];
     $scope.message2 = messages[variant][1];
