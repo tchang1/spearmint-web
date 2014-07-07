@@ -52,6 +52,14 @@
                 </div>
                 <div class="error" ng-show="editGoalForm.goalAmount.$error.currency">Are you sure that's a number?</div>
             </div>
+            <div id="goalCurrentAmountBox" class="settingEditBox">
+                <div class="panelHeader">AMOUNT SAVED</div>
+                <div class="panelBody">
+                    <span class="dollarSignLabel">$</span><input name="currentAmount" id="settingsCurrentAmountInput" class="textInput" ng-model="userGoal.amountSaved" type="text" pattern="[0-9]*" placeholder="0" currency/>
+                    <a class="textInputButton" href="#" ng-class="{'textInputButtonWhite' : !(userGoal.amountSaved == originalUserGoal.amountSaved), 'textInputButtonGrey' : (userGoal.amountSaved == originalUserGoal.amountSaved)}" ng-click="goalCurrentAmountButtonClicked($event)">{{(userGoal.amountSaved == originalUserGoal.amountSaved) ? "Edit" : "Save"}}</a>
+                </div>
+                <div class="error" ng-show="editGoalForm.goalAmount.$error.currency">Are you sure that's a number?</div>
+            </div>
             <input type="submit" style="display:none; width: 1px; height: 1px;"/>
 
         </form>

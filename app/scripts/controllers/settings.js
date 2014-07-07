@@ -37,14 +37,14 @@ angular.module('spearmintWebApp')
                 id: 'myGoal',
                 url: '#'
             }, {
-                name: 'Deposit Account',
-                id: 'depositAccount',
-                url: '#'
-            }, {
-                name: 'Funding Account',
-                id: 'fundingAccount',
-                url: '#'
-            }, {
+//                name: 'Deposit Account',
+//                id: 'depositAccount',
+//                url: '#'
+//            }, {
+//                name: 'Funding Account',
+//                id: 'fundingAccount',
+//                url: '#'
+//            }, {
                 name: 'Notification Settings',
                 id: 'notification',
                 url: '#'
@@ -245,10 +245,26 @@ angular.module('spearmintWebApp')
             }
         };
 
+        $scope.goalCurrentAmountButtonClicked = function($event) {
+            $event.preventDefault();
+            $scope.userGoal.amountSaved = parseFloat($scope.userGoal.amountSaved);
+            if ($scope.originalUserGoal.amountSaved == $scope.userGoal.amountSaved) {
+                angular.element('#settingsCurrentAmountInput').focus();
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_editGoalCurrentAmount' });
+
+            }
+            else {
+                logger.log('saving amount');
+                $scope.goalFormSubmitted();
+                $analytics.eventTrack('actionTap', {  category: 'edit' , label: 'settings_saveGoalCurrentAmount' });
+            }
+        };
+
         $scope.goalFormSubmitted = function()  {
             $('input:focus').blur();
             $('textarea:focus').blur();
-            setTimeout(function(){ window.scrollTo(0, 0); }, 10); 
+            setTimeout(function(){ window.scrollTo(0, 0); }, 10);
+            $scope.userGoal.amountSaved = parseFloat($scope.userGoal.amountSaved);
             goal.save($scope.userGoal);
             saveGoal($scope.userGoal).then(
                 function(result) {

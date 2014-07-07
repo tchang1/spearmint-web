@@ -10,12 +10,12 @@ angular.module('spearmintWebApp')
     $scope.userGoal = '';
 
     $scope.suggestedGoals = [
-        'Move to a new place',
-        'Get a car',
-        'Go on vacation',
-        'Get married',
-        'Go back to school',
-        'Pay off debt'
+        'moving',
+        'a new car',
+        'a vacation',
+        'a wedding',
+        'going back to school',
+        'paying off debt'
     ];
 
 	$scope.enterGoal = function() {

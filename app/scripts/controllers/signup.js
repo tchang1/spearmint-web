@@ -11,8 +11,6 @@ angular.module('spearmintWebApp')
         prettyPrettyBackground.start();
     }
 
-
-
       document.ontouchmove = function(event){
         event.preventDefault();
       };
