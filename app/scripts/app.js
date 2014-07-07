@@ -8,7 +8,8 @@ angular.module('spearmintWebApp', [
   'angulartics',
   'angulartics.google.analytics',
   'ngAnimate', 
-  'angular-gestures'
+  'angular-gestures',
+  'ngTouch'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

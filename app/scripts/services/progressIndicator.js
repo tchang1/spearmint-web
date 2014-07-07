@@ -150,6 +150,10 @@ angular.module('spearmintWebApp').factory('progressIndicator', ['logger',
                 logger.log(canvas.style.left);
             },
 
+            setMax: function(amount) {
+                maxAmount=amount;
+            },
+
             start: function() {
                 shouldUpdate = true;
                 update();

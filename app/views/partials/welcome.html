@@ -1,16 +1,26 @@
+
 <div id="saving-container" hm-hold="unblur()" hm-release="reblur()">
-	<a id="shield"></a>
+	
 	<div id="ftu-screen" class="blur"> </div>
 
 	<div id="welcome-screen-message" > {{message}} </div>
 	<div ng-show="firstScreen"><img id="logo" src="../images/FTU/Moment_with_Mint.png"></div>
-	<p id="catch-phrase" ng-show="firstScreen"> Love how you spend every dollar </p>
+	<p id="catch-phrase" ng-show="firstScreen"> Keep is a way to treat yourself when you make good spending decisions </p>
 
-	<div ng-show="firstScreen"> <img id="hand" src="../images/FTU/Hand_Dark.png"> </div>
-	<div ng-show="onblur"> <img id="hand-light" src="../images/FTU/keep_holding.png"> </div>
+	<!--<div ng-show="firstScreen"> <img id="hand" src="../images/FTU/Hand_Dark.png"> </div>-->
+	<p id="use-mobile" class="desktopOnly"  ng-show="firstScreen">Please visit Moment on a mobile device </p>
+	<div class= "welcome-showMe" ng-show="showMe">
+		<div class="welcome-showMe-text">
+			<div class="welcome=showMe-tap">Tap and Hold</div>
+			<div class="welcome-showMe-message" ng-bind-html="fingerMessage"></div>
+		</div>
+		<div class="welcome-showMe-fingerprint"></div>
+	</div>
+	<div ng-show="onblur &&!showMe"> <img id="hand-light" src="../images/FTU/keep_holding.png"> </div>
+	<button ng-show="firstScreen" class="mobileOnly nav-button-div nav-button ftuButton" ng-click="getStarted()">Show me how</button>
 	<div class="login" ng-show="thirdOffense"> <a analytics-on analytics-event="linkTap" analytics-category="nav_button" analytics-label="ftu_offenceSkip" href="/ftu" class="text-center new-account">Skip</a></div>
 
-	<div id="release-message" class="opacity-none "> Release the Screen </div>
+	<div id="release-message" class="opacity-none "> {{releaseMessage}} </div>
 	<canvas id="progressIndicator" ng-show="holding" width="240" height="240"></canvas>
 	<div ng-show="firstScreen" class="login"> <a href="/login" class="text-center new-account">Already have an account?</a></div>
 	

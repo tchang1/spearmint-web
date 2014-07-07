@@ -1,6 +1,10 @@
 // Listen for resize changes
-    window.addEventListener("resize", function() {
-    setTimeout(function() {
+    var mql = window.matchMedia("(max-device-width:768px)");
+
+    var handleMatchMedia=function(mql) {
+        if (mql.matches) {
+             window.addEventListener("resize", function() {
+            setTimeout(function() {
         var slackPercent = 0.2;
         $('#landscape').show();
         if( window.outerWidth - (window.outerWidth * slackPercent) > window.outerHeight )
@@ -21,3 +25,11 @@
 
  
     }, false);
+        }
+        else {
+            document.getElementById("ftu-screen").style.backgroundImage="";
+        }
+    };
+    //Add a listener to the MediaQueryList
+    handleMatchMedia(mql);
+
