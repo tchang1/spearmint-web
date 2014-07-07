@@ -37,10 +37,10 @@ angular.module('spearmintWebApp')
 
     prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
     if (prettyPrettyBackground.hasImage()) {
-        prettyPrettyBackground.transitionToImage('/images/FTU/Path.jpg', 500, true, new canvasEngine.Color(0,0,0,0.3));
+        prettyPrettyBackground.transitionToImage('/images/FTU/ridge.jpg', 500, true, new canvasEngine.Color(0,0,0,0.3));
     }
     else {
-        prettyPrettyBackground.setImage('/images/FTU/Path.jpg', true, new canvasEngine.Color(0,0,0,0.3));
+        prettyPrettyBackground.setImage('/images/FTU/ridge.jpg', true, new canvasEngine.Color(0,0,0,0.3));
         prettyPrettyBackground.start();
     }
 

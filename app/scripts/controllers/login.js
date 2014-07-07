@@ -7,7 +7,7 @@ angular.module('spearmintWebApp')
 
         prettyPrettyBackground.initWithCanvas(document.getElementById('imageCanvas'));
         if (!prettyPrettyBackground.hasImage()) {
-            prettyPrettyBackground.setImage('/images/FTU/Path.jpg', true, new canvasEngine.Color(0,0,0,0.3));
+            prettyPrettyBackground.setImage('/images/FTU/ridge.jpg', true, new canvasEngine.Color(0,0,0,0.3));
             prettyPrettyBackground.start();
         }
 
