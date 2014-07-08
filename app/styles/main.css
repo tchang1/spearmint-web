@@ -209,6 +209,18 @@ body {
     margin-left:-85px;
   }
 
+  .home-showMe-fingerprint {
+    display:block;
+    float:right;
+    margin-top:15px;
+    width:30px;
+    height:30px;
+    background-image: url(/images/icons/fingerprint.svg);
+    background-size: 30px 30px;
+    vertical-align:middle;
+
+  }
+
   .welcome-showMe-fingerprint {
     display:block;
     float:right;
