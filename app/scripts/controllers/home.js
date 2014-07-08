@@ -220,7 +220,7 @@ angular.module('spearmintWebApp')
 
         prettyPrettyBackground.unblur(unblurTime);
 
-        document.getElementsByClassName("welcome-showMe-fingerprint")[0].className="welcome-showMe-fingerprint";
+        document.getElementsByClassName("home-showMe-fingerprint")[0].className="home-showMe-fingerprint";
 
       $scope.message = ""; 
       $scope.messageFooter = ""; 
@@ -256,7 +256,7 @@ angular.module('spearmintWebApp')
       $analytics.eventTrack('holdRelease', {  category: 'save' , label: 'home_releaseButton', value: dollarAmount });
 
       document.getElementById("home-screen-message").className="";
-      document.getElementsByClassName("welcome-showMe-fingerprint")[0].className="welcome-showMe-fingerprint";
+      document.getElementsByClassName("home-showMe-fingerprint")[0].className="home-showMe-fingerprint";
 
       clearInterval(welcomeTimer);
       clearTimeout(welcomeFadeTimer);
@@ -311,7 +311,7 @@ angular.module('spearmintWebApp')
       }
 
       // Hide the fingerprint temporarily 
-      document.getElementsByClassName("welcome-showMe-fingerprint")[0].style.opacity = 0; 
+      document.getElementsByClassName("home-showMe-fingerprint")[0].style.opacity = 0; 
       document.getElementById("home-screen-message-footer").style.fontWeight = "bold"; 
 
       // Display messaging to indicate progress 
@@ -342,8 +342,8 @@ angular.module('spearmintWebApp')
         $scope.$apply()}, 4000);
       fadeMessageTimer3 = setTimeout(function(){
         logger.log("fade in");
-        document.getElementsByClassName("welcome-showMe-fingerprint")[0].className="welcome-showMe-fingerprint opacity-animate";
-        document.getElementsByClassName("welcome-showMe-fingerprint")[0].style.opacity = 1; 
+        document.getElementsByClassName("home-showMe-fingerprint")[0].className="home-showMe-fingerprint opacity-animate";
+        document.getElementsByClassName("home-showMe-fingerprint")[0].style.opacity = 1; 
         document.getElementById("home-screen-message").className="opacity-animate";
         document.getElementById("home-screen-welcome-message").className="opacity-animate";
         setupWelcomeTimers();    
