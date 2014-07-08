@@ -9,6 +9,7 @@ var canvasEngine = {
     height: 10,
     initiated: false,
     timeout: null,
+    disabled: false,
 
     init: function(canvas, xPos, yPos, width, height) {
 //        var me = this;
@@ -19,8 +20,16 @@ var canvasEngine = {
 
     },
 
+    disable: function() {
+        var me = this;
+        me.disabled = true;
+    },
+
     updateSize: function(xPos, yPos, width, height) {
-//        var me = this;
+        var me = this;
+        if (me.disabled) {
+            return;
+        }
         canvasEngine.width = width;
         canvasEngine.height = height;
         canvasEngine.canvas.width = width;
@@ -33,7 +42,10 @@ var canvasEngine = {
     },
 
     _update: function() {
-//        var me = this;
+        var me = this;
+        if (me.disabled) {
+            return;
+        }
         clearTimeout(canvasEngine.timeout);
         if (canvasEngine.running) {
             var deltaTime;
@@ -56,11 +68,18 @@ var canvasEngine = {
     },
 
     _draw: function() {
+        var me = this;
+        if (me.disabled) {
+            return;
+        }
         canvasEngine.ImageManager.draw(canvasEngine.context);
     },
 
     run: function() {
-//        var me = this;
+        var me = this;
+        if (me.disabled) {
+            return;
+        }
         canvasEngine.running = true;
         canvasEngine._update();
     },

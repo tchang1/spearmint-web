@@ -8,7 +8,7 @@
 	<p id="catch-phrase" ng-show="firstScreen"> Keep is a way to save for your goals by recording good spending decisions</p>
 
 	<!--<div ng-show="firstScreen"> <img id="hand" src="../images/FTU/Hand_Dark.png"> </div>-->
-	<p id="use-mobile" class="desktopOnly"  ng-show="firstScreen">Please visit Moment on a mobile device </p>
+	<p id="use-mobile" class="desktopOnly"  ng-show="firstScreen">Please visit Keep on a mobile device </p>
 	<div class="welcome-screen-message" ng-show="showTotal"> {{totalMessage}} </div>
 	<div class= "welcome-showMe" ng-show="showMe">
 		<div class="welcome-showMe-text">
@@ -18,10 +18,10 @@
 		<div class="welcome-showMe-fingerprint"></div>
 	</div>
 	<div ng-show="onblur &&!showMe"> <div class="welcome-hold-fingerprint absoluteCenter"></div> <div class="welcome-hold-text">{{holdMessage}}</div> </div>
-	<div class="continue-div" >
+	<div class="continue-div mobileOnly" >
 	<button ng-show="showTotal" class="mobileOnly greenButton" ng-click="continue()">Continue</button>
 	</div>
-	<div class="get-started-div" >
+	<div class="get-started-div mobileOnly" >
 	<button ng-show="firstScreen" class="mobileOnly greenButton" ng-click="getStarted()">See how</button>
 	</div>
 

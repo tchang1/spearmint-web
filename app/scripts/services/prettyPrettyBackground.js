@@ -126,7 +126,6 @@ angular.module('spearmintWebApp').factory('prettyPrettyBackground', ['logger',
 
             _updateSize: function() {
                 if(userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ){ return;}
-                logger.log('updating size');
                 width = window.innerWidth;
                 height = window.innerHeight;
                 canvasEngine.updateSize(0, 0, width, height);
