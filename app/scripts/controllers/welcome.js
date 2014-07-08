@@ -209,7 +209,7 @@ angular.module('spearmintWebApp')
 
             var dollarAmount = progressIndicator.getAmount();
             if (dollarAmount < 3 ){
-                releaseMessageTimer = setTimeout(function(){document.getElementById("release-message").className="opacity-animate";}, (3-dollarAmount)*1000);
+                releaseMessageTimer = setTimeout(function(){document.getElementById("release-message").className="opacity-animate";}, (3-dollarAmount)*2000);
 
             } else {
                 document.getElementById("release-message").className="opacity-animate";
