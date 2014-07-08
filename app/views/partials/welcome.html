@@ -18,8 +18,11 @@
 		<div class="welcome-showMe-fingerprint"></div>
 	</div>
 	<div ng-show="onblur &&!showMe"> <div class="welcome-hold-fingerprint absoluteCenter"></div> <div class="welcome-hold-text">{{holdMessage}}</div> </div>
+	<div class="continue-div" >
+	<button ng-show="showTotal" class="mobileOnly greenButton" ng-click="continue()">Continue</button>
+	</div>
 	<div class="get-started-div" >
-	<button ng-show="firstScreen" class="mobileOnly greenButton" ng-click="getStarted()">Show me how</button>
+	<button ng-show="firstScreen" class="mobileOnly greenButton" ng-click="getStarted()">See how</button>
 	</div>
 
 	<div id="release-message" class="opacity-none "> {{releaseMessage}} </div>

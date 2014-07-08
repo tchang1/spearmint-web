@@ -128,18 +128,19 @@ angular.module('spearmintWebApp')
     var FTUIndex = 0; 
     var FTUImages = ["../images/FTU/ireland.jpg", "../images/FTU/ireland.jpg", "../images/FTU/ridge.jpg"];     
     
-    var blurMessages = [["","Pretend you decided to skip the $3 coffee that you usually buy",
+    var blurMessages = [["","When you decided to skip the $3 coffee that you usually buy...",
                         "When you decided to take a $2 bus over a $10 cab"]];
     var unblurMessages = [["","Release the screen on the amount that you will keep. In this case $3", 
                         "Everytime you record keeping something you get to see a new photo"]];                    
     var fingerMessages = ["","to <b>keep</b> the $3 for your goal instead",
                         "to <b>keep</b> the difference"];
     var releaseMessages = ["","Release the screen",
-                        "Release the screen on the amount that you will keep. In this case $8."];
+                        "When the timer reaches the amount you Kept, release the screen"];
     var totalMessages = ["","Each time you use keep we will add to your goal",
                         "People reach their goals faster with keep."];
-    var holdMessages = ["Keep Holding",
-                        "Hold down on the screen for 4 seconds"];      
+    var holdMessages = ["Keep holding",
+                        "Keep holding until you reach $3",
+                        "Keep holding until you reach $8"];      
     var timingVar; 
     var timingVarPiggyBank; 
     var releaseMessageTimer;
@@ -167,12 +168,17 @@ angular.module('spearmintWebApp')
 
     progressIndicator.initWithCanvas(document.getElementById('progressIndicator'));
     progressIndicator.show();
+    progressIndicator.setSpeed(-0.5);
     progressIndicator.setMax(3); 
 
 
     $scope.getStarted = function() {
         $scope.firstScreen =false;
         logger.log("getStarted");
+        rotateImages();
+    };
+
+    $scope.continue = function() {
         rotateImages();
     };
 
@@ -229,7 +235,7 @@ angular.module('spearmintWebApp')
  
 
             if (offenseNum == 2) {
-                $scope.holdMessage=holdMessages[1];
+                $scope.holdMessage=holdMessages[FTUIndex];
             } else if (offenseNum > 2) {
                 $scope.thirdOffense = true; 
             }
@@ -246,6 +252,8 @@ angular.module('spearmintWebApp')
                     progressIndicator.stop();
                     progressIndicator.reset();
                     progressIndicator.setMax(8);
+                    progressIndicator.setSpeed(0);
+
                     progressIndicator.hide();
                     document.getElementById("release-message").className="opacity-none"
                     $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_finish_goToGoal' , value: offenseNum});
@@ -277,7 +285,8 @@ angular.module('spearmintWebApp')
         $scope.showTotal=true;
         $scope.messageFooter= "Total Kept: <b>$3</b>";
         logger.log("setting timer for rotate");
-        rotateTimer= $timeout(rotateImages,3000);
+        $scope.offenseNum=0;
+        //rotateTimer= $timeout(rotateImages,4000);
     }
 
     var continueReblur = function(setOnBlur) { 

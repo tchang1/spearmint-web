@@ -204,17 +204,21 @@ body {
 
   .welcome-showMe-text {
     display:inline-block;
+    position:absolute;
+    left:50%;
+    margin-left:-85px;
   }
 
   .welcome-showMe-fingerprint {
     display:block;
     float:right;
-    margin-top:15px;
-    width:30px;
-    height:30px;
+    position:absolute;
+    right:5%;
+    margin-top:5px;
+    width:60px;
+    height:60px;
     background-image: url(/images/icons/fingerprint.svg);
-    background-size: 30px 30px;
-    vertical-align:middle;
+    background-size: 60px 60px;
   }
 
   .welcome-showMe-tap {
@@ -225,7 +229,7 @@ body {
   }
 
   .welcome-showMe-message {
-    width:175px;
+    width:170px;
     margin-right: auto; 
     margin-left: auto; 
     display: block;
@@ -446,13 +450,30 @@ body {
   }
 
   .get-started-div { 
-
+    margin-top:60px;
     width: 90%;
     left:50%;
     position:absolute;
     margin-left: -45%;
     z-index:50;
+  }
 
+  .continue-div { 
+    margin-top:30px;
+    top:50%;
+    width: 90%;
+    left:50%;
+    position:absolute;
+    margin-left: -45%;
+    z-index:50;
+  }
+
+  .setup-goal-div { 
+    width: 90%;
+    left:50%;
+    position:absolute;
+    margin-left: -45%;
+    z-index:50;
   }
 
 
@@ -757,15 +778,15 @@ body {
   #release-message {
     top:50%; 
     height:auto; 
-    width: 150px; 
+    width: 170px; 
     color: white;
     font-weight: bold; 
     display: block;
     position: fixed;
     left: 50%;
-
+    margin-top: 30px;
     text-align: center; 
-    margin-left: -75px; 
+    margin-left: -85px; 
   }
 
   .opacity-none { 
