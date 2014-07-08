@@ -93,7 +93,7 @@ angular.module('spearmintWebApp')
         }
 
 
-        $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_imageRotated_to_'+FTUIndex, value: FTUIndex });
+        $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_changeIndex_to_'+FTUIndex, value: FTUIndex });
 
         /**
         if (FTUIndex > 2) { 
@@ -175,10 +175,13 @@ angular.module('spearmintWebApp')
     $scope.getStarted = function() {
         $scope.firstScreen =false;
         logger.log("getStarted");
+        $analytics.eventTrack('linkTap', {  category: 'ftu_screen' , label: 'ftu_getStarted', value: FTUIndex });
+
         rotateImages();
     };
 
     $scope.continue = function() {
+        $analytics.eventTrack('linkTap', {  category: 'ftu_screen' , label: 'ftu_continue', value: FTUIndex });
         rotateImages();
     };
 
@@ -188,7 +191,7 @@ angular.module('spearmintWebApp')
         return;
     }
 
-        $analytics.eventTrack('holdStart', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex, value: FTUIndex });
+        $analytics.eventTrack('holdStart', {  category: 'ftu_hold' , label: 'ftu_index_is_'+FTUIndex, value: offenseNum });
         $scope.showMe=false;
 
         $scope.onblur = false;
@@ -256,12 +259,13 @@ angular.module('spearmintWebApp')
 
                     progressIndicator.hide();
                     document.getElementById("release-message").className="opacity-none"
-                    $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_finish_goToGoal' , value: offenseNum});
+                    $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_goToContinue' , value: offenseNum});
                     $scope.message = "";
                     showResult();
                     continueReblur(false);
                 } 
                 else if (FTUIndex==2 && dollarAmount ==8) {
+                    $analytics.eventTrack('transition', {  category: 'ftu_screen' , label: 'ftu_goToGoalFTU' , value: offenseNum});
                     continueReblur(false);
                     $timeout(goToFTU,1000);
                 }
@@ -270,7 +274,7 @@ angular.module('spearmintWebApp')
                     progressIndicator.stop();
                     progressIndicator.hide();
                     document.getElementById("release-message").className="opacity-none"
-                    $analytics.eventTrack('holdRelease', {  category: 'ftu_hold' , label: 'ftu_release_before_$2' , value: offenseNum});
+                    $analytics.eventTrack('transition', {  category: 'ftu_hold' , label: 'ftu_release_before_target' , value: offenseNum});
                     $scope.message = "";
                     continueReblur(true); 
 
