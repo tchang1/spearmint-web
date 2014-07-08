@@ -128,8 +128,8 @@ angular.module('spearmintWebApp')
     var FTUIndex = 0; 
     var FTUImages = ["../images/FTU/ireland.jpg", "../images/FTU/ireland.jpg", "../images/FTU/ridge.jpg"];     
     
-    var blurMessages = [["","When you decided to skip the $3 coffee that you usually buy...",
-                        "When you decided to take a $2 bus over a $10 cab..."]];
+    var blurMessages = [["","When you decide to skip the $3 coffee that you usually buy...",
+                        "When you decide to take a $2 bus over a $10 cab..."]];
     var unblurMessages = [["","Release the screen on the amount that you will keep. In this case $3", 
                         "Everytime you record keeping something you get to see a new photo"]];                    
     var fingerMessages = ["","to <b>keep</b> the $3 for your goal instead",
