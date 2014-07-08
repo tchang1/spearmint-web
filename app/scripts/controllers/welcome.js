@@ -129,7 +129,7 @@ angular.module('spearmintWebApp')
     var FTUImages = ["../images/FTU/ireland.jpg", "../images/FTU/ireland.jpg", "../images/FTU/ridge.jpg"];     
     
     var blurMessages = [["","When you decided to skip the $3 coffee that you usually buy...",
-                        "When you decided to take a $2 bus over a $10 cab"]];
+                        "When you decided to take a $2 bus over a $10 cab..."]];
     var unblurMessages = [["","Release the screen on the amount that you will keep. In this case $3", 
                         "Everytime you record keeping something you get to see a new photo"]];                    
     var fingerMessages = ["","to <b>keep</b> the $3 for your goal instead",
@@ -289,7 +289,7 @@ angular.module('spearmintWebApp')
         $scope.showTotal=true;
         $scope.messageFooter= "Total Kept: <b>$3</b>";
         logger.log("setting timer for rotate");
-        $scope.offenseNum=0;
+        offenseNum=0;
         //rotateTimer= $timeout(rotateImages,4000);
     }
 
