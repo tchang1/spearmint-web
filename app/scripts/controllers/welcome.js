@@ -289,6 +289,7 @@ angular.module('spearmintWebApp')
         $scope.showTotal=true;
         $scope.messageFooter= "Total Kept: <b>$3</b>";
         logger.log("setting timer for rotate");
+        $scope.holdMessage=holdMessages[0];
         offenseNum=0;
         //rotateTimer= $timeout(rotateImages,4000);
     }
