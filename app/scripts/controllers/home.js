@@ -141,10 +141,10 @@ angular.module('spearmintWebApp')
                     }
 
                     if (prettyPrettyBackground.hasImage()) {
-                        prettyPrettyBackground.transitionToImage(currentImageURL, 500, true);
+                        prettyPrettyBackground.transitionToImage(currentImageURL, 500, true, new canvasEngine.Color(0,0,0,0.2));
                     }
                     else {
-                        prettyPrettyBackground.setImage(currentImageURL, true);
+                        prettyPrettyBackground.setImage(currentImageURL, true, new canvasEngine.Color(0,0,0,0.2));
                         prettyPrettyBackground.start();
                     }
 
@@ -187,10 +187,10 @@ angular.module('spearmintWebApp')
               }
 
               if (prettyPrettyBackground.hasImage()) {
-                  prettyPrettyBackground.transitionToImage(currentImageURL, 500, true);
+                  prettyPrettyBackground.transitionToImage(currentImageURL, 500, true, new canvasEngine.Color(0,0,0,0.2));
               }
               else {
-                  prettyPrettyBackground.setImage(currentImageURL, true);
+                  prettyPrettyBackground.setImage(currentImageURL, true, new canvasEngine.Color(0,0,0,0.2));
                   prettyPrettyBackground.start();
               }
 
@@ -365,7 +365,7 @@ angular.module('spearmintWebApp')
             document.getElementById("saving-screen").style.backgroundImage = "url(" + nextImageURL +")";
         }
 
-        prettyPrettyBackground.transitionToImage(nextImageURL, imageTransitionTime, true);
+        prettyPrettyBackground.transitionToImage(nextImageURL, imageTransitionTime, true, new canvasEngine.Color(0,0,0,0.2));
 
 
       progressIndicator.reset(); 
