@@ -42,6 +42,15 @@
     <canvas class="mobileOnly" id="imageCanvas"></canvas>
     <div id="landscape"><p><b>Rotate Device to Portrait</b></p></div>
 
+    <script> 
+        var mql = window.matchMedia("(max-width:768px)");
+        if (!mql.matches) { 
+            var landingPage = "http://trykeep.com";
+            window.location.replace(landingPage);
+        }
+
+    </script>
+
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
