@@ -111,6 +111,7 @@ angular.module('spearmintWebApp')
     var currentImageURL;
     var nextImageURL;
     var fadeMessageTimer, fadeMessageTimer2, fadeMessageTimer3,timersStarted;
+    var nextImageTimer; 
 
 
     var userGoal = goal.getStoredGoal();
@@ -209,6 +210,10 @@ angular.module('spearmintWebApp')
         clearInterval(welcomeTimer);
         clearTimeout(welcomeFadeTimer);
         clearTimeout(welcomeFadeOutTimer);
+        clearTimeout(fadeMessageTimer);
+        clearTimeout(fadeMessageTimer2);
+        clearTimeout(fadeMessageTimer3);
+        clearTimeout(nextImageTimer);
     };
 
     // Reveal the clear image when the user holds down on the screen
@@ -329,7 +334,7 @@ angular.module('spearmintWebApp')
       }
 
       // Wait 1 second for reblur animation to stop, then transition to next image 
-      setTimeout(function(){transitionToNextImage()}, 2500);
+      nextImageTimer = setTimeout(function(){transitionToNextImage()}, 2500);
       timersStarted=true;
       fadeMessageTimer = setTimeout(function(){
         logger.log("fading out");
