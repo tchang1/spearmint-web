@@ -92,7 +92,7 @@
 
     <div id="transactionScreen" class="settingScreen" ng-class="{'animateRightToCenter' : screens.transaction.displayed, 'animateToTheRight' : (!screens.transaction.displayed && !screens.transaction.initialState), 'right' : (screens.transaction.initialState)}">
         <div class="settingEditBox">
-            <div class="panelHeader">TRANSACTIONS</div>
+            <div class="panelHeader">HISTORY</div>
             <div id="transactionPanel" class="panelBody">
                 <div class="transactionLineItem" ng-repeat="transaction in transactions">
                     <span class="transactionAmount">{{transaction.savingsAmount}}</span>

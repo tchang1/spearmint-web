@@ -53,7 +53,7 @@ angular.module('spearmintWebApp')
                 id: 'feedback',
                 url: '#'
             }, {
-                name: 'Transaction History',
+                name: 'History',
                 id: 'transaction',
                 url: '#'
             }
