@@ -32,6 +32,9 @@ app.directive('currency', function() {
                     if (viewValue.charAt(0) == '$') {
                         viewValue = viewValue.substring(1);
                     }
+                    while (viewValue.indexOf(",") !=-1) {
+                        viewValue = viewValue.replace(",","");
+                    }
                     return viewValue;
                 } else {
                     if (viewValue == '') {
