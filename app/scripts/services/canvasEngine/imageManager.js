@@ -146,7 +146,12 @@ canvasEngine.ImageManager = {
                             bottomData = imageData;
                         }
                         else {
-                            bottomData = me._imageMap[image]._getImageData(context);
+                            var copy;
+                            var copyData;
+                            copy = context.createImageData(me._imageMap[image]._size.x, me._imageMap[image]._size.y);
+//                            copyData = new Uint8ClampedArray(imageData.data);
+//                            copy.data.set(copyData);
+                            bottomData = copy;
                         }
 
                         imageData = me._imageMap[image]._getImageData(context);
@@ -476,6 +481,7 @@ canvasEngine.Image = canvasEngine.Object3D.$extend({
 
     _setTint: function(imageData, oldImageData) {
         var me = this;
+
         var alpha = me._color.a;
         var ta = 0;
         var tr = 0;
