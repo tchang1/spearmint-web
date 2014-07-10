@@ -440,6 +440,10 @@ module.exports = function (grunt) {
       return grunt.task.run(['build', 'express:prod', 'express-keepalive']);
     }
 
+    if (target === 'justRun') {
+      return grunt.task.run(['express:prod', 'express-keepalive']);
+    }
+
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
