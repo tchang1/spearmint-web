@@ -24,10 +24,16 @@
         else {
             window.addEventListener("resize", function() {
                 setTimeout(function() {
-                    var slackPercent = 0.2;
+                    //var slackPercent = 0.3;
                     $('#landscape').show();
-                    if( window.innerWidth - (window.innerWidth * slackPercent) > window.innerHeight )
+                    //console.log(window.orientation); 
+                    //if( window.innerWidth - (window.innerWidth * slackPercent) > window.innerHeight )
+                    if (window.orientation == 0 )
                     {
+                        $('#landscape').hide();
+                        setTimeout(function(){ window.scrollTo(0, 0); }, 100);
+                    }
+                    else{
                         console.log('rotated');
                         window.scrollTo(1,1);
                         $('#landscape').show();
@@ -36,10 +42,6 @@
                         // that element so that the keyboard closes.
                         $('input:focus').blur();
                         $('textarea:focus').blur();
-                    }
-                    else{
-                        $('#landscape').hide();
-                        setTimeout(function(){ window.scrollTo(0, 0); }, 100);
                     }
                 }, 500);
 
