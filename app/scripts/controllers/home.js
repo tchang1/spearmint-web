@@ -23,7 +23,7 @@ angular.module('spearmintWebApp')
       startDelay: 4,
       modal: true, 
       autostart: false,
-      message: 'Save anytime by adding Moment to your home screen. Tap the address bar, then tap %icon, then choose <strong>Add to Home Screen</strong>.',
+      message: 'Save anytime by adding Keep to your home screen. Tap the address bar, then tap %icon, then choose <strong>Add to Home Screen</strong>.',
       maxDisplayCount: 1
     }); 
  
