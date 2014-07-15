@@ -1,7 +1,7 @@
 
 <a id="settings-button" analytics-on analytics-event="linkTap" analytics-category="nav_button" analytics-label="home_openSettings" ng-hide="holding" ng-click="storeCurrentImage()" href="/settings"><img src="../images/icons/settings.svg"></a>
-<div id="saving-container" hm-hold="unblur()" hm-release="reblur()">
-	<a id="shield"></a>
+<div id="saving-container">
+	<a id="shield" hm-touch="unblur()" hm-release="reblur()"></a>
 	<div id="saving-screen" class="blur"> </div>
 	<canvas id="progressIndicator" ng-show="holding" width="240" height="240"></canvas>
 	<div id="home-screen-welcome-message" ng-bind-html="suggestionMessage"> </div>
