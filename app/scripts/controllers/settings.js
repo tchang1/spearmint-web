@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spearmintWebApp')
-  .controller('SettingsCtrl', ['$scope', '$location', '$q', '$analytics', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'imageService', 'logger', 'cloner', 'sharedProperties', 'prettyPrettyBackground',
-        function ($scope, $location, $q, $analytics ,goal, goalService, userService, savingsService, feedbackService, imageService, logger, cloner, sharedProperties, prettyPrettyBackground) {
+  .controller('SettingsCtrl', ['$scope', '$location', '$q', '$analytics', 'goal', 'goalService', 'userService', 'savingsService', 'feedbackService', 'paymentsService', 'imageService', 'logger', 'cloner', 'sharedProperties', 'prettyPrettyBackground',
+        function ($scope, $location, $q, $analytics ,goal, goalService, userService, savingsService, feedbackService, paymentsService, imageService, logger, cloner, sharedProperties, prettyPrettyBackground) {
 
         var path = '../images/';
         var imageToDisplay = sharedProperties.get('currentBackgroundImage');
@@ -43,6 +43,11 @@ angular.module('spearmintWebApp')
 //            }, {
 //                name: 'Funding Account',
 //                id: 'fundingAccount',
+//                url: '#'
+//            }, {
+//            }, {
+//                name: 'Add debit information',
+//                id: 'debit',
 //                url: '#'
 //            }, {
                 name: 'Notification Settings',
@@ -139,6 +144,10 @@ angular.module('spearmintWebApp')
                             'We\'re sorry, transfering money isn\’t available yet.  We\’re hard at work making it for you!',
                             false,
                             (linkID == 'depositAccount') ? modalIdentifiers.depositAccountNotAvailable : modalIdentifiers.fundingAccountNotAvailable);
+            }
+            else if ('debit' == linkID) {
+                paymentsService.optin();
+//                $location.path('/optin');
             }
             else {
                 $scope.screens[linkID].displayed = true;
