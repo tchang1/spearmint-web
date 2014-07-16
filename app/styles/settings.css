@@ -205,6 +205,10 @@
     height: 230px;
 }
 
+#optinPanel {
+    height: 150px;
+}
+
 #feedbackTextArea {
     width: 250px;
 }
@@ -223,6 +227,26 @@
     color: white;
     text-decoration: none;
     font-size: 12pt;
+}
+
+#betaButton {
+    width:200px;
+    font-size: 18px;
+}
+
+#noButton {
+    position: fixed;
+    margin-top: 10px;
+    left:50%;
+    min-width:200px;
+    text-align: center;
+    margin-left: -100px; 
+
+    color: white;
+    font-size: 18px;
+
+    height: 20px; 
+    z-index: 20;
 }
 
 #feedbackSubmitButton {

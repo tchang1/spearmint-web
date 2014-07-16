@@ -46,10 +46,10 @@ angular.module('spearmintWebApp')
 //                url: '#'
 //            }, {
 //            }, {
-//                name: 'Add debit information',
-//                id: 'debit',
-//                url: '#'
-//            }, {
+               name: 'Add debit information',
+               id: 'debit',
+               url: '#'
+           }, {
                 name: 'Notification Settings',
                 id: 'notification',
                 url: '#'
@@ -146,8 +146,7 @@ angular.module('spearmintWebApp')
                             (linkID == 'depositAccount') ? modalIdentifiers.depositAccountNotAvailable : modalIdentifiers.fundingAccountNotAvailable);
             }
             else if ('debit' == linkID) {
-                paymentsService.optin();
-//                $location.path('/optin');
+               $location.path('/optin');
             }
             else {
                 $scope.screens[linkID].displayed = true;

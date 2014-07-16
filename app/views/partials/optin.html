@@ -1,0 +1,35 @@
+<div ng-show="modal.visible" id="iosModalWindow">
+    <div id="iosModalHeader">{{modal.header}}</div>
+    <div id="iosModalBody">{{modal.body}}</div>
+    <div id="iosModalButtonPanel">
+
+        <a href="#" class="iosModalButton" ng-click="modalOKPressed($event)">{{modal.buttonText}}</a>
+
+    </div>
+</div>
+
+<div id="iosModalBackdrop" ng-show="modal.visible"></div>
+
+<div id="saving-container">
+	<div id="optin-screen" class="blur"> </div>
+	<div id="backButtonPanel">
+        <a href="/settings" id="backButton" analytics-on analytics-event="linkTap" analytics-category="optin" analytics-label="optin_back">Back</a>
+    </div>
+    <div class="settingScreen">
+	<div class="settingEditBox">
+	<div class="panelHeader">PUT MONEY ASIDE</div>
+	<div id="optinPanel" class="panelBody">
+		<br />
+		Keep is adding a feature to let you transfer money you've kept from your debit card to a savings account. <br /> <br /> Want to try it out?
+	</div>
+
+<!-- 	<form name="feedbackForm" ng-submit="submitFeedback()" novalidate>
+        <a href="#" class="submitButton" id="feedbackSubmitButton" ng-click="">Apply for Beta</a>
+        <input type="submit" style="display:none; width: 1px; height: 1px;"/>
+    </form> -->
+	</div>
+	<button class="greenButton" id="betaButton" ng-click="optin()" analytics-on analytics-event="linkTap" analytics-category="optin" analytics-label="optin_apply">Apply for Beta</button>
+	<a href="/settings" id="noButton" analytics-on analytics-event="linkTap" analytics-category="optin" analytics-label="optin_nothanks" >No thanks!</a>
+	</div>
+	 <!-- To Do: Figure out why this messes up the image in iOS simulato --> 
+</div>

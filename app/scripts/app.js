@@ -45,6 +45,10 @@ angular.module('spearmintWebApp', [
           templateUrl: 'partials/settings',
           controller: 'SettingsCtrl'
       })
+      .when('/optin', {
+          templateUrl: 'partials/optin',
+          controller: 'OptinCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
